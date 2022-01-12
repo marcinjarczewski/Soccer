@@ -1,0 +1,23 @@
+﻿.validationElement {
+    color: #b10000;
+}
+
+.validationElement > input {
+    border-color: #b10000;
+}
+
+#cookies-id {
+    width: 100%;
+    background: #b12525;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#custom-spinner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: dimgray;
+    opacity: 0.8;
+}

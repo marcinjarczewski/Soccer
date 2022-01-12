@@ -1,0 +1,95 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<div class="panel-body login-body" style="max-width:800px;">
+    <div>
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="true">Logowanie</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab" aria-controls="register" aria-selected="false">Rejestracja</button>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="login">
+                <div>
+                    <p>
+                        Zaloguj się, aby uzyskać dostęp do turniejów.
+                    </p>
+                </div>
+                <div data-bind="validationElement: userName" class="form-group">
+                    <input data-bind="value: userName, disable: $root.isBusy()" placeholder="Email"
+                           id="username-email" type="text" class="form-control white" tabindex="1" />
+                </div>
+                <div data-bind="validationElement: password" class="form-group">
+                    <input data-bind="value: password, disable: $root.isBusy()" placeholder="Hasło" type="password" id="password" class="form-control white" tabindex="2" />
+                    <div style="margin-top:5px">
+                        <a href="/przypomnij-haslo">Zapomniałeś hasła?</a>
+                    </div>
+                </div>
+                <div class="py2">
+                    <a data-bind="click: login, disable: $root.isBusy()" class="btn btn-success" tabindex="3">
+                        <span>Zaloguj się</span>
+                    </a>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="register">
+                <p>
+                    Wypełnij formularz, aby otworzyć konto.
+                </p>
+                <div class="clearfix">
+                    <div data-bind="with: $root.account" action="">
+                        <div class="col-lg-6 col-xs-12">
+                            <div data-bind="validationElement: login" class="form-group">
+                                <input data-bind="value: login" placeholder="Login*" id="register-login" class="form-control white">
+                            </div>
+                            <div data-bind="validationElement: email" class="form-group">
+                                <input data-bind="value: email" placeholder="Email*" type="email" id="register-email" class="form-control white">
+                            </div>
+                            <div data-bind="validationElement: password" class="form-group">
+                                <input data-bind="value: password" placeholder="Hasło*" type="password" id="register-password" class="form-control white">
+                            </div>
+                            <div data-bind="validationElement: confirmPassword" class="form-group">
+                                <input data-bind="value: confirmPassword" placeholder="Powtórz hasło*" type="password" id="register-confirmPassword" class="form-control white">
+                            </div>
+                            <div data-bind="validationElement: firstName" class="form-group">
+                                <input data-bind="value: firstName" type="text" placeholder="Imię*" id="register-firstname" class="form-control white">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-xs-12">
+                            <div class="rules">
+                                <div data-bind="validationElement: isRulesAccepted" title="Zaakceptuj regulamin" data-orig-title="">
+                                    <input type="checkbox" data-bind="checked: isRulesAccepted"><span class="text-danger animated fadeInDown" style="display: none;"></span>
+                                    <span data-i18n="app:register.localization.acceptRules">Akceptuję <a href="/regulamin" target="_blank">regulamin</a>*</span>
+                                </div>
+                                <div>
+                                    <span>* - pole wymagane</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-lg-12">
+                            <button data-bind="click: $root.register, disable: $root.isBusy()" type="submit" class="btn btn-success">
+                                <span>Zarejestruj</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript" charset="UTF-8" >
+        require(['requireConfig'], function () {
+            require(['/js/viewScripts/login/index.js', 'knockout'], function (viewModel, ko) {
+                ko.applyBindings(viewModel());
+            });
+        });
+    </script>
+}
+

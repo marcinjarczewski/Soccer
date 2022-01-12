@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Brilliancy.Soccer.Common\Brilliancy.Soccer.Common.csproj" />
+    <ProjectReference Include="..\Brilliancy.Soccer.DbAccess\Brilliancy.Soccer.DbAccess.csproj" />
+  </ItemGroup>
+
+</Project>

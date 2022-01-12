@@ -1,0 +1,63 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "jquery@3.6.0",
+      "destination": "wwwroot/lib/jquery/"
+    },
+    {
+      "library": "knockout@3.5.1",
+      "destination": "wwwroot/lib/knockout/"
+    },
+    {
+      "library": "amplifyjs@1.1.2",
+      "destination": "wwwroot/lib/amplifyjs/"
+    },
+    {
+      "library": "toastr.js@2.1.4",
+      "destination": "wwwroot/lib/toastr.js/"
+    },
+    {
+      "library": "pikaday@1.8.2",
+      "destination": "wwwroot/lib/pikaday/"
+    },
+    {
+      "library": "moment.js@2.29.1",
+      "destination": "wwwroot/lib/moment.js/"
+    },
+    {
+      "library": "floatlabels.js@1.0.0",
+      "destination": "wwwroot/lib/floatlabels.js/"
+    },
+    {
+      "library": "spin.js@4.1.1",
+      "destination": "wwwroot/lib/spin.js/"
+    },
+    {
+      "provider": "filesystem",
+      "library": "wwwroot/js/helpers/",
+      "destination": "wwwroot/lib/helpers/"
+    },
+    {
+      "library": "knockout-validation@2.0.4",
+      "destination": "wwwroot/lib/knockout-validation/"
+    },
+    {
+      "library": "bootbox.js@5.5.2",
+      "destination": "wwwroot/lib/bootbox.js/"
+    },
+    {
+      "library": "require.js@2.3.6",
+      "destination": "wwwroot/lib/require.js/"
+    },
+    {
+      "library": "spin.js@4.1.1",
+      "destination": "wwwroot/lib/spin.js/"
+    },
+    {
+      "library": "bootstrap@5.1.3",
+      "destination": "wwwroot/lib/bootstrap/"
+    },
+  ]
+}
