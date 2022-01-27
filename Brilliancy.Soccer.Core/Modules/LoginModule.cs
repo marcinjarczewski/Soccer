@@ -44,7 +44,7 @@ namespace Brilliancy.Soccer.Core.Modules
             var oldUser = this._dbContext.Users.FirstOrDefault(u => u.Login.ToLower() == dto.Login.ToLower());
             if(oldUser != null)
             {
-                throw new InvalidDataException("Wprowadzony login jest już zajęty");
+                throw new UserDataException("Wprowadzony login jest już zajęty");
             }
 
             var user = _mapper.Map<UserDbModel>(dto);

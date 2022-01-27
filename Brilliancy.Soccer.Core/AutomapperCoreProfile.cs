@@ -12,6 +12,7 @@ namespace Brilliancy.Soccer.Core
     {
         public AutomapperCoreProfile()
         {
+            CreateMap<RegisterUserDto, UserDbModel>();
             CreateMap<UserDbModel, LoginDto>();
             CreateMap<RoleDbModel, RoleDto>();
             CreateMap<UserDbModel, UserDto>();

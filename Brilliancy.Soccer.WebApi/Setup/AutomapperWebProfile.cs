@@ -16,7 +16,6 @@ namespace Brilliancy.Soccer.WebApi.Setup
         public AutomapperWebProfile()
         {
             CreateMap<RegisterWriteModel, RegisterUserDto>();
-            CreateMap<RegisterUserDto, UserDbModel>();
 
             CreateMap<LoginDto, UserInfo>()
                .ForMember(dto => dto.IsAdmin, m => m.MapFrom(db => (db.Roles ?? new System.Collections.Generic.List<RoleDto>()).Any(r => r.Id == (int)RoleEnum.Admin)));
