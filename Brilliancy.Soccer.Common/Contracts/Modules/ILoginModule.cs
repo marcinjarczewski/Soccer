@@ -10,8 +10,6 @@ namespace Brilliancy.Soccer.Common.Contracts.Modules
     {
         UserDto GetUser(string login);
 
-        UserDto GetUser(int id);
-
         void RegisterUser(RegisterUserDto dto);
     }
 }
