@@ -22,29 +22,13 @@ namespace Brilliancy.Soccer.Core.Modules
         {
             if(string.IsNullOrEmpty(login))
             {
-                return null;
+                throw new InvalidDataException("Login nie może być pusty");
             }
 
             var user = _dbContext.Users.FirstOrDefault(u => u.Login.ToLower() == login.ToLower());
             if(user == null || !user.IsActive)
             {
-                return null;
-            }
-
-            return _mapper.Map<UserDto>(user);
-            //return new UserDto
-            //{
-            //    Login = user.Login,
-            //    Id = user.Id
-            //};
-        }
-
-        public UserDto GetUser(int id)
-        {
-            var user = _dbContext.Users.FirstOrDefault(u => u.Id == id);
-            if (user == null || !user.IsActive)
-            {
-                return null;
+                throw new UserDataException("Użytkownik nie istnieje lub jest nieaktywny");
             }
 
             return _mapper.Map<UserDto>(user);
