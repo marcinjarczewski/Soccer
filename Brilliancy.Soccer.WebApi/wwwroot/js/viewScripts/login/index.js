@@ -36,7 +36,7 @@ define(['knockoutWithAddons', 'messageQueue', 'globalModel',  'helpers', 'loginR
         var account = ko.validatedObservable({
             login: ko.observable().extend({ required: { message: 'Pole nie może być puste' } }),
             password: ko.observable().extend({ required: { message: 'Pole nie może być puste' } }),
-            firstName: ko.observable(),
+            firstName: ko.observable().extend({ required: { message: 'Pole nie może być puste' } }),
             lastName: ko.observable(),
             email: ko.observable().extend({ required: { message: 'Pole nie może być puste' }, email: { message: 'Nieprawidłowy format adresu email' } }),
             isRulesAccepted: ko.observable(false).extend({ mustCheck: true }),
