@@ -51,5 +51,9 @@
         storageHelper.createCookie(name, "", -1);
     };
 
+    storageHelper.saveLanguage = function(value){
+        storageHelper.writeLocalStorage("language", value);
+    }
+
     return storageHelper;
 });

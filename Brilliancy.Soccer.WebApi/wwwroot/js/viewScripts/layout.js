@@ -1,5 +1,5 @@
-define(['jquery', 'storageHelper', 'toastr'],
-    function ($, storageHelper, toastr) {
+define(['jquery', 'storageHelper', 'toastr', "/js/plugins/i18n.js!/nls/translation.js"],
+    function ($, storageHelper, toastr, translations) {
         toastr.options = {
             "closeButton": true,
             "debug": false,

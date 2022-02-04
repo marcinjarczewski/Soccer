@@ -25,4 +25,10 @@
     <ProjectReference Include="..\Brilliancy.Soccer.DbAccess\Brilliancy.Soccer.DbAccess.csproj" />
     <ProjectReference Include="..\Brilliancy.Soccer.DbModels\Brilliancy.Soccer.DbModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\locales\" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties wwwroot_4locales_4pl_4app_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 </Project>
