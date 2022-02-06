@@ -19,6 +19,10 @@ define(['jquery', 'storageHelper', 'toastr', "/js/plugins/i18n.js!/nls/translati
         };
         var cookies = storageHelper.readLocalStorage("cookies");
         if (cookies == null) {
+            $('#cookie-line1').text(translations?.cookies?.line1);
+            $('#cookie-line2').text(translations?.cookies?.line2);
+            $('#cookie-line3').text(translations?.cookies?.line3);
+            $('#cookie-line4').text(translations?.cookies?.line4);
             $('#cookies-id').removeClass("d-none");
             $(".body-content").css("heigth", window.innerHeight - $('#cookies-id').height() - $(".navbar").parent().height());
         }

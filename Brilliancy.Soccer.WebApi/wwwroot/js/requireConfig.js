@@ -1,4 +1,4 @@
-var locale = localStorage.getItem('language') || 'pl';
+var locale = localStorage['language'] || 'pl';
 requirejs.config({
     baseUrl: '/lib',
     paths: {
