@@ -34,7 +34,7 @@ bld/
 [Ll]ogs/
 
 #js libs
-wwwroot/lib
+/Brilliancy.Soccer.WebApi/wwwroot/lib
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -364,3 +364,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
