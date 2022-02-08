@@ -3,6 +3,7 @@ using Brilliancy.Soccer.Common.Contracts.Modules;
 using Brilliancy.Soccer.Common.Dtos.Authentication;
 using Brilliancy.Soccer.Common.Dtos.User;
 using Brilliancy.Soccer.Common.Exceptions;
+using Brilliancy.Soccer.Core.Translations;
 using Brilliancy.Soccer.DbAccess;
 using Brilliancy.Soccer.DbModels;
 using System;
@@ -22,13 +23,13 @@ namespace Brilliancy.Soccer.Core.Modules
         {
             if(string.IsNullOrEmpty(login))
             {
-                throw new InvalidDataException("Login nie może być pusty");
+                throw new InvalidDataException(CoreTranslations.EmptyLogin);
             }
 
             var user = _dbContext.Users.FirstOrDefault(u => u.Login.ToLower() == login.ToLower());
             if(user == null || !user.IsActive)
             {
-                throw new UserDataException("Użytkownik nie istnieje lub jest nieaktywny");
+                throw new UserDataException(CoreTranslations.NoUser);
             }
 
             return _mapper.Map<UserDto>(user);
@@ -38,13 +39,13 @@ namespace Brilliancy.Soccer.Core.Modules
         {
             if(dto == null || string.IsNullOrEmpty(dto.Login))
             {
-                throw new InvalidDataException("Login nie może być pusty");
+                throw new InvalidDataException(CoreTranslations.EmptyLogin);
             }
 
             var oldUser = this._dbContext.Users.FirstOrDefault(u => u.Login.ToLower() == dto.Login.ToLower());
             if(oldUser != null)
             {
-                throw new UserDataException("Wprowadzony login jest już zajęty");
+                throw new UserDataException(CoreTranslations.LoginInUse);
             }
 
             var user = _mapper.Map<UserDbModel>(dto);

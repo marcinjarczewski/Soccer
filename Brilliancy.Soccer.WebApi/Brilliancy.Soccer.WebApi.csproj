@@ -24,6 +24,7 @@
     <ProjectReference Include="..\Brilliancy.Soccer.Core\Brilliancy.Soccer.Core.csproj" />
     <ProjectReference Include="..\Brilliancy.Soccer.DbAccess\Brilliancy.Soccer.DbAccess.csproj" />
     <ProjectReference Include="..\Brilliancy.Soccer.DbModels\Brilliancy.Soccer.DbModels.csproj" />
+    <ProjectReference Include="..\Brilliancy.Soccer.WebApi.Translations\Brilliancy.Soccer.WebApi.Translations.csproj" />
   </ItemGroup>
 
   <ItemGroup>

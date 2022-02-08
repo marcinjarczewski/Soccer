@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Brilliancy.Soccer.WebApi.Translations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,20 +14,22 @@ namespace Brilliancy.Soccer.WebApi.Models.Login.Write
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "{0} musi mieć conajmniej {2} znaków.", MinimumLength = 5)]
+        [Display(Name = "Password", ResourceType = typeof(WebApiTranslations))]
+        [StringLength(100, ErrorMessageResourceName = "StringLength", MinimumLength = 5, ErrorMessageResourceType = typeof(WebApiTranslations))]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "{0} musi mieć conajmniej {2} znaków.", MinimumLength = 5)]
+        [Display(Name = "Password", ResourceType = typeof(WebApiTranslations))]
+        [StringLength(100, ErrorMessageResourceName = "StringLength", MinimumLength = 5, ErrorMessageResourceType = typeof(WebApiTranslations))]
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "Hasła muszą być identyczne")]
+        [Compare("Password", ErrorMessageResourceName = "StringLength", ErrorMessage = "Hasła muszą być identyczne")]
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "{0} musi mieć conajmniej {2} znaków.", MinimumLength = 5)]
-        [RegularExpression("^(?!.*[^a-zA-Z0-9_.@]).*$",
-        ErrorMessage = "Login może zawierać jedynie znaki a-z A-Z 0-9 _.@")]
+        [Display(Name = "Login", ResourceType = typeof(WebApiTranslations))]
+        [StringLength(100, ErrorMessageResourceName = "StringLength", MinimumLength = 5, ErrorMessageResourceType = typeof(WebApiTranslations))]
+        [RegularExpression("^(?!.*[^a-zA-Z0-9_.@]).*$", ErrorMessageResourceName = "LoginCharacters", ErrorMessageResourceType = typeof(WebApiTranslations))]
         public string Login { get; set; }
 
         public string FirstName { get; set; }

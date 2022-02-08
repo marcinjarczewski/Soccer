@@ -18,14 +18,21 @@ define(['jquery', 'storageHelper', 'messageQueue', 'amplify', 'baseRepository'],
             });
         },
         logout: function () {
-            amplify.request({
+            return amplify.request({
                 resourceId: "logout"
             }).done(function () {
                 storageHelper.eraseCookie("token");
                 $(location).attr('href', '/');
             });
         },
-        register: function (data, callback, fail) {
+        changeLanguage: function (data, callback) {
+            return amplify.request({
+                resourceId: "changeLanguage",
+                data: data,
+                success: callback,
+            });
+        },
+        register: function (data, callback) {
             return amplify.request({
                 resourceId: "register",
                 data: data,
@@ -39,12 +46,20 @@ define(['jquery', 'storageHelper', 'messageQueue', 'amplify', 'baseRepository'],
                 contentType: 'application/x-www-form-urlencoded; charset=utf-8',
                 decoder: "globalDecoder"
             });
-
             amplify.request.define("logout", "ajax", {
                 url: apiUrl + "logout",
                 dataType: "json",
                 type: "POST",
                 contentType: 'application/json; charset=utf-8',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", storageHelper.readCookie("token"));
+                }
+            });
+            amplify.request.define("changeLanguage", "ajax", {
+                url: apiUrl + "login/changeLanguage",
+                dataType: "json",
+                type: "POST",
+                decoder: "globalDecoder",
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("Authorization", storageHelper.readCookie("token"));
                 }

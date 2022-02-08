@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Brilliancy.Soccer.Common\Brilliancy.Soccer.Common.csproj" />
+    <ProjectReference Include="..\Brilliancy.Soccer.Core.Translations\Brilliancy.Soccer.Core.Translations.csproj" />
     <ProjectReference Include="..\Brilliancy.Soccer.DbAccess\Brilliancy.Soccer.DbAccess.csproj" />
   </ItemGroup>
 
