@@ -15,9 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brilliancy.Soccer.DbModels"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B201FE6C-7D88-4861-95BD-4FDBA2BF5D49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brilliancy.Soccer.DbAccess.Tests", "Brilliancy.Soccer.Tests.DbAccess\Brilliancy.Soccer.DbAccess.Tests.csproj", "{9E01DCEE-C514-45C3-A86B-F3BFB1D104C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brilliancy.Soccer.DbAccess.Tests", "Brilliancy.Soccer.Tests.DbAccess\Brilliancy.Soccer.DbAccess.Tests.csproj", "{9E01DCEE-C514-45C3-A86B-F3BFB1D104C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brilliancy.Soccer.Core.Tests", "Brilliancy.Soccer.Core.Tests\Brilliancy.Soccer.Core.Tests.csproj", "{3E8C87A9-0697-4F49-8440-53D209B43320}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brilliancy.Soccer.Core.Tests", "Brilliancy.Soccer.Core.Tests\Brilliancy.Soccer.Core.Tests.csproj", "{3E8C87A9-0697-4F49-8440-53D209B43320}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brilliancy.Soccer.WebApi.Translations", "Brilliancy.Soccer.WebApi.Translations\Brilliancy.Soccer.WebApi.Translations.csproj", "{F6FB4BEC-7428-4FC8-A30D-60392E6AB13A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brilliancy.Soccer.Core.Translations", "Brilliancy.Soccer.Core.Translations\Brilliancy.Soccer.Core.Translations.csproj", "{9E260BAE-EC8E-4CDD-ADC2-D6C3AB0C8CB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +57,14 @@ Global
 		{3E8C87A9-0697-4F49-8440-53D209B43320}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E8C87A9-0697-4F49-8440-53D209B43320}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E8C87A9-0697-4F49-8440-53D209B43320}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6FB4BEC-7428-4FC8-A30D-60392E6AB13A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6FB4BEC-7428-4FC8-A30D-60392E6AB13A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6FB4BEC-7428-4FC8-A30D-60392E6AB13A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6FB4BEC-7428-4FC8-A30D-60392E6AB13A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E260BAE-EC8E-4CDD-ADC2-D6C3AB0C8CB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E260BAE-EC8E-4CDD-ADC2-D6C3AB0C8CB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E260BAE-EC8E-4CDD-ADC2-D6C3AB0C8CB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E260BAE-EC8E-4CDD-ADC2-D6C3AB0C8CB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,6 +7,7 @@ using Brilliancy.Soccer.WebApi.Models;
 using Brilliancy.Soccer.WebApi.Models.Login.Write;
 using Brilliancy.Soccer.WebApi.Models.Shared;
 using Brilliancy.Soccer.WebApi.Setup;
+using Brilliancy.Soccer.WebApi.Translations;
 using JWT;
 using JWT.Algorithms;
 using JWT.Serializers;
@@ -18,6 +19,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -59,12 +61,12 @@ namespace Brilliancy.Soccer.WebApi.Controllers
                     return new JsonResult(new BaseResultReadModel
                     {
                         IsSuccess = false,
-                        Message = "Nieprawidłowy login lub hasło"
+                        Message = WebApiTranslations.InvalidLoginOrPassword
                     });
                 }
 
                 // sign-in
-                var res = await AuthUser(loginDto.Id, loginDto.Login, loginDto.Email, "Logowanie zakończone powodzeniem");
+                var res = await AuthUser(loginDto.Id, loginDto.Login, loginDto.Email, WebApiTranslations.LoginSuccessful);
                 return res;
             }
             else
@@ -72,16 +74,35 @@ namespace Brilliancy.Soccer.WebApi.Controllers
                 return new JsonResult(new BaseResultReadModel
                 {
                     IsSuccess = false,
-                    Message = "Nieprawidłowy login lub hasło"
+                    Message = WebApiTranslations.InvalidLoginOrPassword
                 });
             }
+        }
+        [HttpPost]
+        [Route("/api/login/ChangeLanguage")]
+        public JsonResult ChangeLanguage(LanguageWriteModel model)
+        {
+            if (string.IsNullOrEmpty(model?.Name))
+            {
+                return new JsonResult(new BaseResultReadModel
+                {
+                    IsSuccess = true,
+                    Message = WebApiTranslations.UnexpectedError
+                });
+            }
+            WebApiTranslations.Culture = CultureInfo.CreateSpecificCulture(model.Name);
+            return new JsonResult(new BaseResultReadModel
+            {
+                IsSuccess = true,
+                Message = WebApiTranslations.LanguageChanged
+            });
         }
 
         [HttpPost]
         [Route("/api/logout")]
         public async Task<IActionResult> Logout()
         {
-            var res = await LogoutContext("Zostałeś wylogowany");
+            var res = await LogoutContext(WebApiTranslations.LogoutSuccessful);
             return res;
         }
 
@@ -124,7 +145,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
                 _loginModule.RegisterUser(dto);
                 var loginDto = _loginModule.GetUser(dto.Login);
 
-                var res = await AuthUser(loginDto.Id, loginDto.Login, loginDto.Email, "Rejestracja zakończona powodzeniem.");
+                var res = await AuthUser(loginDto.Id, loginDto.Login, loginDto.Email, WebApiTranslations.RegisterSuccessful);
                 return res;
             }
 
@@ -147,7 +168,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
             return new JsonResult(new BaseResultReadModel
             {
                 IsSuccess = false,
-                Message = "Wystąpił niespodziewany błąd."
+                Message = WebApiTranslations.UnexpectedError
             });
         }
     }

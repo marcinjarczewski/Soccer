@@ -1,5 +1,5 @@
-﻿define(['storageHelper', 'knockout', 'loginModel', 'messageQueue', 'baseRepository', "/js/plugins/i18n.js!/nls/translation.js"],
-    function (storageHelper, ko, LoginModel, MessageQueue, baseRepository, translations) {
+﻿define(['storageHelper', 'knockout', 'loginModel', 'messageQueue', 'baseRepository', 'loginRepository', "/js/plugins/i18n.js!/nls/translation.js"],
+    function (storageHelper, ko, LoginModel, MessageQueue, baseRepository, loginRepository, translations) {
         var GlobalModel = function (options) {
         var self = {};
         // bind login model
@@ -12,8 +12,11 @@
         //set language
         self.changeLanguage = function (name) {
             storageHelper.saveLanguage(name);
-            window.location.reload(true);
+            var callback = function () {
+                window.location.reload(true);
             };
+            loginRepository.changeLanguage({ name: name }, callback);
+        };
         self.translations = translations?.layout;
         return self;
     };
