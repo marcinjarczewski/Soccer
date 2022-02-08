@@ -13,7 +13,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.12">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    </PackageReference> 
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.12" />
     <PackageReference Include="Microsoft.Owin.Security.OAuth" Version="4.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
@@ -25,4 +25,6 @@
     <ProjectReference Include="..\Brilliancy.Soccer.DbAccess\Brilliancy.Soccer.DbAccess.csproj" />
     <ProjectReference Include="..\Brilliancy.Soccer.DbModels\Brilliancy.Soccer.DbModels.csproj" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties wwwroot_4locales_4pl_4app_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 </Project>

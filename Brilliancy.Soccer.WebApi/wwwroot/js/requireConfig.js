@@ -1,3 +1,4 @@
+var locale = localStorage['language'] || 'pl';
 requirejs.config({
     baseUrl: '/lib',
     paths: {
@@ -12,7 +13,10 @@ requirejs.config({
         bootstrap: 'bootstrap/js/bootstrap.bundle',
         floatLabel: 'floatlabels.js/floatlabels.min',
         bootbox: 'bootbox.js/bootbox.min',     
+        //i18nLib: 'i18next/i18next.min',
+        //i18nHttp: 'i18next-http-backend/i18nextHttpBackend',
 
+        //i18n: '/js/helpers/i18nWrapper',
         knockoutWithAddons: '/js/helpers/knockoutWithAddons',
         knockoutToWindow: '/js/helpers/knockoutToWindow',
         helpers: '/js/helpers/helpers',
@@ -38,12 +42,20 @@ requirejs.config({
         "pikadayJquery": {
             deps: ["jquery"]
         },
+        //"i18n": {
+        //    deps: ["i18nLib","i18nHttp"]
+        //},
         "amplify": {
             deps: ["jquery"],
             exports:'amplify'
         },
         "layout": {
-            deps: ["bootstrap"],
+            deps: ["bootstrap"]
+        }
+    },
+    config: {
+        "/js/plugins/i18n.js": {
+            locale: locale
         }
     }
 });
