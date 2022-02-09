@@ -31,13 +31,20 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                                 </li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
                                 <li class="nav-item">
-                                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                                    <button data-bind="click:$parent.changeLanguage.bind($data, 'pl')" class="btn btn-link">
+                                        <img src="/images/pl.gif" alt="" width="30" height="20">
+                                    </button>
+                                    <button data-bind="click:$parent.changeLanguage.bind($data, 'en')" class="btn btn-link">
+                                        <img src="/images/en.gif" alt="" width="30" height="20">
+                                    </button>
+                                </li>
+                                <li>
+                                    <a class="nav-link active" data-bind="click:logout"><span data-bind="text:$parent.translations.logout"></span></a>
                                 </li>
                             </ul>
-                            <form class="d-flex">
-                                <a class="btn btn-outline-success" data-bind="click:logout">Logout</a>
-                            </form>
                         </div>
                     </div>
                 </nav>
@@ -46,13 +53,10 @@
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="container-fluid">
                         <a class="navbar-brand" href="/">Soccer</a>
-                        <div>
-                            <ul class="navbar-nav me-auto mb-12 mb-lg-12">
-                                <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="/login">
-                                        <span data-bind="text:$parent.translations.login"></span>
-                                    </a>
-                                </li>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
                                 <li class="nav-item">
                                     <button data-bind="click:$parent.changeLanguage.bind($data, 'pl')" class="btn btn-link">
                                         <img src="/images/pl.gif" alt="" width="30" height="20">
@@ -60,6 +64,11 @@
                                     <button data-bind="click:$parent.changeLanguage.bind($data, 'en')" class="btn btn-link">
                                         <img src="/images/en.gif" alt="" width="30" height="20">
                                     </button>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="/login">
+                                        <span data-bind="text:$parent.translations.login"></span>
+                                    </a>
                                 </li>
                             </ul>
                         </div>

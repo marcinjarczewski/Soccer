@@ -1,4 +1,5 @@
-define(['knockoutWithAddons', 'messageQueue', 'globalModel',  'helpers', 'loginRepository'], function (ko, messageQueue, globalModel, helpers, loginRepository) {
+define(['knockoutWithAddons', 'messageQueue', 'globalModel', 'helpers', 'loginRepository', "/js/plugins/i18n.js!/nls/translation.js"],
+    function (ko, messageQueue, globalModel, helpers, loginRepository, translations) {
     var ViewModel = function (options) {
         function register() {
             if (vm.registerValidationErrors().length > 0) {
@@ -50,7 +51,8 @@ define(['knockoutWithAddons', 'messageQueue', 'globalModel',  'helpers', 'loginR
             rememberMe: ko.observable(false),
             account: account,
             register: register,
-            login: login
+            login: login,
+            translations: translations.loginIndex
         };
         vm.validationErrors = ko.validation.group([vm.userName, vm.password]);
         vm.registerValidationErrors = ko.validation.group([
