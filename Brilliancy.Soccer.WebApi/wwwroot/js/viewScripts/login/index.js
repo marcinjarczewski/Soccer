@@ -20,7 +20,7 @@ define(['knockoutWithAddons', 'messageQueue', 'globalModel', 'helpers', 'loginRe
                     return false;
                 }
                 else {
-                    helpers.messageBox('Rejestracja zakończona', 'Dziękujemy za rejestrację! teraz możesz się zalogować');
+                    helpers.messageBox(translations.loginIndex.registerCompleted, translations.loginIndex.registerCompletedDescription);
                 }
                 return true;
             };
@@ -35,19 +35,19 @@ define(['knockoutWithAddons', 'messageQueue', 'globalModel', 'helpers', 'loginRe
         }
 
         var account = ko.validatedObservable({
-            login: ko.observable().extend({ required: { message: 'Pole nie może być puste' } }),
-            password: ko.observable().extend({ required: { message: 'Pole nie może być puste' } }),
-            firstName: ko.observable().extend({ required: { message: 'Pole nie może być puste' } }),
+            login: ko.observable().extend({ required: { message:translations.validation.fieldEmpty } }),
+            password: ko.observable().extend({ required: { message:translations.validation.fieldEmpty } }),
+            firstName: ko.observable().extend({ required: { message:translations.validation.fieldEmpty } }),
             lastName: ko.observable(),
-            email: ko.observable().extend({ required: { message: 'Pole nie może być puste' }, email: { message: 'Nieprawidłowy format adresu email' } }),
+            email: ko.observable().extend({ required: { message: translations.validation.fieldEmpty }, email: { message: translations.validation.email } }),
             isRulesAccepted: ko.observable(false).extend({ mustCheck: true }),
-            confirmPassword: ko.observable().extend({ required: { message: 'Pole nie może być puste' } })
+            confirmPassword: ko.observable().extend({ required: { message:translations.validation.fieldEmpty } })
         });
         var vm = {
             globalModel: globalModel(),
             isBusy: ko.observable(false),
-            userName: ko.observable("").extend({ required: { message: 'Pole nie może być puste' } }),
-            password: ko.observable("").extend({ required: { message: 'Pole nie może być puste' } }),
+            userName: ko.observable("").extend({ required: { message:translations.validation.fieldEmpty } }),
+            password: ko.observable("").extend({ required: { message:translations.validation.fieldEmpty } }),
             rememberMe: ko.observable(false),
             account: account,
             register: register,

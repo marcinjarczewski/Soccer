@@ -1,5 +1,5 @@
-﻿define(['knockout', 'knockoutValidation'], function (ko, koVal) {
-    ko.extenders.localStore = function (target, options) {
+﻿define(['knockout', 'knockoutValidation', "/js/plugins/i18n.js!/nls/translation.js"], function (ko, koVal) {
+    ko.extenders.localStore = function (target, options, translations) {
         var store = amplify.store.localStorage;
         var value = store(options.key);
 
@@ -85,7 +85,7 @@
         validator: function (val, params) {
             return val === params;
         },
-        message: 'Checkbox musi być zaznaczony'
+        message: translations.validation.checkbox
     };
 
     ko.validation.registerExtenders();

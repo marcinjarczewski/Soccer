@@ -1,4 +1,9 @@
 define({
+    validation: {
+        fieldEmpty: "Field can't be empty",
+        email: "Incorrect email address",
+        checkbox: "Checkbox must be checked"
+    },
     layout: {
         login: "Login",
         logout: "Logout",
@@ -25,6 +30,8 @@ define({
         acceptRules: "Accept",
         rules: "rules",
         registerButton: "register",
-        fieldRequired:"field required"
+        fieldRequired: "field required",
+        registerCompleted: "Registration complete",
+        registerCompletedDescription: "Thank you for registration! You can now login.",
     }
 });

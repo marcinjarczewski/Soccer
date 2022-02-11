@@ -1,4 +1,9 @@
 define({
+    validation: {
+        fieldEmpty: "Pole nie może być puste",
+        email: "Nieprawidłowy format adresu email",
+        checkbox:"Checkbox musi być zaznaczony"
+    },
     layout: {
         login: "Logowanie",
         logout: "Wyloguj",
@@ -25,6 +30,8 @@ define({
         acceptRules: "Akceptuję",
         rules: "regulamin",
         registerButton: "zarejestruj",
-        fieldRequired: "pole wymagane"
+        fieldRequired: "pole wymagane",
+        registerCompleted: "Rejestracja zakończona",
+        registerCompletedDescription: "Dziękujemy za rejestrację! teraz możesz się zalogować.",
     }
 });
