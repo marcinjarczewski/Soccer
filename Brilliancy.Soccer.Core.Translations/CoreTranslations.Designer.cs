@@ -86,5 +86,32 @@ namespace Brilliancy.Soccer.Core.Translations {
                 return ResourceManager.GetString("NoUser", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brak uprawnień do edycji turnieju..
+        /// </summary>
+        public static string Tournament_NoPrivileges {
+            get {
+                return ResourceManager.GetString("Tournament_NoPrivileges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie odnaleziono turnieju..
+        /// </summary>
+        public static string Tournament_NoTournament {
+            get {
+                return ResourceManager.GetString("Tournament_NoTournament", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wskazano nieistniejącego użytkownika..
+        /// </summary>
+        public static string Tournament_NoUser {
+            get {
+                return ResourceManager.GetString("Tournament_NoUser", resourceCulture);
+            }
+        }
     }
 }
