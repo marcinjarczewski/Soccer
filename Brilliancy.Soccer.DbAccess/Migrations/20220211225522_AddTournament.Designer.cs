@@ -4,56 +4,22 @@ using Brilliancy.Soccer.DbAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Brilliancy.Soccer.DbAccess.Migrations
 {
     [DbContext(typeof(SoccerDbContext))]
-    partial class SoccerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220211225522_AddTournament")]
+    partial class AddTournament
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Brilliancy.Soccer.DbModels.PlayerDbModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NickName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TournamentId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TournamentId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Players");
-
-                    b.HasCheckConstraint("CK_AnyName", "ISNULL([NickName], '') != '' OR ISNULL([FirstName], '') != '' OR ISNULL([LastName], '') != ''");
-                });
 
             modelBuilder.Entity("Brilliancy.Soccer.DbModels.RoleDbModel", b =>
                 {
@@ -173,23 +139,6 @@ namespace Brilliancy.Soccer.DbAccess.Migrations
                     b.ToTable("TournamentAdmins");
                 });
 
-            modelBuilder.Entity("Brilliancy.Soccer.DbModels.PlayerDbModel", b =>
-                {
-                    b.HasOne("Brilliancy.Soccer.DbModels.TournamentDbModel", "Tournament")
-                        .WithMany("Players")
-                        .HasForeignKey("TournamentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Brilliancy.Soccer.DbModels.UserDbModel", "User")
-                        .WithMany("Players")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Tournament");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Brilliancy.Soccer.DbModels.TournamentDbModel", b =>
                 {
                     b.HasOne("Brilliancy.Soccer.DbModels.UserDbModel", "Owner")
@@ -240,16 +189,9 @@ namespace Brilliancy.Soccer.DbAccess.Migrations
                     b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("Brilliancy.Soccer.DbModels.TournamentDbModel", b =>
-                {
-                    b.Navigation("Players");
-                });
-
             modelBuilder.Entity("Brilliancy.Soccer.DbModels.UserDbModel", b =>
                 {
                     b.Navigation("OwnedTournaments");
-
-                    b.Navigation("Players");
 
                     b.Navigation("UserRoles");
                 });

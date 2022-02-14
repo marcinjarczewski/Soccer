@@ -20,5 +20,11 @@ namespace Brilliancy.Soccer.DbModels
         public bool IsActive { get; set; }
 
         public List<UserRoleDbModel> UserRoles { get; set; }
+
+        public List<PlayerDbModel> Players { get; set; }
+
+        public List<TournamentDbModel> TournamentAdmins { get; set; }
+
+        public List<TournamentDbModel> OwnedTournaments { get; set; }
     }
 }

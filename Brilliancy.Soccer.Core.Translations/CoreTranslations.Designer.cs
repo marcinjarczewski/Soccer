@@ -86,5 +86,59 @@ namespace Brilliancy.Soccer.Core.Translations {
                 return ResourceManager.GetString("NoUser", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brak miejsca rozegrania turnieju. .
+        /// </summary>
+        public static string Tournament_NoAddress {
+            get {
+                return ResourceManager.GetString("Tournament_NoAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brak nazwy turnieju..
+        /// </summary>
+        public static string Tournament_NoName {
+            get {
+                return ResourceManager.GetString("Tournament_NoName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dane zawodnika nie zostały uzupełnione.
+        /// </summary>
+        public static string Tournament_NoPlayer {
+            get {
+                return ResourceManager.GetString("Tournament_NoPlayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brak uprawnień do edycji turnieju..
+        /// </summary>
+        public static string Tournament_NoPrivileges {
+            get {
+                return ResourceManager.GetString("Tournament_NoPrivileges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie odnaleziono turnieju..
+        /// </summary>
+        public static string Tournament_NoTournament {
+            get {
+                return ResourceManager.GetString("Tournament_NoTournament", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wskazano nieistniejącego użytkownika..
+        /// </summary>
+        public static string Tournament_NoUser {
+            get {
+                return ResourceManager.GetString("Tournament_NoUser", resourceCulture);
+            }
+        }
     }
 }

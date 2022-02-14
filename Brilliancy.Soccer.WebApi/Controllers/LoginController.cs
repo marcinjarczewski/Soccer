@@ -30,11 +30,9 @@ namespace Brilliancy.Soccer.WebApi.Controllers
     public class LoginController : BaseController
     {
         private readonly IApplicationUserManager _userManager;
-        private readonly ILoginRepository _loginRepository;
-        public LoginController(IMapper mapper, ILoginModule loginModule, ILoginRepository loginRepository, IApplicationUserManager userManager) : base(mapper, loginModule)
+        public LoginController(IMapper mapper, ILoginModule loginModule, IApplicationUserManager userManager) : base(mapper, loginModule)
         {
             _userManager = userManager;
-            _loginRepository = loginRepository;
         }
 
         public ActionResult Index(string returnUrl = null)

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Brilliancy.Soccer.Common.Dtos.Authentication;
+using Brilliancy.Soccer.Common.Dtos.Tournament;
 using Brilliancy.Soccer.Common.Dtos.User;
 using Brilliancy.Soccer.DbModels;
 using System;
@@ -16,6 +17,9 @@ namespace Brilliancy.Soccer.Core
             CreateMap<UserDbModel, LoginDto>();
             CreateMap<RoleDbModel, RoleDto>();
             CreateMap<UserDbModel, UserDto>();
+            CreateMap<NewTournamentDto, TournamentDbModel>();
+            CreateMap<NewPlayerDto, PlayerDbModel>();
+            CreateMap<TournamentDbModel, TournamentDto>();
         }
     }
 
