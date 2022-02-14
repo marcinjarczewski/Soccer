@@ -14,12 +14,15 @@ namespace Brilliancy.Soccer.DbAccess
             modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new TournamentConfiguration());
+            modelBuilder.ApplyConfiguration(new PlayerConfiguration());
         }
         public DbSet<UserDbModel> Users { get; set; }
 
         public DbSet<RoleDbModel> Roles { get; set; }
 
         public DbSet<UserRoleDbModel> UserRoles { get; set; }
+
+        public DbSet<PlayerDbModel> Players { get; set; }
 
         public DbSet<TournamentDbModel> Tournaments { get; set; }
     }

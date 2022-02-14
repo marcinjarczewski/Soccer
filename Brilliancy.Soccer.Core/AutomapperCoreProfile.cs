@@ -18,6 +18,7 @@ namespace Brilliancy.Soccer.Core
             CreateMap<RoleDbModel, RoleDto>();
             CreateMap<UserDbModel, UserDto>();
             CreateMap<NewTournamentDto, TournamentDbModel>();
+            CreateMap<NewPlayerDto, PlayerDbModel>();
             CreateMap<TournamentDbModel, TournamentDto>();
         }
     }

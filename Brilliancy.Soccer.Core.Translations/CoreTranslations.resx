@@ -126,6 +126,15 @@
   <data name="NoUser" xml:space="preserve">
     <value>Użytkownik nie istnieje lub jest nieaktywny.</value>
   </data>
+  <data name="Tournament_NoAddress" xml:space="preserve">
+    <value>Brak miejsca rozegrania turnieju. </value>
+  </data>
+  <data name="Tournament_NoName" xml:space="preserve">
+    <value>Brak nazwy turnieju.</value>
+  </data>
+  <data name="Tournament_NoPlayer" xml:space="preserve">
+    <value>Dane zawodnika nie zostały uzupełnione</value>
+  </data>
   <data name="Tournament_NoPrivileges" xml:space="preserve">
     <value>Brak uprawnień do edycji turnieju.</value>
   </data>

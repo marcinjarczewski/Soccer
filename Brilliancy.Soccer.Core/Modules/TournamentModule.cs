@@ -1,15 +1,12 @@
 ﻿using AutoMapper;
 using Brilliancy.Soccer.Common.Contracts.Modules;
-using Brilliancy.Soccer.Common.Dtos.Authentication;
 using Brilliancy.Soccer.Common.Dtos.Tournament;
-using Brilliancy.Soccer.Common.Dtos.User;
 using Brilliancy.Soccer.Common.Exceptions;
 using Brilliancy.Soccer.Core.Translations;
 using Brilliancy.Soccer.DbAccess;
 using Brilliancy.Soccer.DbModels;
 using Microsoft.EntityFrameworkCore;
 using PagedList;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,14 +22,22 @@ namespace Brilliancy.Soccer.Core.Modules
 
         public int AddTournament(NewTournamentDto dto)
         {
-            if(dto == null)
+            if (dto == null)
             {
                 throw new UserDataException(CoreTranslations.Tournament_NoTournament);
+            }
+            if (string.IsNullOrEmpty(dto.Name))
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoName);
+            }
+            if (string.IsNullOrEmpty(dto.Address))
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoAddress);
             }
             var tournament = _mapper.Map<TournamentDbModel>(dto);
             tournament.IsActive = true;
             tournament.Owner = _dbContext.Users.FirstOrDefault(u => u.Id == tournament.OwnerId);
-            if(tournament.Owner == null)
+            if (tournament.Owner == null)
             {
                 throw new UserDataException(CoreTranslations.Tournament_NoUser);
             }
@@ -47,8 +52,16 @@ namespace Brilliancy.Soccer.Core.Modules
             {
                 throw new UserDataException(CoreTranslations.Tournament_NoTournament);
             }
+            if (string.IsNullOrEmpty(dto.Name))
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoName);
+            }
+            if (string.IsNullOrEmpty(dto.Address))
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoAddress);
+            }
             var tournament = _dbContext.Tournaments.FirstOrDefault(t => t.Id == dto.Id);
-            if(tournament == null)
+            if (tournament == null)
             {
                 throw new UserDataException(CoreTranslations.Tournament_NoTournament);
             }
@@ -98,7 +111,7 @@ namespace Brilliancy.Soccer.Core.Modules
         public IPagedList<TournamentDto> GetTournaments(string term, int pageNumber, int pageSize)
         {
             var tournaments = _dbContext.Tournaments.AsQueryable();
-            if(!string.IsNullOrEmpty(term))
+            if (!string.IsNullOrEmpty(term))
             {
                 var lowerTerm = term.ToLower();
                 tournaments = tournaments.Where(t => t.Name.ToLower().Contains(lowerTerm) || t.Address.ToLower().Contains(lowerTerm));
@@ -114,21 +127,9 @@ namespace Brilliancy.Soccer.Core.Modules
             }
 
             var total = tournaments.Count();
-            var tournamentDtos =_mapper.Map<List<TournamentDto>>(page);
+            var tournamentDtos = _mapper.Map<List<TournamentDto>>(page);
 
             return new StaticPagedList<TournamentDto>(tournamentDtos, pageNumber, pageSize, total);
-        }
-
-        private void CheckPrivilages(TournamentDbModel tournament, int userId)
-        {
-            if (tournament == null)
-            {
-                throw new UserDataException(CoreTranslations.Tournament_NoTournament);
-            }
-            if (tournament.OwnerId != userId && tournament.Admins?.FirstOrDefault(a => a.Id == userId) == null)
-            {
-                throw new UserDataException(CoreTranslations.Tournament_NoPrivileges);
-            }
         }
     }
 }
