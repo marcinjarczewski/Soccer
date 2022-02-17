@@ -88,11 +88,65 @@ namespace Brilliancy.Soccer.Core.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nieprawidłowy asystent przy bramce..
+        /// </summary>
+        public static string Tournament_InvalidAssist {
+            get {
+                return ResourceManager.GetString("Tournament_InvalidAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieprawidłowy strzelec gola..
+        /// </summary>
+        public static string Tournament_InvalidScorer {
+            get {
+                return ResourceManager.GetString("Tournament_InvalidScorer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Brak miejsca rozegrania turnieju. .
         /// </summary>
         public static string Tournament_NoAddress {
             get {
                 return ResourceManager.GetString("Tournament_NoAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie odnaleziono drużyny gości..
+        /// </summary>
+        public static string Tournament_NoAwayTeam {
+            get {
+                return ResourceManager.GetString("Tournament_NoAwayTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Błąd podczas przetwarzenia strzelonych bramek..
+        /// </summary>
+        public static string Tournament_NoGoals {
+            get {
+                return ResourceManager.GetString("Tournament_NoGoals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie odnaleziono drużyny gospodarzy..
+        /// </summary>
+        public static string Tournament_NoHomeTeam {
+            get {
+                return ResourceManager.GetString("Tournament_NoHomeTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie odnaleziono meczu..
+        /// </summary>
+        public static string Tournament_NoMatch {
+            get {
+                return ResourceManager.GetString("Tournament_NoMatch", resourceCulture);
             }
         }
         
@@ -138,6 +192,15 @@ namespace Brilliancy.Soccer.Core.Translations {
         public static string Tournament_NoUser {
             get {
                 return ResourceManager.GetString("Tournament_NoUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drużyna gospodarzy i gości nie może być taka sama..
+        /// </summary>
+        public static string Tournament_SameTeams {
+            get {
+                return ResourceManager.GetString("Tournament_SameTeams", resourceCulture);
             }
         }
     }

@@ -23,8 +23,12 @@ namespace Brilliancy.Soccer.DbModels
 
         public TimeSpan? DefaultHour { get; set; }
 
+        public List<TeamDbModel> Teams { get; set; }
+
         public List<UserDbModel> Admins { get; set; }
 
         public List<PlayerDbModel> Players { get; set; }
+
+        public List<MatchDbModel> Matches { get; set; }
     }
 }
