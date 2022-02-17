@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Brilliancy.Soccer.Common.Dtos.Tournament
+namespace Brilliancy.Soccer.Common.Dtos.Player
 {
     public class PlayerDto
     {

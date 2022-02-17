@@ -1,6 +1,5 @@
-﻿using Brilliancy.Soccer.Common.Dtos.Tournament;
-using Brilliancy.Soccer.Common.Dtos.User;
-using PagedList;
+﻿using Brilliancy.Soccer.Common.Dtos.Player;
+using System.Collections.Generic;
 
 namespace Brilliancy.Soccer.Common.Contracts.Modules
 {
@@ -9,5 +8,7 @@ namespace Brilliancy.Soccer.Common.Contracts.Modules
         int AddTournamentPlayer(NewPlayerDto dto, int tournamentId, int userId);
 
         void RemovePlayerFromTournament(int playerId, int userId);
+
+        void EditPlayers(List<PlayerDto> dto, int matchId, int userId);
     }
 }
