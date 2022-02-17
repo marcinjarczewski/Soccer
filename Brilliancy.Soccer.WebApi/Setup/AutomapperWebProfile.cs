@@ -2,11 +2,11 @@
 using AutoMapper;
 using Brilliancy.Soccer.Common.Contracts;
 using Brilliancy.Soccer.Common.Dtos.Authentication;
+using Brilliancy.Soccer.Common.Dtos.Tournament;
 using Brilliancy.Soccer.Common.Dtos.User;
 using Brilliancy.Soccer.Common.Enums;
-using Brilliancy.Soccer.DbModels;
 using Brilliancy.Soccer.WebApi.Models.Login.Write;
-using System;
+using Brilliancy.Soccer.WebApi.Models.Write.Tournament;
 using System.Linq;
 
 namespace Brilliancy.Soccer.WebApi.Setup
@@ -16,7 +16,8 @@ namespace Brilliancy.Soccer.WebApi.Setup
         public AutomapperWebProfile()
         {
             CreateMap<RegisterWriteModel, RegisterUserDto>();
-
+            CreateMap<NewTournamentModel, NewTournamentDto>();
+            CreateMap<UserDto, UserInfo>();
             CreateMap<LoginDto, UserInfo>()
                .ForMember(dto => dto.IsAdmin, m => m.MapFrom(db => (db.Roles ?? new System.Collections.Generic.List<RoleDto>()).Any(r => r.Id == (int)RoleEnum.Admin)));
         }

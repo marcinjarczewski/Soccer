@@ -147,6 +147,9 @@
   <data name="StringLength" xml:space="preserve">
     <value>{0} must be at least {2} characters long</value>
   </data>
+  <data name="TournamentController_InvalidTournamentData" xml:space="preserve">
+    <value>The tournament data has not been completed correctly.</value>
+  </data>
   <data name="UnexpectedError" xml:space="preserve">
     <value>Unexpected error</value>
   </data>

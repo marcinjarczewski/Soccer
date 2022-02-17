@@ -5,6 +5,7 @@ requirejs.config({
         jquery: 'jquery/jquery',
         knockout: 'knockout/knockout-latest.min',
         knockoutValidation: 'knockout-validation/knockout.validation.min',
+        knockoutMapping: 'knockout.mapping/knockout.mapping',
         toastr: 'toastr.js/toastr.min',
         pikaday: 'pikaday/pikaday.min',
         pikadayJquery: 'pikaday/pikaday.jquery',
@@ -30,10 +31,14 @@ requirejs.config({
         baseRepository: '/js/repositories/baseRepository',
         layout: '/js/viewScripts/layout',
         loginRepository: '/js/repositories/loginRepository',
+        tournamentRepository: '/js/repositories/tournamentRepository'
 
     },
     shim: {
         "knockoutValidation": {
+            deps: ["knockout"]
+        },
+        "knockoutMapping": {
             deps: ["knockout"]
         },
         "knockoutPaged": {

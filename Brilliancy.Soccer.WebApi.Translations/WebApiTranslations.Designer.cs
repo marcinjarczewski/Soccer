@@ -151,6 +151,15 @@ namespace Brilliancy.Soccer.WebApi.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dane turnieju nie zostały uzupełnione poprawnie..
+        /// </summary>
+        public static string TournamentController_InvalidTournamentData {
+            get {
+                return ResourceManager.GetString("TournamentController_InvalidTournamentData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wystąpił niespodziewany błąd..
         /// </summary>
         public static string UnexpectedError {

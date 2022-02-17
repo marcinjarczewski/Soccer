@@ -1,27 +1,13 @@
 ﻿using AutoMapper;
 using Brilliancy.Soccer.Common.Contracts.Modules;
-using Brilliancy.Soccer.Common.Dtos.Authentication;
-using Brilliancy.Soccer.Common.Dtos.User;
+using Brilliancy.Soccer.Common.Dtos.Tournament;
+using Brilliancy.Soccer.Common.Exceptions;
 using Brilliancy.Soccer.DbModels.Interfaces;
-using Brilliancy.Soccer.WebApi.Models;
-using Brilliancy.Soccer.WebApi.Models.Login.Write;
 using Brilliancy.Soccer.WebApi.Models.Shared;
-using Brilliancy.Soccer.WebApi.Setup;
+using Brilliancy.Soccer.WebApi.Models.Write.Tournament;
 using Brilliancy.Soccer.WebApi.Translations;
-using JWT;
-using JWT.Algorithms;
-using JWT.Serializers;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Brilliancy.Soccer.WebApi.Controllers
@@ -41,6 +27,39 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         {
             var t = _tournamentModule.GetTournament(2,1);
             return View();
-        } 
+        }
+
+        [Authorize]
+        [Route("Create")]
+        public ActionResult Create()
+        {
+            var model = new NewTournamentModel();
+            return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("CreateTournament")]
+        public IActionResult CreateTournament(NewTournamentModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var dto = new NewTournamentDto();
+                _mapper.Map(model, dto);
+                dto.OwnerId = this._CurrentUserInfo.Id;
+                var newId = this._tournamentModule.AddTournament(dto);
+
+                return new JsonResult(new BaseResultWithDataReadModel
+                {
+                    IsSuccess = true,
+                    Data = newId,
+                    Message = WebApiTranslations.UnexpectedError
+                });
+            }
+            else
+            {
+                throw new InvalidDataException(WebApiTranslations.TournamentController_InvalidTournamentData);
+            }
+        }
     }
 }
