@@ -9,6 +9,6 @@ namespace Brilliancy.Soccer.Common.Contracts.Modules
 
         void RemovePlayerFromTournament(int playerId, int userId);
 
-        void EditPlayers(List<PlayerDto> dto, int matchId, int userId);
+        void EditPlayers(List<PlayerDto> dto, int tournamentId, int userId);
     }
 }

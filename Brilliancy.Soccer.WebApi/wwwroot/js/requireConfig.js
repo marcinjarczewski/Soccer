@@ -28,9 +28,10 @@ requirejs.config({
         messageQueue: '/js/helpers/messageQueue',
         loginModel: '/js/models/loginModel',
         globalModel: '/js/models/globalModel',
-        baseRepository: '/js/repositories/baseRepository',
         layout: '/js/viewScripts/layout',
+        baseRepository: '/js/repositories/baseRepository',
         loginRepository: '/js/repositories/loginRepository',
+        playerRepository: '/js/repositories/playerRepository',
         tournamentRepository: '/js/repositories/tournamentRepository'
 
     },

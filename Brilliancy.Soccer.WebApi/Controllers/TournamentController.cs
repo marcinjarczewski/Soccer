@@ -3,6 +3,7 @@ using Brilliancy.Soccer.Common.Contracts.Modules;
 using Brilliancy.Soccer.Common.Dtos.Tournament;
 using Brilliancy.Soccer.Common.Exceptions;
 using Brilliancy.Soccer.DbModels.Interfaces;
+using Brilliancy.Soccer.WebApi.Models.Read.Tournament;
 using Brilliancy.Soccer.WebApi.Models.Shared;
 using Brilliancy.Soccer.WebApi.Models.Write.Tournament;
 using Brilliancy.Soccer.WebApi.Translations;
@@ -38,6 +39,19 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         }
 
         [Authorize]
+        [HttpGet("Edit/{id}")]
+        public ActionResult Edit(int id)
+        {
+            var dto = _tournamentModule.GetTournament(id, _CurrentUserInfo.Id);
+            var model =  _mapper.Map<EditTournamentModel>(dto);
+            model.EmptyMatch = new Models.Match.Read.MatchReadModel();
+            model.EmptyPlayer = new Models.Player.Read.PlayerReadModel();
+            model.EmptyUser = new Models.User.Read.UserReadModel();
+            return View(model);
+        }
+
+
+        [Authorize]
         [HttpPost]
         [Route("CreateTournament")]
         public IActionResult CreateTournament(NewTournamentModel model)
@@ -53,7 +67,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
                 {
                     IsSuccess = true,
                     Data = newId,
-                    Message = WebApiTranslations.UnexpectedError
+                    Message = WebApiTranslations.RegisterSuccessful
                 });
             }
             else

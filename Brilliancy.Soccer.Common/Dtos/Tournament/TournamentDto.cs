@@ -1,4 +1,6 @@
-﻿using Brilliancy.Soccer.Common.Dtos.User;
+﻿using Brilliancy.Soccer.Common.Dtos.Match;
+using Brilliancy.Soccer.Common.Dtos.Player;
+using Brilliancy.Soccer.Common.Dtos.User;
 using System;
 using System.Collections.Generic;
 
@@ -21,5 +23,9 @@ namespace Brilliancy.Soccer.Common.Dtos.Tournament
         public TimeSpan? DefaultHour { get; set; }
 
         public List<UserDto> Admins { get; set; }
+
+        public List<PlayerDto> Players { get; set; }
+
+        public List<MatchEditDto> Matches { get; set; }
     }
 }

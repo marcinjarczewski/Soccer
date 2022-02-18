@@ -6,14 +6,14 @@ define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 
                 name: {
                     create: function (options) {
                         return ko.validatedObservable().extend({
-                            required: { message: "Wprowadź nazwę" }
+                            required: { message: translations.validation.fieldEmpty }
                         });
                     }
                 },
                 address: {
                     create: function (options) {
                         return ko.validatedObservable().extend({
-                            required: { message: "Wprowadź miejsce" }
+                            required: { message: translations.validation.fieldEmpty }
                         });
                     }
                 }
