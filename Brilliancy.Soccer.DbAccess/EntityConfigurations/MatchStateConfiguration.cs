@@ -22,8 +22,18 @@ namespace Brilliancy.Soccer.DbAccess.EntityConfigurations
                },
                new MatchStateDbModel
                {
-                     Id = (int)MatchStateEnum.Finished,
-                     Name = MatchStateEnum.Finished.ToString()
+                   Id = (int)MatchStateEnum.Finished,
+                   Name = MatchStateEnum.Finished.ToString()
+               },
+               new MatchStateDbModel
+               {
+                   Id = (int)MatchStateEnum.Canceled,
+                   Name = MatchStateEnum.Finished.ToString()
+               },
+               new MatchStateDbModel
+               {
+                   Id = (int)MatchStateEnum.Pending,
+                   Name = MatchStateEnum.Finished.ToString()
                });
         }
     }
