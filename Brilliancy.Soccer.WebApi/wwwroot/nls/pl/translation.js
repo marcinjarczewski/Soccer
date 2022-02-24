@@ -2,7 +2,7 @@ define({
     validation: {
         fieldEmpty: "Pole nie może być puste",
         email: "Nieprawidłowy format adresu email",
-        checkbox:"Checkbox musi być zaznaczony"
+        checkbox: "Checkbox musi być zaznaczony"
     },
     layout: {
         login: "Logowanie",
@@ -14,6 +14,16 @@ define({
         line2: "politykę prywatności",
         line3: ",aby dowiedzieć się więcej. Korzystając z tej strony, wyrażasz zgodę na stosowanie tej technologii.",
         line4: "Akceptuję",
+    },
+    tournamentCreate: {
+        created: "Turniej został utworzony",
+        newTournament: "Nowy turniej",
+        tournamentName: "Nazwa turnieju",
+        tournamentAddress: "Miejsce rozgrywania turnieju",
+        tournamentCreate: "Stwórz nowy turniej",
+    },
+    tournamentEdit: {
+        created: "Turniej został utworzony"
     },
     loginIndex: {
         login: "Logowanie",

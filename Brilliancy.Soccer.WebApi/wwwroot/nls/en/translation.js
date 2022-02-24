@@ -15,6 +15,13 @@ define({
         line3: " for more information. By using this website, you consent to the use of this technology",
         line4: "Accept",
     },
+    tournamentCreate: {
+        created: "The tournament has been created.",
+        newTournament: "New tournament",
+        tournamentName: "Tournament name",
+        tournamentAddress: "The venue of the tournament",
+        tournamentCreate: "Create",
+    },
     loginIndex: {
         login: "Login",
         loginButton: "login",

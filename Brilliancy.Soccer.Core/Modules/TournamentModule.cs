@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Brilliancy.Soccer.Common.Contracts.Modules;
 using Brilliancy.Soccer.Common.Dtos.Tournament;
+using Brilliancy.Soccer.Common.Enums;
 using Brilliancy.Soccer.Common.Exceptions;
 using Brilliancy.Soccer.Core.Translations;
 using Brilliancy.Soccer.DbAccess;
@@ -92,7 +93,11 @@ namespace Brilliancy.Soccer.Core.Modules
 
         public TournamentDto GetTournament(int id, int userId)
         {
-            var tournament = _dbContext.Tournaments.Include(t => t.Owner).Include(t => t.Admins).FirstOrDefault(t => t.Id == id);
+            var tournament = _dbContext.Tournaments
+                .Include(t => t.Owner)
+                .Include(t => t.Players)
+                .Include(t => t.Teams)
+                .Include(t => t.Admins).FirstOrDefault(t => t.Id == id);
             if (tournament == null)
             {
                 throw new UserDataException(CoreTranslations.Tournament_NoTournament);
@@ -104,8 +109,11 @@ namespace Brilliancy.Soccer.Core.Modules
                     throw new UserDataException(CoreTranslations.Tournament_NoTournament);
                 }
             }
-
-            return _mapper.Map<TournamentDto>(tournament);
+            var dto = _mapper.Map<TournamentDto>(tournament);
+            dto.Players = dto.Players.Where(p => p.IsActive).ToList();
+            dto.Matches = dto.Matches.Where(p => p.StateId != (int)MatchStateEnum.Canceled).ToList();
+            dto.NextMatch = dto.Matches.FirstOrDefault(p => p.StateId != (int)MatchStateEnum.Canceled);
+            return dto;
         }
 
         public IPagedList<TournamentDto> GetTournaments(string term, int pageNumber, int pageSize)

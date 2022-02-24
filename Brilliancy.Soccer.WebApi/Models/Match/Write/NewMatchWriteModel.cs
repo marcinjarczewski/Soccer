@@ -1,10 +1,11 @@
-﻿using Brilliancy.Soccer.Common.Dtos.User;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Brilliancy.Soccer.Common.Dtos.Match
+namespace Brilliancy.Soccer.WebApi.Models.Match.Write
 {
-    public class NewMatchDto
+    public class NewMatchWriteModel
     {
         public string HomeTeamName { get; set; }
 

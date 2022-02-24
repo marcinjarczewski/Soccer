@@ -5,6 +5,7 @@ requirejs.config({
         jquery: 'jquery/jquery',
         knockout: 'knockout/knockout-latest.min',
         knockoutValidation: 'knockout-validation/knockout.validation.min',
+        knockoutMapping: 'knockout.mapping/knockout.mapping',
         toastr: 'toastr.js/toastr.min',
         pikaday: 'pikaday/pikaday.min',
         pikadayJquery: 'pikaday/pikaday.jquery',
@@ -13,10 +14,8 @@ requirejs.config({
         bootstrap: 'bootstrap/js/bootstrap.bundle',
         floatLabel: 'floatlabels.js/floatlabels.min',
         bootbox: 'bootbox.js/bootbox.min',     
-        //i18nLib: 'i18next/i18next.min',
-        //i18nHttp: 'i18next-http-backend/i18nextHttpBackend',
 
-        //i18n: '/js/helpers/i18nWrapper',
+
         knockoutWithAddons: '/js/helpers/knockoutWithAddons',
         knockoutToWindow: '/js/helpers/knockoutToWindow',
         helpers: '/js/helpers/helpers',
@@ -27,13 +26,18 @@ requirejs.config({
         messageQueue: '/js/helpers/messageQueue',
         loginModel: '/js/models/loginModel',
         globalModel: '/js/models/globalModel',
-        baseRepository: '/js/repositories/baseRepository',
         layout: '/js/viewScripts/layout',
+        baseRepository: '/js/repositories/baseRepository',
         loginRepository: '/js/repositories/loginRepository',
-
+        playerRepository: '/js/repositories/playerRepository',
+        tournamentRepository: '/js/repositories/tournamentRepository',
+        matchRepository: '/js/repositories/matchRepository'
     },
     shim: {
         "knockoutValidation": {
+            deps: ["knockout"]
+        },
+        "knockoutMapping": {
             deps: ["knockout"]
         },
         "knockoutPaged": {
@@ -42,9 +46,6 @@ requirejs.config({
         "pikadayJquery": {
             deps: ["jquery"]
         },
-        //"i18n": {
-        //    deps: ["i18nLib","i18nHttp"]
-        //},
         "amplify": {
             deps: ["jquery"],
             exports:'amplify'

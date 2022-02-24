@@ -63,6 +63,10 @@
       "provider": "unpkg",
       "library": "i18next-http-backend@1.3.2",
       "destination": "wwwroot/lib/i18next-http-backend/"
+    },
+    {
+      "library": "knockout.mapping@2.4.1",
+      "destination": "wwwroot/lib/knockout.mapping/"
     }
   ]
 }

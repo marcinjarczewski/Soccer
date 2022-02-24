@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\js\viewScripts\tournament - Copy\**" />
+    <Content Remove="wwwroot\js\viewScripts\tournament - Copy\**" />
+    <EmbeddedResource Remove="wwwroot\js\viewScripts\tournament - Copy\**" />
+    <None Remove="wwwroot\js\viewScripts\tournament - Copy\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="JWT" Version="8.7.0" />
     <PackageReference Include="Microsoft.AspNet.Identity.Owin" Version="2.2.3" />

@@ -15,21 +15,21 @@ namespace Brilliancy.Soccer.WebApi.Models.Login.Write
 
         [Required]
         [Display(Name = "Password", ResourceType = typeof(WebApiTranslations))]
-        [StringLength(100, ErrorMessageResourceName = "StringLength", MinimumLength = 5, ErrorMessageResourceType = typeof(WebApiTranslations))]
+        [StringLength(100, ErrorMessageResourceName = "BaseController_StringLength", MinimumLength = 5, ErrorMessageResourceType = typeof(WebApiTranslations))]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Required]
         [Display(Name = "Password", ResourceType = typeof(WebApiTranslations))]
-        [StringLength(100, ErrorMessageResourceName = "StringLength", MinimumLength = 5, ErrorMessageResourceType = typeof(WebApiTranslations))]
+        [StringLength(100, ErrorMessageResourceName = "BaseController_StringLength", MinimumLength = 5, ErrorMessageResourceType = typeof(WebApiTranslations))]
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessageResourceName = "StringLength", ErrorMessage = "Hasła muszą być identyczne")]
+        [Compare("Password", ErrorMessageResourceName = "LoginController_ComparePassword", ErrorMessageResourceType = typeof(WebApiTranslations))]
         public string ConfirmPassword { get; set; }
 
         [Required]
         [Display(Name = "Login", ResourceType = typeof(WebApiTranslations))]
-        [StringLength(100, ErrorMessageResourceName = "StringLength", MinimumLength = 5, ErrorMessageResourceType = typeof(WebApiTranslations))]
-        [RegularExpression("^(?!.*[^a-zA-Z0-9_.@]).*$", ErrorMessageResourceName = "LoginCharacters", ErrorMessageResourceType = typeof(WebApiTranslations))]
+        [StringLength(100, ErrorMessageResourceName = "BaseController_StringLength", MinimumLength = 5, ErrorMessageResourceType = typeof(WebApiTranslations))]
+        [RegularExpression("^(?!.*[^a-zA-Z0-9_.@]).*$", ErrorMessageResourceName = "LoginController_LoginCharacters", ErrorMessageResourceType = typeof(WebApiTranslations))]
         public string Login { get; set; }
 
         public string FirstName { get; set; }

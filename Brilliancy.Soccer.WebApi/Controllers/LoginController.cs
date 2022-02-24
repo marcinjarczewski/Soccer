@@ -59,12 +59,12 @@ namespace Brilliancy.Soccer.WebApi.Controllers
                     return new JsonResult(new BaseResultReadModel
                     {
                         IsSuccess = false,
-                        Message = WebApiTranslations.InvalidLoginOrPassword
+                        Message = WebApiTranslations.LoginController_InvalidLoginOrPassword
                     });
                 }
 
                 // sign-in
-                var res = await AuthUser(loginDto.Id, loginDto.Login, loginDto.Email, WebApiTranslations.LoginSuccessful);
+                var res = await AuthUser(loginDto.Id, loginDto.Login, loginDto.Email, WebApiTranslations.LoginController_LoginSuccessful);
                 return res;
             }
             else
@@ -72,7 +72,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
                 return new JsonResult(new BaseResultReadModel
                 {
                     IsSuccess = false,
-                    Message = WebApiTranslations.InvalidLoginOrPassword
+                    Message = WebApiTranslations.LoginController_InvalidLoginOrPassword
                 });
             }
         }
@@ -85,14 +85,14 @@ namespace Brilliancy.Soccer.WebApi.Controllers
                 return new JsonResult(new BaseResultReadModel
                 {
                     IsSuccess = true,
-                    Message = WebApiTranslations.UnexpectedError
-                });
+                    Message = WebApiTranslations.BaseController_UnexpectedError
+                }); ;
             }
             WebApiTranslations.Culture = CultureInfo.CreateSpecificCulture(model.Name);
             return new JsonResult(new BaseResultReadModel
             {
                 IsSuccess = true,
-                Message = WebApiTranslations.LanguageChanged
+                Message = WebApiTranslations.LoginController_LanguageChanged
             });
         }
 
@@ -100,7 +100,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         [Route("/api/logout")]
         public async Task<IActionResult> Logout()
         {
-            var res = await LogoutContext(WebApiTranslations.LogoutSuccessful);
+            var res = await LogoutContext(WebApiTranslations.LoginController_LogoutSuccessful);
             return res;
         }
 
@@ -143,7 +143,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
                 _loginModule.RegisterUser(dto);
                 var loginDto = _loginModule.GetUser(dto.Login);
 
-                var res = await AuthUser(loginDto.Id, loginDto.Login, loginDto.Email, WebApiTranslations.RegisterSuccessful);
+                var res = await AuthUser(loginDto.Id, loginDto.Login, loginDto.Email, WebApiTranslations.LoginController_RegisterSuccessful);
                 return res;
             }
 
@@ -166,7 +166,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
             return new JsonResult(new BaseResultReadModel
             {
                 IsSuccess = false,
-                Message = WebApiTranslations.UnexpectedError
+                Message = WebApiTranslations.BaseController_UnexpectedError
             });
         }
     }
