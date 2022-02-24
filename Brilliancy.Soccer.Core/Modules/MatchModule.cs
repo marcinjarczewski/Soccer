@@ -31,28 +31,41 @@ namespace Brilliancy.Soccer.Core.Modules
             {
                 throw new UserDataException(CoreTranslations.Tournament_NoMatch);
             }
-            var homeTeam = _dbContext.Teams.FirstOrDefault(t => t.Id == dto.HomeTeamId);
-            if (homeTeam == null)
-            {
-                throw new UserDataException(CoreTranslations.Tournament_NoHomeTeam);
-            }
-            var awayTeam = _dbContext.Teams.FirstOrDefault(t => t.Id == dto.AwayTeamId);
-            if (awayTeam == null)
-            {
-                throw new UserDataException(CoreTranslations.Tournament_NoAwayTeam);
-            }
-            if(dto.AwayTeamId == dto.HomeTeamId)
-            {
-                throw new UserDataException(CoreTranslations.Tournament_SameTeams);
-            }
             var tournament = _dbContext.Tournaments.Include(t => t.Matches).FirstOrDefault(t => t.Id == dto.TournamentId);
             if (tournament == null)
             {
                 throw new UserDataException(CoreTranslations.Tournament_NoTournament);
             }
             CheckPrivilages(tournament, userId);
+
+            if (string.IsNullOrEmpty(dto.HomeTeamName))
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoHomeTeam);
+    
+            }
+            if (string.IsNullOrEmpty(dto.AwayTeamName))
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoAwayTeam);
+            }
+            if (dto.HomeTeamName == dto.AwayTeamName)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_SameTeams);
+            }
             var state = _dbContext.MatchStates.FirstOrDefault(f => f.Id == (int)MatchStateEnum.Creating);
             var match = _mapper.Map<MatchDbModel>(dto);
+            match.HomeTeam = new TeamDbModel
+            {
+                IsActive = true,
+                Name = dto.HomeTeamName,
+                TournamentId = dto.TournamentId
+            };
+            match.AwayTeam = new TeamDbModel
+            {
+                IsActive = true,
+                Name = dto.AwayTeamName,
+                TournamentId = dto.TournamentId
+            };
+            match.IsActive = true;
             match.State = state;
             tournament.Matches.Add(match);
             this._dbContext.Tournaments.Update(tournament);

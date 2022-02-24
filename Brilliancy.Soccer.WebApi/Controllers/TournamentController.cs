@@ -44,7 +44,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         {
             var dto = _tournamentModule.GetTournament(id, _CurrentUserInfo.Id);
             var model =  _mapper.Map<EditTournamentModel>(dto);
-            model.EmptyMatch = new Models.Match.Read.MatchReadModel();
+            model.EmptyMatch = new Models.Match.Write.NewMatchWriteModel();
             model.EmptyPlayer = new Models.Player.Read.PlayerReadModel();
             model.EmptyUser = new Models.User.Read.UserReadModel();
             return View(model);
@@ -67,7 +67,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
                 {
                     IsSuccess = true,
                     Data = newId,
-                    Message = WebApiTranslations.RegisterSuccessful
+                    Message = WebApiTranslations.TournamentController_Created
                 });
             }
             else

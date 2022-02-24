@@ -16,7 +16,11 @@ define({
         line4: "Accept",
     },
     tournamentCreate: {
-        created: "The tournament has been created."
+        created: "The tournament has been created.",
+        newTournament: "New tournament",
+        tournamentName: "Tournament name",
+        tournamentAddress: "The venue of the tournament",
+        tournamentCreate: "Create",
     },
     loginIndex: {
         login: "Login",

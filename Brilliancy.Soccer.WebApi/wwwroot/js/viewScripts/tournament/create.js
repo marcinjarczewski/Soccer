@@ -23,6 +23,7 @@ define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 
                 globalModel: globalModel(),
                 isBusy: ko.observable(false),
             };
+            vm.translations = translations.tournamentCreate;
             vm.model = ko.validatedObservable(mappings.fromJS(options.json, mapping));
             vm.addTournament = function () {
                 var validation = ko.validation.group(vm, { deep: true });

@@ -16,6 +16,13 @@ define({
         line4: "Akceptuję",
     },
     tournamentCreate: {
+        created: "Turniej został utworzony",
+        newTournament: "Nowy turniej",
+        tournamentName: "Nazwa turnieju",
+        tournamentAddress: "Miejsce rozgrywania turnieju",
+        tournamentCreate: "Stwórz nowy turniej",
+    },
+    tournamentEdit: {
         created: "Turniej został utworzony"
     },
     loginIndex: {

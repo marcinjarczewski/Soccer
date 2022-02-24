@@ -117,40 +117,58 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ComparePassword" xml:space="preserve">
+  <data name="BaseController_InvalidData" xml:space="preserve">
+    <value>Dane nie zostały uzupełnione prawidłowo.</value>
+  </data>
+  <data name="BaseController_StringLength" xml:space="preserve">
+    <value>{0} musi mieć conajmniej {2} znaków.</value>
+  </data>
+  <data name="BaseController_UnexpectedError" xml:space="preserve">
+    <value>Wystąpił niespodziewany błąd.</value>
+  </data>
+  <data name="LoginController_ComparePassword" xml:space="preserve">
     <value>Hasła muszą być identyczne</value>
   </data>
-  <data name="InvalidLoginOrPassword" xml:space="preserve">
+  <data name="LoginController_InvalidLoginOrPassword" xml:space="preserve">
     <value>Nieprawidłowy login lub hasło</value>
   </data>
-  <data name="LanguageChanged" xml:space="preserve">
+  <data name="LoginController_LanguageChanged" xml:space="preserve">
     <value>Język został zmieniony.</value>
   </data>
-  <data name="Login" xml:space="preserve">
+  <data name="LoginController_Login" xml:space="preserve">
     <value>Login</value>
   </data>
-  <data name="LoginCharacters" xml:space="preserve">
+  <data name="LoginController_LoginCharacters" xml:space="preserve">
     <value>Login może zawierać jedynie znaki a-z A-Z 0-9 _.@</value>
   </data>
-  <data name="LoginSuccessful" xml:space="preserve">
+  <data name="LoginController_LoginSuccessful" xml:space="preserve">
     <value>Logowanie zakończone powodzeniem</value>
   </data>
-  <data name="LogoutSuccessful" xml:space="preserve">
+  <data name="LoginController_LogoutSuccessful" xml:space="preserve">
     <value>Zostałeś wylogowany</value>
   </data>
-  <data name="Password" xml:space="preserve">
+  <data name="LoginController_Password" xml:space="preserve">
     <value>Hasło</value>
   </data>
-  <data name="RegisterSuccessful" xml:space="preserve">
+  <data name="LoginController_RegisterSuccessful" xml:space="preserve">
     <value>Rejestracja zakończona powodzeniem.</value>
   </data>
-  <data name="StringLength" xml:space="preserve">
-    <value>{0} musi mieć conajmniej {2} znaków.</value>
+  <data name="MatchController_AddSuccess" xml:space="preserve">
+    <value>Dodano nowy mecz</value>
+  </data>
+  <data name="PlayerController_Edit" xml:space="preserve">
+    <value>Dane o zawodnikach zostały zapisane.</value>
+  </data>
+  <data name="TournamentController_Created" xml:space="preserve">
+    <value>Turniej został utworzony.</value>
+  </data>
+  <data name="TournamentController_CreateTitle" xml:space="preserve">
+    <value>Utwórz turniej</value>
+  </data>
+  <data name="TournamentController_EditTitle" xml:space="preserve">
+    <value>Edytuj turniej</value>
   </data>
   <data name="TournamentController_InvalidTournamentData" xml:space="preserve">
     <value>Dane turnieju nie zostały uzupełnione poprawnie.</value>
-  </data>
-  <data name="UnexpectedError" xml:space="preserve">
-    <value>Wystąpił niespodziewany błąd.</value>
   </data>
 </root>

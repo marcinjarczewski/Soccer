@@ -61,92 +61,155 @@ namespace Brilliancy.Soccer.WebApi.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hasła muszą być identyczne.
+        ///   Looks up a localized string similar to Dane nie zostały uzupełnione prawidłowo..
         /// </summary>
-        public static string ComparePassword {
+        public static string BaseController_InvalidData {
             get {
-                return ResourceManager.GetString("ComparePassword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nieprawidłowy login lub hasło.
-        /// </summary>
-        public static string InvalidLoginOrPassword {
-            get {
-                return ResourceManager.GetString("InvalidLoginOrPassword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Język został zmieniony..
-        /// </summary>
-        public static string LanguageChanged {
-            get {
-                return ResourceManager.GetString("LanguageChanged", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Login.
-        /// </summary>
-        public static string Login {
-            get {
-                return ResourceManager.GetString("Login", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Login może zawierać jedynie znaki a-z A-Z 0-9 _.@.
-        /// </summary>
-        public static string LoginCharacters {
-            get {
-                return ResourceManager.GetString("LoginCharacters", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Logowanie zakończone powodzeniem.
-        /// </summary>
-        public static string LoginSuccessful {
-            get {
-                return ResourceManager.GetString("LoginSuccessful", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zostałeś wylogowany.
-        /// </summary>
-        public static string LogoutSuccessful {
-            get {
-                return ResourceManager.GetString("LogoutSuccessful", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hasło.
-        /// </summary>
-        public static string Password {
-            get {
-                return ResourceManager.GetString("Password", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rejestracja zakończona powodzeniem..
-        /// </summary>
-        public static string RegisterSuccessful {
-            get {
-                return ResourceManager.GetString("RegisterSuccessful", resourceCulture);
+                return ResourceManager.GetString("BaseController_InvalidData", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0} musi mieć conajmniej {2} znaków..
         /// </summary>
-        public static string StringLength {
+        public static string BaseController_StringLength {
             get {
-                return ResourceManager.GetString("StringLength", resourceCulture);
+                return ResourceManager.GetString("BaseController_StringLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wystąpił niespodziewany błąd..
+        /// </summary>
+        public static string BaseController_UnexpectedError {
+            get {
+                return ResourceManager.GetString("BaseController_UnexpectedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hasła muszą być identyczne.
+        /// </summary>
+        public static string LoginController_ComparePassword {
+            get {
+                return ResourceManager.GetString("LoginController_ComparePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieprawidłowy login lub hasło.
+        /// </summary>
+        public static string LoginController_InvalidLoginOrPassword {
+            get {
+                return ResourceManager.GetString("LoginController_InvalidLoginOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Język został zmieniony..
+        /// </summary>
+        public static string LoginController_LanguageChanged {
+            get {
+                return ResourceManager.GetString("LoginController_LanguageChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string LoginController_Login {
+            get {
+                return ResourceManager.GetString("LoginController_Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login może zawierać jedynie znaki a-z A-Z 0-9 _.@.
+        /// </summary>
+        public static string LoginController_LoginCharacters {
+            get {
+                return ResourceManager.GetString("LoginController_LoginCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logowanie zakończone powodzeniem.
+        /// </summary>
+        public static string LoginController_LoginSuccessful {
+            get {
+                return ResourceManager.GetString("LoginController_LoginSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zostałeś wylogowany.
+        /// </summary>
+        public static string LoginController_LogoutSuccessful {
+            get {
+                return ResourceManager.GetString("LoginController_LogoutSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hasło.
+        /// </summary>
+        public static string LoginController_Password {
+            get {
+                return ResourceManager.GetString("LoginController_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rejestracja zakończona powodzeniem..
+        /// </summary>
+        public static string LoginController_RegisterSuccessful {
+            get {
+                return ResourceManager.GetString("LoginController_RegisterSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dodano nowy mecz.
+        /// </summary>
+        public static string MatchController_AddSuccess {
+            get {
+                return ResourceManager.GetString("MatchController_AddSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dane o zawodnikach zostały zapisane..
+        /// </summary>
+        public static string PlayerController_Edit {
+            get {
+                return ResourceManager.GetString("PlayerController_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turniej został utworzony..
+        /// </summary>
+        public static string TournamentController_Created {
+            get {
+                return ResourceManager.GetString("TournamentController_Created", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Utwórz turniej.
+        /// </summary>
+        public static string TournamentController_CreateTitle {
+            get {
+                return ResourceManager.GetString("TournamentController_CreateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edytuj turniej.
+        /// </summary>
+        public static string TournamentController_EditTitle {
+            get {
+                return ResourceManager.GetString("TournamentController_EditTitle", resourceCulture);
             }
         }
         
@@ -156,15 +219,6 @@ namespace Brilliancy.Soccer.WebApi.Translations {
         public static string TournamentController_InvalidTournamentData {
             get {
                 return ResourceManager.GetString("TournamentController_InvalidTournamentData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wystąpił niespodziewany błąd..
-        /// </summary>
-        public static string UnexpectedError {
-            get {
-                return ResourceManager.GetString("UnexpectedError", resourceCulture);
             }
         }
     }

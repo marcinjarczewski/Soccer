@@ -20,6 +20,8 @@ namespace Brilliancy.Soccer.Common.Dtos.Tournament
 
         public int? DefaultDayOfTheWeek { get; set; }
 
+        public MatchEditDto NextMatch { get; set; }
+
         public TimeSpan? DefaultHour { get; set; }
 
         public List<UserDto> Admins { get; set; }

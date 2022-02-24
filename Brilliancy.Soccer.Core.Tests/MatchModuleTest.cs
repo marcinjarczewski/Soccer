@@ -221,8 +221,8 @@ namespace Brilliancy.Soccer.Core.Tests
             var count = _soccerDbContext.Matches.Count(p => p.Tournament.Id == 1);
             _matchModule.AddTournamentMatch(new Common.Dtos.Match.NewMatchDto
             {
-                HomeTeamId = 1,
-                AwayTeamId = 2,
+                HomeTeamName =  "Team A",
+                AwayTeamName = "Team B",
                 TournamentId = 1
             }, 1);
             Assert.AreEqual(count + 1, _soccerDbContext.Matches.Count(p => p.Tournament.Id == 1));
@@ -233,8 +233,8 @@ namespace Brilliancy.Soccer.Core.Tests
         {
             var ex = Assert.Throws<UserDataException>(() => _matchModule.AddTournamentMatch(new Common.Dtos.Match.NewMatchDto
             {
-                HomeTeamId = 1,
-                AwayTeamId = 2,
+                HomeTeamName = "Team A",
+                AwayTeamName = "Team B",
                 TournamentId = 1
             }, 3));
             Assert.IsTrue(ex.Message == CoreTranslations.Tournament_NoPrivileges);
@@ -253,8 +253,8 @@ namespace Brilliancy.Soccer.Core.Tests
         {
             var ex = Assert.Throws<UserDataException>(() => _matchModule.AddTournamentMatch(new Common.Dtos.Match.NewMatchDto
             {
-                HomeTeamId = 11,
-                AwayTeamId = 2,
+                HomeTeamName = "",
+                AwayTeamName = "Team B",
                 TournamentId = 1
             }, 1));
             Assert.IsTrue(ex.Message == CoreTranslations.Tournament_NoHomeTeam);
@@ -265,8 +265,7 @@ namespace Brilliancy.Soccer.Core.Tests
         {
             var ex = Assert.Throws<UserDataException>(() => _matchModule.AddTournamentMatch(new Common.Dtos.Match.NewMatchDto
             {
-                HomeTeamId = 1,
-                AwayTeamId = 21,
+                HomeTeamName = "Team A",
                 TournamentId = 1
             }, 1));
             Assert.IsTrue(ex.Message == CoreTranslations.Tournament_NoAwayTeam);
@@ -277,8 +276,8 @@ namespace Brilliancy.Soccer.Core.Tests
         {
             var ex = Assert.Throws<UserDataException>(() => _matchModule.AddTournamentMatch(new Common.Dtos.Match.NewMatchDto
             {
-                HomeTeamId = 1,
-                AwayTeamId = 1,
+                HomeTeamName = "Team A",
+                AwayTeamName = "Team A",
                 TournamentId = 1
             }, 1));
             Assert.IsTrue(ex.Message == CoreTranslations.Tournament_SameTeams);

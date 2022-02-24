@@ -1,4 +1,5 @@
 ﻿using Brilliancy.Soccer.WebApi.Models.Match.Read;
+using Brilliancy.Soccer.WebApi.Models.Match.Write;
 using Brilliancy.Soccer.WebApi.Models.Player.Read;
 using Brilliancy.Soccer.WebApi.Models.User.Read;
 using System;
@@ -22,6 +23,8 @@ namespace Brilliancy.Soccer.WebApi.Models.Read.Tournament
 
         public TimeSpan? DefaultHour { get; set; }
 
+        public MatchReadModel NextMatch { get; set; }
+
         public List<UserReadModel> Admins { get; set; }
 
         public List<PlayerReadModel> Players { get; set; }
@@ -32,6 +35,6 @@ namespace Brilliancy.Soccer.WebApi.Models.Read.Tournament
 
         public UserReadModel EmptyUser { get; set; }
 
-        public MatchReadModel EmptyMatch { get; set; }
+        public NewMatchWriteModel EmptyMatch { get; set; }
     }
 }

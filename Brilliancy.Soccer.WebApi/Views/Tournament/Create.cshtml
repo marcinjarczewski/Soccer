@@ -1,14 +1,14 @@
 ﻿@using Newtonsoft.Json
 @using Newtonsoft.Json.Serialization
-
+@using Brilliancy.Soccer.WebApi.Translations
 @model Brilliancy.Soccer.WebApi.Models.Write.Tournament.NewTournamentModel
 @{
-    ViewData["Title"] = "Utwórz";
+    ViewData["Title"] = WebApiTranslations.TournamentController_CreateTitle;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="section-title-wrap">
-    <div class="section-title" data-bind="with:model"><h3 class="section-title-h">Nowy turniej</h3></div>
+    <div class="section-title" data-bind="with:model"><h3 class="section-title-h"><span data-bind="text:$root.translations.newTournament"></span></h3></div>
 </div>
 <div class="col-lg-12">
     <div data-bind="with:model">
@@ -17,13 +17,13 @@
             <div class="col-lg-12 row box">
                 <div class="col-md-6 col-sm-12">
                     <div data-bind="validationElement: name" class="form-group">
-                        <label>Nazwa turnieju</label>
+                        <label><span data-bind="text:$root.translations.tournamentName"></span></label>
                         <input class="form-control" data-bind="value:name">
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <div data-bind="validationElement: address" class="form-group">
-                        <label>Miejsce rozgrywania turnieju</label>
+                        <label><span data-bind="text:$root.translations.tournamentAddress"></span></label>
                         <input class="form-control" type="text" data-bind="value:address">
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                     </div>*@
                 <div class="col-lg-12 row">
                     <a href="" class="btn btn-round btn-round-success" data-toggle="modal" data-bind="click:$root.addTournament">
-                        <i class="fa fa-plus-circle"></i> Stwórz nowy turniej
+                        <i class="fa fa-plus-circle"></i> <span data-bind="text:$root.translations.tournamentCreate"></span>
                     </a>
                 </div>
             </div>

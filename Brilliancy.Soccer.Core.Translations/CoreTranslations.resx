@@ -123,6 +123,9 @@
   <data name="LoginInUse" xml:space="preserve">
     <value>Wprowadzony login jest już zajęty.</value>
   </data>
+  <data name="Match_NoTeamName" xml:space="preserve">
+    <value>Brak nazwy drużyny.</value>
+  </data>
   <data name="NoUser" xml:space="preserve">
     <value>Użytkownik nie istnieje lub jest nieaktywny.</value>
   </data>
