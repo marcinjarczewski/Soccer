@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Brilliancy.Soccer.DbAccess.Migrations
 {
     [DbContext(typeof(SoccerDbContext))]
-    [Migration("20220216102815_AddMatches")]
+    [Migration("20220224115137_AddMatches")]
     partial class AddMatches
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -145,6 +145,16 @@ namespace Brilliancy.Soccer.DbAccess.Migrations
                         {
                             Id = 3,
                             Name = "Finished"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Canceled"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Pending"
                         });
                 });
 

@@ -147,12 +147,12 @@ namespace Brilliancy.Soccer.DbAccess.Migrations
                         new
                         {
                             Id = 4,
-                            Name = "Finished"
+                            Name = "Canceled"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Finished"
+                            Name = "Pending"
                         });
                 });
 
