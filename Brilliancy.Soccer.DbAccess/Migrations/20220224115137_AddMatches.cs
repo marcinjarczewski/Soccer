@@ -153,17 +153,14 @@ namespace Brilliancy.Soccer.DbAccess.Migrations
             migrationBuilder.InsertData(
                 table: "MatchStates",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { 1, "Creating" });
-
-            migrationBuilder.InsertData(
-                table: "MatchStates",
-                columns: new[] { "Id", "Name" },
-                values: new object[] { 2, "Ongoing" });
-
-            migrationBuilder.InsertData(
-                table: "MatchStates",
-                columns: new[] { "Id", "Name" },
-                values: new object[] { 3, "Finished" });
+                values: new object[,]
+                {
+                    { 1, "Creating" },
+                    { 2, "Ongoing" },
+                    { 3, "Finished" },
+                    { 4, "Canceled" },
+                    { 5, "Pending" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Goals_AssistId",
