@@ -1,4 +1,4 @@
-﻿define(['jquery','knockout'], function ($,ko) {
+﻿define(['jquery', 'knockout', 'moment', 'pikaday', "/js/plugins/i18n.js!/nls/translation.js"], function ($,ko, moment, pikaday, translations) {
     ko.bindingHandlers.spinner = {
         init: function (element, valueAccessor, allBindings) {
             var deferred = $.Deferred();
@@ -60,15 +60,13 @@
                 defaultDate = ko.unwrap(allBindings.get('defaultDate')),
                 showTime = ko.unwrap(allBindings.get('showTime') || false),
                 inputFormats = ko.unwrap(allBindings.get('inputFormats'));
-            $(element).pikaday({
+            element.pikaday = new pikaday({
+                field:element,
                 use24hour: true,
-                timeLabel: 'Godzina:',
+                timeLabel: translations.pikaday.hour,
                 format: format,
                 inputFormats: inputFormats,
                 defaultDate: moment(defaultDate).toDate(),
-                toString(date, format) { // using moment
-                    return moment(date).format('MM.DD.YYYY');
-                },
                 yearRange: [1920, 2020],
                 clearInvalidInput: true,
                 showTime: showTime,
@@ -83,18 +81,12 @@
                     }
                 },
                 firstDay: 1,
-                i18n: {
-                    previousMonth: 'Poprzedni miesiąc',
-                    nextMonth: 'Następny miesiąc',
-                    months: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
-                    weekdays: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
-                    weekdaysShort: ['Nie', 'Pon', 'Wto', 'Śro', 'Czw', 'Pią', 'Sob']
-                }
+                i18n:translations.pikaday
             });
         },
         update: function (element, valueAccessor, allBindings) {
             var date = ko.unwrap(valueAccessor());
-            $(element).pikaday('setDate', moment(date).format());
+            element.pikaday.setDate(moment(date).format());
         }
     };
 

@@ -6,16 +6,6 @@
     min-height: calc(100vh - 56px);
 }
 
-.login-panel{
-    padding-top:20px;
-}
-
-.login-body {
-    padding: 10px;
-    margin: 0px auto;
-    max-width: 500px;
-}
-
 .navbar{
     font-weight:700;
     color:white;

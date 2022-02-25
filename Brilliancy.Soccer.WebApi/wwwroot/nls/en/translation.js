@@ -15,6 +15,26 @@ define({
         line3: " for more information. By using this website, you consent to the use of this technology",
         line4: "Accept",
     },
+    pikaday: {
+        previousMonth: 'Previous Month',
+        nextMonth: 'Next Month',
+        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        hour: 'Time:'
+    },
+    matchEdit: {
+        title: "Match edit",
+        home: "Home",
+        away: "Away",
+        matchDate: "Match date",
+        availablePlayers: "Available players",
+        noPlayers: "No players",
+        addHome: "add to home team",
+        addAway: "add to away team",
+        remove: "remove",
+        saveChanges: "save changes"
+    },
     tournamentCreate: {
         created: "The tournament has been created.",
         newTournament: "New tournament",

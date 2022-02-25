@@ -22,7 +22,9 @@ namespace Brilliancy.Soccer.Core
             CreateMap<UserDbModel, UserDto>();
             CreateMap<PlayerDbModel, PlayerDto>();
             CreateMap<MatchDbModel, MatchEditDto>()
-                .ForMember(db => db.StateName, m => m.MapFrom(db => ((MatchStateEnum)db.StateId).ToString()));
+                .ForMember(dto => dto.HomePlayers, m => m.MapFrom(db => db.HomeTeam.Players))
+                .ForMember(dto => dto.AwayPlayers, m => m.MapFrom(db => db.AwayTeam.Players))
+                .ForMember(dto => dto.StateName, m => m.MapFrom(db => ((MatchStateEnum)db.StateId).ToString()));
             CreateMap<NewTournamentDto, TournamentDbModel>();
             CreateMap<NewPlayerDto, PlayerDbModel>();
             CreateMap<NewMatchDto, MatchDbModel>();

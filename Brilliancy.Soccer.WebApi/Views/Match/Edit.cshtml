@@ -1,0 +1,158 @@
+﻿@using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
+@using Brilliancy.Soccer.WebApi.Translations
+@model Brilliancy.Soccer.WebApi.Models.Match.Read.MatchDetailsModel
+@{
+    ViewData["Title"] = WebApiTranslations.MatchController_EditTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="section-title-wrap">
+    <div class="section-title" data-bind="with:model"><h3 class="section-title-h"><span data-bind="text:$root.translations.title"></span></h3></div>
+</div>
+<div class="col-lg-12">
+    <div data-bind="with:model">
+        <div class="overlay" style="display: none;"></div>
+        <div id="tournament-create" style="padding-top:10px;" class="row">
+            <div class="col-lg-12 row box">
+                <div class="col-md-6 col-sm-12">
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div data-bind="validationElement: date" class="form-group">
+                        <label><span data-bind="text:$root.translations.matchDate"></span></label>
+                        <input data-bind=" pikaday: date, format: 'DD.MM.YYYY HH:mm', showTime: true"
+                               class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 row box">
+                <div class="col-md-12 col-sm-12">
+                    <h5><span data-bind="text:$root.translations.availablePlayers"></span></h5>
+                </div>
+                <!-- ko foreach: availablePlayers -->
+                <div class="col-lg-6 col-md-12 row no-margin">
+                    <div class="shadow card list-margin">
+                        <div>
+                            <table style="width:100%">
+                                <thead>
+                                </thead>
+                                <tr>
+                                    <td><span data-bind="text: firstName() +' ' + nickName() + ' ' + lastName()"></span></td>
+                                    <td align="right">
+                                        <a href="" data-bind="click:$root.addHomePlayer" class="btn btn-secondary small-margin">
+                                            <span data-bind="text:$root.translations.addHome"></span>
+                                        </a>
+                                        <a href="" data-bind="click:$root.addAwayPlayer" class="btn btn-info small-margin">
+                                            <span data-bind="text:$root.translations.addAway"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: availablePlayers().length == 0 -->
+                <div class="form-group">
+                    <div class="alert alert-info" role="alert">
+                        <span data-bind="text:$root.translations.noPlayers"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+            <div class="col-lg-12 row box">
+                <div class="col-md-6 col-sm-12">
+                    <div data-bind="validationElement: homeTeamName" class="form-group">
+                        <h5><span data-bind="text:$root.translations.home"></span></h5>
+                        <input class="form-control" data-bind="value:homeTeamName">
+                    </div>
+                    <!-- ko foreach: homePlayers -->
+                    <div class="col-lg-12 col-md-12 row no-margin">
+                        <div class="shadow card list-margin">
+                            <div>
+                                <table style="width:100%">
+                                    <thead>
+                                    </thead>
+                                    <tr>
+                                        <td><span data-bind="text: firstName() +' ' + nickName() + ' ' + lastName()"></span></td>
+                                        <td align="right">
+                                            <a href="" data-bind="click:$root.removeHomePlayer" class="btn btn-danger small-margin">
+                                                <span data-bind="text:$root.translations.remove"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko if: homePlayers().length == 0 -->
+                    <div class="form-group">
+                        <div class="alert alert-info" role="alert">
+                            <span data-bind="text:$root.translations.noPlayers"></span>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div data-bind="validationElement: awayTeamName" class="form-group">
+                        <h5><span data-bind="text:$root.translations.away"></span></h5>
+                        <input class="form-control" type="text" data-bind="value:awayTeamName">
+                    </div>
+                    <!-- ko foreach: awayPlayers -->
+                    <div class="col-lg-12 col-md-12 row no-margin">
+                        <div class="shadow card list-margin">
+                            <div>
+                                <table style="width:100%">
+                                    <thead>
+                                    </thead>
+                                    <tr>
+                                        <td><span data-bind="text: firstName() +' ' + nickName() + ' ' + lastName()"></span></td>
+                                        <td align="right">
+                                            <a href="" data-bind="click:$root.removeAwayPlayer" class="btn btn-danger small-margin">
+                                                <span data-bind="text:$root.translations.remove"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko if: awayPlayers().length == 0 -->
+                    <div class="form-group">
+                        <div class="alert alert-info" role="alert">
+                            <span data-bind="text:$root.translations.noPlayers"></span>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+            <div class="col-lg-12 row">
+                <div>
+                    <a href="" class="btn btn-success" data-bind="click:$root.editCreating">
+                        <span data-bind="text:$root.translations.saveChanges"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        require(['requireConfig'], function () {
+            require(['/js/viewScripts/match/edit.js', 'knockout'], function (viewModel, ko) {
+                @{var json = JsonConvert.SerializeObject(
+                    Model,
+                    Formatting.None,
+                    new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+                }
+                ko.applyBindings(viewModel({
+                json: @Html.Raw(json)
+            }));
+            });
+        });
+    </script>
+}

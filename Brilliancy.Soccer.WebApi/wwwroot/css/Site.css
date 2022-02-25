@@ -1,4 +1,29 @@
-﻿.validationElement {
+﻿.login-panel {
+    padding-top: 20px;
+}
+
+.login-body {
+    padding: 10px;
+    margin: 0px auto;
+    max-width: 500px;
+}
+
+.no-margin{
+    margin-left:0px;
+    margin-right:0px;
+}
+
+.small-margin {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.list-margin {
+    margin: 2px;
+    padding: 5px;
+}
+
+.validationElement {
     color: #b10000;
 }
 

@@ -1,11 +1,11 @@
-﻿using Brilliancy.Soccer.Common.Dtos.Team;
-using Brilliancy.Soccer.Common.Dtos.User;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Brilliancy.Soccer.Common.Dtos.Match
+namespace Brilliancy.Soccer.WebApi.Models.Match.Read
 {
-    public class MatchEditDto
+    public class MatchDetailsModel
     {
         public int Id { get; set; }
 
@@ -21,15 +21,11 @@ namespace Brilliancy.Soccer.Common.Dtos.Match
 
         public int HalfAwayGoals { get; set; }
 
-        public int StateId { get; set; }
+        public List<Player.Read.PlayerReadModel> HomePlayers { get; set; }
 
-        public string StateName { get; set; }
+        public List<Player.Read.PlayerReadModel> AwayPlayers { get; set; }
 
-        public List<Player.PlayerDto> HomePlayers { get; set; }
-
-        public List<Player.PlayerDto> AwayPlayers { get; set; }
-
-        public List<Player.PlayerDto> AvailablePlayers { get; set; }
+        public List<Player.Read.PlayerReadModel> AvailablePlayers { get; set; }
 
         public DateTime? Date { get; set; }
 

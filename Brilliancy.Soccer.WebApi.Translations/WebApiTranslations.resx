@@ -156,6 +156,9 @@
   <data name="MatchController_AddSuccess" xml:space="preserve">
     <value>Dodano nowy mecz</value>
   </data>
+  <data name="MatchController_EditTitle" xml:space="preserve">
+    <value>Edycja meczu</value>
+  </data>
   <data name="PlayerController_Edit" xml:space="preserve">
     <value>Dane o zawodnikach zostały zapisane.</value>
   </data>

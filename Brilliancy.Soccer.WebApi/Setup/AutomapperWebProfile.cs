@@ -27,6 +27,7 @@ namespace Brilliancy.Soccer.WebApi.Setup
             CreateMap<NewTournamentModel, NewTournamentDto>();
             CreateMap<UserDto, UserInfo>();
             CreateMap<UserDto, UserReadModel>();
+            CreateMap<MatchEditDto, MatchDetailsModel>();
             CreateMap<MatchEditDto, MatchReadModel>();
             CreateMap<TournamentDto, EditTournamentModel>();
             CreateMap<PlayerDto, PlayerReadModel>();

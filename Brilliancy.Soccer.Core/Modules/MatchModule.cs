@@ -2,6 +2,7 @@
 using Brilliancy.Soccer.Common.Contracts.Modules;
 using Brilliancy.Soccer.Common.Dtos.Authentication;
 using Brilliancy.Soccer.Common.Dtos.Match;
+using Brilliancy.Soccer.Common.Dtos.Player;
 using Brilliancy.Soccer.Common.Dtos.Tournament;
 using Brilliancy.Soccer.Common.Dtos.User;
 using Brilliancy.Soccer.Common.Enums;
@@ -23,6 +24,22 @@ namespace Brilliancy.Soccer.Core.Modules
         public MatchModule(IMapper mapper, SoccerDbContext context) : base(mapper)
         {
             _dbContext = context;
+        }
+
+        public MatchEditDto GetMatch(int id, int userId)
+        {
+            var match = _dbContext.Matches
+             .Include(t => t.HomeTeam.Players)
+             .Include(t => t.AwayTeam.Players)
+             .Include(t => t.State)
+             .Include(t => t.Tournament.Players)
+             .Include(t => t.Tournament.Admins).FirstOrDefault(t => t.Id == id);
+            var result = _mapper.Map<MatchEditDto>(match);
+            var homeIdPlayers = result.HomePlayers.Select(p => p.Id).ToList();
+            var awayIdPlayers = result.AwayPlayers.Select(p => p.Id).ToList();
+            var availablePlayers = match.Tournament.Players.Where(p => p.IsActive && !homeIdPlayers.Contains(p.Id)).Where(p => !awayIdPlayers.Contains(p.Id)).ToList();
+            result.AvailablePlayers = _mapper.Map<List<PlayerDto>>(availablePlayers);
+            return result;
         }
 
         public int AddTournamentMatch(NewMatchDto dto, int userId)

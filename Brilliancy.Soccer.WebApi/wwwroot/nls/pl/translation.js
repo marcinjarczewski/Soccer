@@ -15,6 +15,26 @@ define({
         line3: ",aby dowiedzieć się więcej. Korzystając z tej strony, wyrażasz zgodę na stosowanie tej technologii.",
         line4: "Akceptuję",
     },
+    pikaday: {
+        previousMonth: 'Poprzedni miesiąc',
+        nextMonth: 'Następny miesiąc',
+        months: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
+        weekdays: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
+        weekdaysShort: ['Nie', 'Pon', 'Wto', 'Śro', 'Czw', 'Pią', 'Sob'],
+        hour: 'Godzina:'
+    },
+    matchEdit: {
+        title: "Edycja meczu",
+        home: "Gospodarze",
+        away: "Goście",
+        matchDate: "Data meczu",
+        availablePlayers: "Dostępni zawodnicy",
+        noPlayers: "brak zawodników",
+        addHome: "dodaj do gospodarzy",
+        addAway: "dodaj do gości",
+        remove: "usuń",
+        saveChanges: "zapisz zmiany"
+    },
     tournamentCreate: {
         created: "Turniej został utworzony",
         newTournament: "Nowy turniej",

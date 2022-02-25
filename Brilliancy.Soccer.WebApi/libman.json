@@ -19,10 +19,6 @@
       "destination": "wwwroot/lib/toastr.js/"
     },
     {
-      "library": "pikaday@1.8.2",
-      "destination": "wwwroot/lib/pikaday/"
-    },
-    {
       "library": "moment.js@2.29.1",
       "destination": "wwwroot/lib/moment.js/"
     },
@@ -67,6 +63,11 @@
     {
       "library": "knockout.mapping@2.4.1",
       "destination": "wwwroot/lib/knockout.mapping/"
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "pikaday-time@1.6.1",
+      "destination": "wwwroot/lib/pikaday-time/"
     }
   ]
 }
