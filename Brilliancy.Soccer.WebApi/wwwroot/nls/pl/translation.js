@@ -28,12 +28,16 @@ define({
         home: "Gospodarze",
         away: "Goście",
         matchDate: "Data meczu",
+        matchState: "Status meczu",
         availablePlayers: "Dostępni zawodnicy",
         noPlayers: "brak zawodników",
         addHome: "dodaj do gospodarzy",
         addAway: "dodaj do gości",
         remove: "usuń",
-        saveChanges: "zapisz zmiany"
+        teamsSaved: "Składy zostały zapisane",
+        teamsConfirmed: "Mecz został potwierdzony",
+        saveChanges: "zapisz zmiany",
+        confirmTeams: "potwierdź składy"
     },
     tournamentCreate: {
         created: "Turniej został utworzony",

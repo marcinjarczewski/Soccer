@@ -15,6 +15,13 @@ define(['jquery', 'storageHelper', 'messageQueue', 'amplify', 'baseRepository'],
                 success: callback,
             });
         },
+        changeToPending: function (data, callback) {
+            return amplify.request({
+                resourceId: "changeToPending",
+                data: data,
+                success: callback,
+            });
+        },
         init: function () {
             amplify.request.define("addMatch", "ajax", {
                 url: apiUrl + "add",
@@ -27,6 +34,15 @@ define(['jquery', 'storageHelper', 'messageQueue', 'amplify', 'baseRepository'],
             });
             amplify.request.define("editCreatingMatch", "ajax", {
                 url: apiUrl + "editCreating",
+                dataType: "json",
+                type: "POST",
+                decoder: "globalDecoder",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", storageHelper.readCookie("token"));
+                }
+            });
+            amplify.request.define("changeToPending", "ajax", {
+                url: apiUrl + "changeToPending",
                 dataType: "json",
                 type: "POST",
                 decoder: "globalDecoder",

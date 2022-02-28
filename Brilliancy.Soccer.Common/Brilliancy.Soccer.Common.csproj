@@ -7,4 +7,8 @@
     <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.3" />
     <PackageReference Include="PagedList" Version="1.17.0" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Brilliancy.Soccer.Common.Translations\Brilliancy.Soccer.Common.Translations.csproj" />
+    <ProjectReference Include="..\Brilliancy.Soccer.Core.Translations\Brilliancy.Soccer.Core.Translations.csproj" />
+  </ItemGroup>
 </Project>

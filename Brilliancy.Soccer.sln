@@ -19,9 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brilliancy.Soccer.DbAccess.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brilliancy.Soccer.Core.Tests", "Brilliancy.Soccer.Core.Tests\Brilliancy.Soccer.Core.Tests.csproj", "{3E8C87A9-0697-4F49-8440-53D209B43320}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brilliancy.Soccer.WebApi.Translations", "Brilliancy.Soccer.WebApi.Translations\Brilliancy.Soccer.WebApi.Translations.csproj", "{F6FB4BEC-7428-4FC8-A30D-60392E6AB13A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brilliancy.Soccer.WebApi.Translations", "Brilliancy.Soccer.WebApi.Translations\Brilliancy.Soccer.WebApi.Translations.csproj", "{F6FB4BEC-7428-4FC8-A30D-60392E6AB13A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brilliancy.Soccer.Core.Translations", "Brilliancy.Soccer.Core.Translations\Brilliancy.Soccer.Core.Translations.csproj", "{9E260BAE-EC8E-4CDD-ADC2-D6C3AB0C8CB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brilliancy.Soccer.Core.Translations", "Brilliancy.Soccer.Core.Translations\Brilliancy.Soccer.Core.Translations.csproj", "{9E260BAE-EC8E-4CDD-ADC2-D6C3AB0C8CB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brilliancy.Soccer.Common.Translations", "Brilliancy.Soccer.Common.Translations\Brilliancy.Soccer.Common.Translations.csproj", "{3ACD7362-60EF-4170-B3B7-999AC65F2F28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +67,10 @@ Global
 		{9E260BAE-EC8E-4CDD-ADC2-D6C3AB0C8CB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E260BAE-EC8E-4CDD-ADC2-D6C3AB0C8CB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E260BAE-EC8E-4CDD-ADC2-D6C3AB0C8CB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ACD7362-60EF-4170-B3B7-999AC65F2F28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ACD7362-60EF-4170-B3B7-999AC65F2F28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ACD7362-60EF-4170-B3B7-999AC65F2F28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ACD7362-60EF-4170-B3B7-999AC65F2F28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

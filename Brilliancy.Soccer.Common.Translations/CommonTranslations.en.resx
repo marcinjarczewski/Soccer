@@ -117,61 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EmptyLogin" xml:space="preserve">
-    <value>Login nie może być pusty.</value>
+  <data name="MatchStateEnum_Canceled" xml:space="preserve">
+    <value>Canceled</value>
   </data>
-  <data name="LoginInUse" xml:space="preserve">
-    <value>Wprowadzony login jest już zajęty.</value>
+  <data name="MatchStateEnum_Creating" xml:space="preserve">
+    <value>In the process of making</value>
   </data>
-  <data name="Match_IncorrectState" xml:space="preserve">
-    <value>Nieprawidłowy stan meczu</value>
+  <data name="MatchStateEnum_Finished" xml:space="preserve">
+    <value>Finished</value>
   </data>
-  <data name="Match_NoTeamName" xml:space="preserve">
-    <value>Brak nazwy drużyny.</value>
+  <data name="MatchStateEnum_Ongoing" xml:space="preserve">
+    <value>Live</value>
   </data>
-  <data name="Match_PlayerNotInTournament" xml:space="preserve">
-    <value>Wskazany zawodnik nie bierze udziału w tym turnieju. </value>
-  </data>
-  <data name="NoUser" xml:space="preserve">
-    <value>Użytkownik nie istnieje lub jest nieaktywny.</value>
-  </data>
-  <data name="Tournament_InvalidAssist" xml:space="preserve">
-    <value>Nieprawidłowy asystent przy bramce.</value>
-  </data>
-  <data name="Tournament_InvalidScorer" xml:space="preserve">
-    <value>Nieprawidłowy strzelec gola.</value>
-  </data>
-  <data name="Tournament_NoAddress" xml:space="preserve">
-    <value>Brak miejsca rozegrania turnieju. </value>
-  </data>
-  <data name="Tournament_NoAwayTeam" xml:space="preserve">
-    <value>Nie odnaleziono drużyny gości.</value>
-  </data>
-  <data name="Tournament_NoGoals" xml:space="preserve">
-    <value>Błąd podczas przetwarzenia strzelonych bramek.</value>
-  </data>
-  <data name="Tournament_NoHomeTeam" xml:space="preserve">
-    <value>Nie odnaleziono drużyny gospodarzy.</value>
-  </data>
-  <data name="Tournament_NoMatch" xml:space="preserve">
-    <value>Nie odnaleziono meczu.</value>
-  </data>
-  <data name="Tournament_NoName" xml:space="preserve">
-    <value>Brak nazwy turnieju.</value>
-  </data>
-  <data name="Tournament_NoPlayer" xml:space="preserve">
-    <value>Dane zawodnika nie zostały uzupełnione</value>
-  </data>
-  <data name="Tournament_NoPrivileges" xml:space="preserve">
-    <value>Brak uprawnień do edycji turnieju.</value>
-  </data>
-  <data name="Tournament_NoTournament" xml:space="preserve">
-    <value>Nie odnaleziono turnieju.</value>
-  </data>
-  <data name="Tournament_NoUser" xml:space="preserve">
-    <value>Wskazano nieistniejącego użytkownika.</value>
-  </data>
-  <data name="Tournament_SameTeams" xml:space="preserve">
-    <value>Drużyna gospodarzy i gości nie może być taka sama.</value>
+  <data name="MatchStateEnum_Pending" xml:space="preserve">
+    <value>Confirmed</value>
   </data>
 </root>

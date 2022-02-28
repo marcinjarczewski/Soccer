@@ -99,7 +99,7 @@ namespace Brilliancy.Soccer.Core.Modules
             {
                 throw new UserDataException(CoreTranslations.Tournament_NoMatch);
             }
-          
+
             var match = _dbContext.Matches
                 .Include(t => t.HomeTeam)
                 .Include(t => t.AwayTeam)
@@ -120,6 +120,26 @@ namespace Brilliancy.Soccer.Core.Modules
             this._dbContext.Matches.Update(match);
             this._dbContext.SaveChanges();
             return match.Id;
+        }
+
+        public void ChangeMatchStateToPending(int matchId, int userId)
+        {
+            var match = _dbContext.Matches
+                .Include(t => t.HomeTeam.Players)
+                .Include(t => t.AwayTeam.Players)
+                .Include(t => t.Tournament.Admins).FirstOrDefault(t => t.Id == matchId);
+            if (match == null || !match.IsActive)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoMatch);
+            }
+            CheckPrivilages(match.Tournament, userId);
+            if (! new List<int> { (int)MatchStateEnum.Creating }.Contains(match.StateId))
+            {
+                throw new UserDataException(CoreTranslations.Match_IncorrectState);
+            }
+            match.StateId = (int)MatchStateEnum.Pending;
+            this._dbContext.Matches.Update(match);
+            this._dbContext.SaveChanges();
         }
 
         public int EditCreatingMatch(MatchCreatingEditDto dto, int userId)
@@ -159,7 +179,7 @@ namespace Brilliancy.Soccer.Core.Modules
                 if (!match.HomeTeam.Players.Any(p => p.Id == homePlayerDto.Id))
                 {
                     var player = match.Tournament.Players.FirstOrDefault(p => p.Id == homePlayerDto.Id);
-                    if(player == null)
+                    if (player == null)
                     {
                         throw new UserDataException(CoreTranslations.Match_PlayerNotInTournament);
                     }
@@ -218,10 +238,10 @@ namespace Brilliancy.Soccer.Core.Modules
             //update goals
             foreach (var goal in match.Goals)
             {
-                if(goal.IsActive)
+                if (goal.IsActive)
                 {
                     var goalDto = dto.FirstOrDefault(g => g.Id == goal.Id);
-                    if(goalDto != null)
+                    if (goalDto != null)
                     {
                         goal.AssistId = goalDto.AssistId;
                         goal.ScorerId = goalDto.ScorerId;
@@ -235,12 +255,12 @@ namespace Brilliancy.Soccer.Core.Modules
             foreach (var goal in dto.Where(g => !g.Id.HasValue))
             {
                 var scorer = match.Tournament.Players.FirstOrDefault(p => p.Id == goal.ScorerId);
-                if(scorer == null)
+                if (scorer == null)
                 {
                     throw new UserDataException(CoreTranslations.Tournament_InvalidScorer);
                 }
                 PlayerDbModel assist = null;
-                if(goal.AssistId.HasValue)
+                if (goal.AssistId.HasValue)
                 {
                     assist = match.Tournament.Players.FirstOrDefault(p => p.Id == goal.AssistId);
                     if (assist == null)
@@ -256,7 +276,7 @@ namespace Brilliancy.Soccer.Core.Modules
                     IsOwnGoal = goal.IsOwnGoal,
                     Time = goal.Time,
                     IsHomeTeam = goal.IsHomeTeam
-                }); 
+                });
             }
 
             this._dbContext.Matches.Update(match);
@@ -266,7 +286,7 @@ namespace Brilliancy.Soccer.Core.Modules
         public void DeleteMatchFromTournament(int matchId, int userId)
         {
             var match = _dbContext.Matches.Include(p => p.Tournament.Admins).FirstOrDefault(p => p.Id == matchId);
-            if(match == null)
+            if (match == null)
             {
                 throw new UserDataException(CoreTranslations.Tournament_NoMatch);
             }
@@ -277,4 +297,3 @@ namespace Brilliancy.Soccer.Core.Modules
         }
     }
 }
- 

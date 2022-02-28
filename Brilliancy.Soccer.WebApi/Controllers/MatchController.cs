@@ -54,6 +54,19 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         }
 
         [Authorize]
+        [HttpPost("ChangeToPending")]
+        public ActionResult ChangeToPending(MatchChangeStateWriteModel model)
+        {
+            _matchModule.ChangeMatchStateToPending(model?.Id ?? 0, this._CurrentUserInfo.Id);
+            return new JsonResult(new BaseResultWithDataReadModel
+            {
+                IsSuccess = true,
+                Data = model?.Id,
+                Message = WebApiTranslations.MatchController_AddSuccess
+            });
+        }
+
+        [Authorize]
         [HttpPost("EditCreating")]
         public ActionResult CreatingEdit(CreatingMatchWriteModel model)
         {

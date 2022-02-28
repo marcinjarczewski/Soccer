@@ -14,6 +14,8 @@ namespace Brilliancy.Soccer.Common.Contracts.Modules
 
         MatchEditDto GetMatch(int id, int userId);
 
+        void ChangeMatchStateToPending(int matchId, int userId);
+
         int EditCreatingMatch(MatchCreatingEditDto dto, int userId);
     }
 }

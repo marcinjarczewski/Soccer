@@ -1,8 +1,8 @@
 define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'globalModel', 'helpers',
      'matchRepository', "/js/plugins/i18n.js!/nls/translation.js"],
     function (ko, mappings, moment, messageQueue, globalModel, helpers, matchRepository, translations) {
-        var ViewModel = function (options) {
-            var mapping = {
+        let ViewModel = function (options) {
+            let mapping = {
                 homeTeamName: {
                     create: function (options) {
                         return ko.validatedObservable(options.data).extend({
@@ -19,7 +19,7 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
                 }
             };
 
-            var vm = {
+            let vm = {
                 globalModel: globalModel(),
                 isBusy: ko.observable(false),
             };
@@ -47,7 +47,6 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
                 vm.model().awayTeamName]);
 
             vm.editCreating = function () {
-                debugger;
                 if (vm.matchErrors().length > 0) {
                     vm.matchErrors.showAllMessages();
                     return false;
@@ -70,12 +69,38 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
                         return false;
                     }
                     else {
-                        messageQueue.addMessage(translations.tournamentCreate.created, 'success');
+                        messageQueue.addMessage(translations.matchEdit.teamsSaved, 'success');
                         $(location).attr('href', '/login/test');
                     }
                     return true;
                 };
                 return matchRepository.editCreating(dataObject, callback);
+            };
+
+            vm.changeState = function () {
+                if (vm.matchErrors().length > 0) {
+                    vm.matchErrors.showAllMessages();
+                    return false;
+                }
+
+                let dataObject = {
+                    id: vm.model().id()
+                };
+                vm.isBusy(true);
+                let callback = function (result) {
+                    vm.globalModel.spinner(false);
+                    vm.isBusy(false);
+                    if (!result.isSuccess) {
+                        helpers.log(result.message, 'error');
+                        return false;
+                    }
+                    else {
+                        messageQueue.addMessage(translations.matchEdit.teamsConfirmed, 'success');
+                        $(location).attr('href', '/login/test');
+                    }
+                    return true;
+                };
+                return matchRepository.changeToPending(dataObject, callback);
             };
 
             return vm;

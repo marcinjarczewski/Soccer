@@ -21,6 +21,10 @@ namespace Brilliancy.Soccer.WebApi.Models.Match.Read
 
         public int HalfAwayGoals { get; set; }
 
+        public int StateId { get; set; }
+
+        public string StateName { get; set; }
+
         public List<Player.Read.PlayerReadModel> HomePlayers { get; set; }
 
         public List<Player.Read.PlayerReadModel> AwayPlayers { get; set; }

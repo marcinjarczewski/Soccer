@@ -28,12 +28,16 @@ define({
         home: "Home",
         away: "Away",
         matchDate: "Match date",
+        matchState: "Match state",
         availablePlayers: "Available players",
         noPlayers: "No players",
         addHome: "add to home team",
         addAway: "add to away team",
         remove: "remove",
-        saveChanges: "save changes"
+        teamsSaved: "Teams have been saved.",
+        teamsConfirmed: "The match has been confirmed.",
+        saveChanges: "save changes",
+        confirmTeams: "confirm teams"
     },
     tournamentCreate: {
         created: "The tournament has been created.",
