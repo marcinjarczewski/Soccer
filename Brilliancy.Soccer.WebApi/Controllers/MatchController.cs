@@ -50,7 +50,6 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         {
             var match = _matchModule.GetMatch(id, this._CurrentUserInfo.Id);
             var model = _mapper.Map<MatchDetailsModel>(match);
-            model.Date = System.DateTime.Now;
             return View(model);
         }
 
@@ -58,7 +57,8 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         [HttpPost("EditCreating")]
         public ActionResult CreatingEdit(CreatingMatchWriteModel model)
         {
-            //var match = _matchModule.GetMatch(id, this._CurrentUserInfo.Id);
+            var dto = _mapper.Map<MatchCreatingEditDto>(model);
+            var match = _matchModule.EditCreatingMatch(dto, this._CurrentUserInfo.Id);
             return new JsonResult(new BaseResultWithDataReadModel
             {
                 IsSuccess = true,

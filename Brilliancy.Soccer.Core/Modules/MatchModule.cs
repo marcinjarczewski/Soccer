@@ -42,6 +42,22 @@ namespace Brilliancy.Soccer.Core.Modules
             return result;
         }
 
+        private void CheckTeamNames(string homeTeam, string awayTeam)
+        {
+            if (string.IsNullOrEmpty(homeTeam))
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoHomeTeam);
+            }
+            if (string.IsNullOrEmpty(awayTeam))
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoAwayTeam);
+            }
+            if (homeTeam == awayTeam)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_SameTeams);
+            }
+        }
+
         public int AddTournamentMatch(NewMatchDto dto, int userId)
         {
             if (dto == null)
@@ -54,20 +70,7 @@ namespace Brilliancy.Soccer.Core.Modules
                 throw new UserDataException(CoreTranslations.Tournament_NoTournament);
             }
             CheckPrivilages(tournament, userId);
-
-            if (string.IsNullOrEmpty(dto.HomeTeamName))
-            {
-                throw new UserDataException(CoreTranslations.Tournament_NoHomeTeam);
-    
-            }
-            if (string.IsNullOrEmpty(dto.AwayTeamName))
-            {
-                throw new UserDataException(CoreTranslations.Tournament_NoAwayTeam);
-            }
-            if (dto.HomeTeamName == dto.AwayTeamName)
-            {
-                throw new UserDataException(CoreTranslations.Tournament_SameTeams);
-            }
+            CheckTeamNames(dto.HomeTeamName, dto.AwayTeamName);
             var state = _dbContext.MatchStates.FirstOrDefault(f => f.Id == (int)MatchStateEnum.Creating);
             var match = _mapper.Map<MatchDbModel>(dto);
             match.HomeTeam = new TeamDbModel
@@ -113,6 +116,75 @@ namespace Brilliancy.Soccer.Core.Modules
             match.HomeGoals = dto.HomeGoals;
             match.HalfAwayGoals = dto.HalfAwayGoals;
             match.HalfHomeGoals = dto.HalfHomeGoals;
+
+            this._dbContext.Matches.Update(match);
+            this._dbContext.SaveChanges();
+            return match.Id;
+        }
+
+        public int EditCreatingMatch(MatchCreatingEditDto dto, int userId)
+        {
+            if (dto == null)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoMatch);
+            }
+
+            var match = _dbContext.Matches
+                .Include(t => t.HomeTeam.Players)
+                .Include(t => t.AwayTeam.Players)
+                .Include(t => t.Tournament.Players)
+                .Include(t => t.Tournament.Admins).FirstOrDefault(t => t.Id == dto.Id);
+            if (match == null || !match.IsActive)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoMatch);
+            }
+            CheckPrivilages(match.Tournament, userId);
+            CheckTeamNames(dto.HomeTeamName, dto.AwayTeamName);
+            match.HomeTeam.Name = dto.HomeTeamName;
+            match.AwayTeam.Name = dto.AwayTeamName;
+            match.Date = dto.Date;
+
+            var homePlayersDto = dto.HomePlayers ?? new List<PlayerDto>();
+            var homePlayersId = homePlayersDto.Where(g => g.Id.HasValue).Select(g => g.Id).ToList();
+            //remove home players
+            var removedHomePlayers = match.HomeTeam.Players.Where(g => !homePlayersId.Contains(g.Id)).ToList();
+            foreach (var removedPlayer in removedHomePlayers)
+            {
+                match.HomeTeam.Players.Remove(removedPlayer);
+            }
+
+            //add home players
+            foreach (var homePlayerDto in homePlayersDto)
+            {
+                if (!match.HomeTeam.Players.Any(p => p.Id == homePlayerDto.Id))
+                {
+                    var player = match.Tournament.Players.FirstOrDefault(p => p.Id == homePlayerDto.Id);
+                    if(player == null)
+                    {
+                        throw new UserDataException(CoreTranslations.Match_PlayerNotInTournament);
+                    }
+                    match.HomeTeam.Players.Add(player);
+                }
+            }
+
+            var awayPlayersDto = dto.AwayPlayers ?? new List<PlayerDto>();
+            var awayPlayersId = awayPlayersDto.Where(g => g.Id.HasValue).Select(g => g.Id).ToList();
+            //remove away players
+            var removedAwayPlayers = match.AwayTeam.Players.Where(g => !awayPlayersId.Contains(g.Id)).ToList();
+            foreach (var removedPlayer in removedAwayPlayers)
+            {
+                match.AwayTeam.Players.Remove(removedPlayer);
+            }
+
+            //add away players
+            foreach (var awayPlayerDto in awayPlayersDto)
+            {
+                if (!match.AwayTeam.Players.Any(p => p.Id == awayPlayerDto.Id))
+                {
+                    var player = match.Tournament.Players.FirstOrDefault(p => p.Id == awayPlayerDto.Id);
+                    match.AwayTeam.Players.Add(player);
+                }
+            }
 
             this._dbContext.Matches.Update(match);
             this._dbContext.SaveChanges();

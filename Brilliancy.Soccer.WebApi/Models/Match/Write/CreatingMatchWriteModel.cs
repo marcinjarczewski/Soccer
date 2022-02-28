@@ -14,8 +14,8 @@ namespace Brilliancy.Soccer.WebApi.Models.Match.Write
 
         public DateTime? Date { get; set; }
 
-        public List<Player.Read.PlayerReadModel> HomePlayers { get; set; }
+        public List<Player.Write.PlayerWriteModel> HomePlayers { get; set; }
 
-        public List<Player.Read.PlayerReadModel> AwayPlayers { get; set; }
+        public List<Player.Write.PlayerWriteModel> AwayPlayers { get; set; }
     }
 }

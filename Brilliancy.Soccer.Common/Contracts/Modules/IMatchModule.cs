@@ -13,5 +13,7 @@ namespace Brilliancy.Soccer.Common.Contracts.Modules
         void EditGoals(List<GoalDto> dto, int matchId, int userId);
 
         MatchEditDto GetMatch(int id, int userId);
+
+        int EditCreatingMatch(MatchCreatingEditDto dto, int userId);
     }
 }

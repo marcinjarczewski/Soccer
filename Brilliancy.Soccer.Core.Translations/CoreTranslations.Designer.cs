@@ -88,6 +88,15 @@ namespace Brilliancy.Soccer.Core.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wskazany zawodnik nie bierze udziału w tym turnieju. .
+        /// </summary>
+        public static string Match_PlayerNotInTournament {
+            get {
+                return ResourceManager.GetString("Match_PlayerNotInTournament", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Użytkownik nie istnieje lub jest nieaktywny..
         /// </summary>
         public static string NoUser {

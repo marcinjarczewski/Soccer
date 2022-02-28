@@ -126,6 +126,9 @@
   <data name="Match_NoTeamName" xml:space="preserve">
     <value>Brak nazwy drużyny.</value>
   </data>
+  <data name="Match_PlayerNotInTournament" xml:space="preserve">
+    <value>Wskazany zawodnik nie bierze udziału w tym turnieju. </value>
+  </data>
   <data name="NoUser" xml:space="preserve">
     <value>Użytkownik nie istnieje lub jest nieaktywny.</value>
   </data>

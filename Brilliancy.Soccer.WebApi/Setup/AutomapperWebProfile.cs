@@ -33,6 +33,7 @@ namespace Brilliancy.Soccer.WebApi.Setup
             CreateMap<PlayerDto, PlayerReadModel>();
             CreateMap<PlayerWriteModel, PlayerDto>()
                 .ForMember(dto => dto.Id, m => m.MapFrom(model => model.Id == 0 ? default(int?) : model.Id));
+            CreateMap<CreatingMatchWriteModel, MatchCreatingEditDto>();
             CreateMap<NewMatchWriteModel, NewMatchDto>();
             CreateMap<LoginDto, UserInfo>()
                .ForMember(dto => dto.IsAdmin, m => m.MapFrom(db => (db.Roles ?? new System.Collections.Generic.List<RoleDto>()).Any(r => r.Id == (int)RoleEnum.Admin)));
