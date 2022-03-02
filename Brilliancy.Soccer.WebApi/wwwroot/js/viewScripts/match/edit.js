@@ -108,6 +108,12 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
                 vm.showModal(true);
             }
 
+            vm.addAwayGoal = function () {
+                vm.showHomeTeam(false);
+                vm.isOwngoal(false);
+                vm.showModal(true);
+            }
+
             vm.editCreating = function () {
                 if (vm.matchErrors().length > 0) {
                     vm.matchErrors.showAllMessages();

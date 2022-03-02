@@ -13,10 +13,6 @@ namespace Brilliancy.Soccer.WebApi.Models.Match.Write
 
         public int AwayGoals { get; set; }
 
-        public int HalfHomeGoals { get; set; }
-
-        public int HalfAwayGoals { get; set; }
-
         public DateTime? Date { get; set; }
 
         public List<GoalWriteModel> HomeGoalsList { get; set; }

@@ -71,7 +71,33 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         [HttpPost("ChangeToOngoing")]
         public ActionResult ChangeToOngoing(MatchChangeStateWriteModel model)
         {
-            _matchModule.ChangeMatchStateToPending(model?.Id ?? 0, this._CurrentUserInfo.Id);
+            _matchModule.ChangeMatchStateToOngoing(model?.Id ?? 0, this._CurrentUserInfo.Id);
+            return new JsonResult(new BaseResultWithDataReadModel
+            {
+                IsSuccess = true,
+                Data = model?.Id,
+                Message = WebApiTranslations.MatchController_AddSuccess
+            });
+        }
+
+        [Authorize]
+        [HttpPost("ChangeToCanceled")]
+        public ActionResult ChangeToCanceled(MatchChangeStateWriteModel model)
+        {
+            _matchModule.ChangeMatchStateToOngoing(model?.Id ?? 0, this._CurrentUserInfo.Id);
+            return new JsonResult(new BaseResultWithDataReadModel
+            {
+                IsSuccess = true,
+                Data = model?.Id,
+                Message = WebApiTranslations.MatchController_AddSuccess
+            });
+        }
+
+        [Authorize]
+        [HttpPost("ChangeToFinished")]
+        public ActionResult ChangeToFinished(MatchChangeStateWriteModel model)
+        {
+            _matchModule.ChangeMatchStateToFinished(model?.Id ?? 0, this._CurrentUserInfo.Id);
             return new JsonResult(new BaseResultWithDataReadModel
             {
                 IsSuccess = true,
@@ -94,12 +120,13 @@ namespace Brilliancy.Soccer.WebApi.Controllers
             });
         }
 
+
         [Authorize]
         [HttpPost("EditPending")]
         public ActionResult EditPending(PendingMatchWriteModel model)
         {
-            //var dto = _mapper.Map<MatchCreatingEditDto>(model);
-            //var match = _matchModule.EditCreatingMatch(dto, this._CurrentUserInfo.Id);
+            var dto = _mapper.Map<MatchPendingEditDto>(model);
+            _matchModule.EditGoals(dto, this._CurrentUserInfo.Id);
             return new JsonResult(new BaseResultWithDataReadModel
             {
                 IsSuccess = true,

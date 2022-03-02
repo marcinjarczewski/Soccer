@@ -144,7 +144,7 @@
                     </div>
                 </div>
             </div>
-            <div data-bind="if:stateId() == 5">
+            <div data-bind="if:stateId() == 5 || stateId() == 2">
                 <div class="col-lg-12 row box">
                     <div class="col-md-6 col-sm-12">
                         <div class="form-group">
@@ -258,6 +258,29 @@
                             <a href="" class="btn btn-success" data-bind="click:$root.addAwayGoal">
                                 <span data-bind="text:$root.translations.addAwayGoal" />
                             </a>
+                            <!-- ko foreach: awayGoalsList -->
+                            <div class="col-lg-12 col-md-12 row no-margin">
+                                <div class="shadow card list-margin">
+                                    <div>
+                                        <table style="width:100%">
+                                            <thead>
+                                            </thead>
+                                            <tr>
+                                                <td>
+                                                    <span data-bind="text: time() + '\' ' + scorerPlayerName()"></span>
+                                                    <span data-bind="if:assistId"><small data-bind="text:' (' + assistPlayerName() + ')'"></small></span>
+                                                </td>
+                                                <td align="right">
+                                                    <a href="" data-bind="click:$root.removeAwayGoal" class="btn btn-danger small-margin">
+                                                        <span data-bind="text:$root.translations.remove"></span>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /ko -->
                         </div>
                     </div>
                     <div>
@@ -325,10 +348,54 @@
                         </div>
                         <!-- /ko -->
                     </div>
+                    <div data-bind="ifnot:$root.showHomeTeam">
+                        <!-- ko foreach: $root.model().awayPlayers -->
+                        <div class="col-lg-12 col-md-12 row no-margin">
+                            <div class="shadow card list-margin">
+                                <div>
+                                    <table style="width:100%">
+                                        <thead>
+                                        </thead>
+                                        <tr>
+                                            <td><span data-bind="text: firstName() +' ' + nickName() + ' ' + lastName()"></span></td>
+                                            <td align="right">
+                                                <a href="" data-bind="click:$root.selectScorer" class="btn btn-primary small-margin">
+                                                    <span data-bind="text:$root.translations.goal"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    </div>
                 </div>
                 <div data-bind="if:$root.newGoalStep() == 2">
                     <div data-bind="if:$root.showHomeTeam">
                         <!-- ko foreach: $root.model().homePlayers -->
+                        <div class="col-lg-12 col-md-12 row no-margin">
+                            <div class="shadow card list-margin">
+                                <div>
+                                    <table style="width:100%">
+                                        <thead>
+                                        </thead>
+                                        <tr>
+                                            <td><span data-bind="text: firstName() +' ' + nickName() + ' ' + lastName()"></span></td>
+                                            <td align="right">
+                                                <a href="" data-bind="click:$root.selectAssist" class="btn btn-primary small-margin">
+                                                    <span data-bind="text:$root.translations.assist"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                    <div data-bind="ifnot:$root.showHomeTeam">
+                        <!-- ko foreach: $root.model().awayPlayers -->
                         <div class="col-lg-12 col-md-12 row no-margin">
                             <div class="shadow card list-margin">
                                 <div>

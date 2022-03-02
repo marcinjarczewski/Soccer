@@ -15,6 +15,7 @@ using Brilliancy.Soccer.WebApi.Models.Player.Write;
 using Brilliancy.Soccer.WebApi.Models.Read.Tournament;
 using Brilliancy.Soccer.WebApi.Models.User.Read;
 using Brilliancy.Soccer.WebApi.Models.Write.Tournament;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Brilliancy.Soccer.WebApi.Setup
@@ -32,6 +33,8 @@ namespace Brilliancy.Soccer.WebApi.Setup
             CreateMap<MatchEditDto, MatchDetailsModel>()
                 .ForMember(dto => dto.HomeGoalsList, m => m.MapFrom(db => db.Goals.Where(g => g.IsHomeTeam)))
                 .ForMember(dto => dto.AwayGoalsList, m => m.MapFrom(db => db.Goals.Where(g => !g.IsHomeTeam)));
+            CreateMap<PendingMatchWriteModel, MatchPendingEditDto>()
+                .ForMember(dto => dto.Goals, m => m.MapFrom<GoalFormatter>());
             CreateMap<MatchEditDto, MatchReadModel>();
             CreateMap<TournamentDto, EditTournamentModel>();
             CreateMap<PlayerDto, PlayerReadModel>();
@@ -41,6 +44,40 @@ namespace Brilliancy.Soccer.WebApi.Setup
             CreateMap<NewMatchWriteModel, NewMatchDto>();
             CreateMap<LoginDto, UserInfo>()
                .ForMember(dto => dto.IsAdmin, m => m.MapFrom(db => (db.Roles ?? new System.Collections.Generic.List<RoleDto>()).Any(r => r.Id == (int)RoleEnum.Admin)));
+        }
+    }
+
+    public class GoalFormatter : IValueResolver<PendingMatchWriteModel, MatchPendingEditDto, List<GoalDto>>
+    {
+        public List<GoalDto> Convert(PendingMatchWriteModel source, MatchPendingEditDto dto, ResolutionContext context)
+        {
+            var goals = source.HomeGoalsList.Select(s => MapGoals(s, true)).ToList();
+            goals.AddRange(source.AwayGoalsList.Select(s => MapGoals(s, false)));
+            return goals;
+        }
+
+        public GoalDto MapGoals(GoalWriteModel model, bool isHomeTeam)
+        {          
+            return new GoalDto
+            {
+                AssistId = model.AssistId,
+                Id = model.Id,
+                IsOwnGoal = model.IsOwnGoal,
+                ScorerId = model.ScorerId,
+                Time = model.Time,
+                IsHomeTeam = isHomeTeam
+            };
+        }
+
+        public List<GoalDto> Resolve(PendingMatchWriteModel source, MatchPendingEditDto destination, List<GoalDto> destMember, ResolutionContext context)
+        {
+            var goals = source.HomeGoalsList?.Select(s => MapGoals(s, true)).ToList() ?? new List<GoalDto>();
+            if (source.AwayGoalsList != null && source.AwayGoalsList.Any())
+            {
+                goals.AddRange(source.AwayGoalsList.Select(s => MapGoals(s, false)));
+            }
+            destMember = goals;
+            return goals;
         }
     }
 }
