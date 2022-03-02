@@ -50,12 +50,26 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         {
             var match = _matchModule.GetMatch(id, this._CurrentUserInfo.Id);
             var model = _mapper.Map<MatchDetailsModel>(match);
+            model.EmptyGoal = new GoalReadModel();
             return View(model);
         }
 
         [Authorize]
         [HttpPost("ChangeToPending")]
         public ActionResult ChangeToPending(MatchChangeStateWriteModel model)
+        {
+            _matchModule.ChangeMatchStateToPending(model?.Id ?? 0, this._CurrentUserInfo.Id);
+            return new JsonResult(new BaseResultWithDataReadModel
+            {
+                IsSuccess = true,
+                Data = model?.Id,
+                Message = WebApiTranslations.MatchController_AddSuccess
+            });
+        }
+
+        [Authorize]
+        [HttpPost("ChangeToOngoing")]
+        public ActionResult ChangeToOngoing(MatchChangeStateWriteModel model)
         {
             _matchModule.ChangeMatchStateToPending(model?.Id ?? 0, this._CurrentUserInfo.Id);
             return new JsonResult(new BaseResultWithDataReadModel
@@ -75,7 +89,21 @@ namespace Brilliancy.Soccer.WebApi.Controllers
             return new JsonResult(new BaseResultWithDataReadModel
             {
                 IsSuccess = true,
-                Data = 1,
+                Data = match,
+                Message = WebApiTranslations.MatchController_AddSuccess
+            });
+        }
+
+        [Authorize]
+        [HttpPost("EditPending")]
+        public ActionResult EditPending(PendingMatchWriteModel model)
+        {
+            //var dto = _mapper.Map<MatchCreatingEditDto>(model);
+            //var match = _matchModule.EditCreatingMatch(dto, this._CurrentUserInfo.Id);
+            return new JsonResult(new BaseResultWithDataReadModel
+            {
+                IsSuccess = true,
+                //Data = match,
                 Message = WebApiTranslations.MatchController_AddSuccess
             });
         }

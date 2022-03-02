@@ -37,7 +37,21 @@ define({
         teamsSaved: "Teams have been saved.",
         teamsConfirmed: "The match has been confirmed.",
         saveChanges: "save changes",
-        confirmTeams: "confirm teams"
+        confirmTeams: "confirm teams",
+        homeGoals: "Home goals",
+        awayGoals: "Away goals",
+        halfHomeGoals: "Home goals to half",
+        halfAwayGoals: "Away goals to half",
+        addHomeGoal: "Add goal (home)",
+        addAwayGoal: "Add goal (away)",
+        goal: "goal",
+        assist: "assist",
+        time: "time",
+        step: "step",
+        minute: "Minute",
+        goalsSaved: "Result has been saved",
+        goOngoing: "go live",
+        endMatch: "end match"
     },
     tournamentCreate: {
         created: "The tournament has been created.",

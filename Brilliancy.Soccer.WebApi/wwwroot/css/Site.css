@@ -1,4 +1,18 @@
-﻿.login-panel {
+﻿.custom-modal {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.step {
+    text-align:center;
+}
+
+.step-active{
+    font-weight:bold;
+    font-style:italic;
+}
+
+.login-panel {
     padding-top: 20px;
 }
 

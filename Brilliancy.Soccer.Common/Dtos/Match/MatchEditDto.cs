@@ -29,6 +29,8 @@ namespace Brilliancy.Soccer.Common.Dtos.Match
 
         public List<Player.PlayerDto> AwayPlayers { get; set; }
 
+        public List<GoalDto> Goals { get; set; }
+
         public List<Player.PlayerDto> AvailablePlayers { get; set; }
 
         public DateTime? Date { get; set; }

@@ -31,6 +31,7 @@ namespace Brilliancy.Soccer.Core.Modules
             var match = _dbContext.Matches
              .Include(t => t.HomeTeam.Players)
              .Include(t => t.AwayTeam.Players)
+             .Include(t => t.Goals)
              .Include(t => t.State)
              .Include(t => t.Tournament.Players)
              .Include(t => t.Tournament.Admins).FirstOrDefault(t => t.Id == id);
@@ -109,8 +110,6 @@ namespace Brilliancy.Soccer.Core.Modules
                 throw new UserDataException(CoreTranslations.Tournament_NoMatch);
             }
             CheckPrivilages(match.Tournament, userId);
-            match.HomeTeam.Name = dto.HomeTeamName;
-            match.AwayTeam.Name = dto.AwayTeamName;
             match.AwayGoals = dto.AwayGoals;
             match.Date = dto.Date;
             match.HomeGoals = dto.HomeGoals;
@@ -133,11 +132,51 @@ namespace Brilliancy.Soccer.Core.Modules
                 throw new UserDataException(CoreTranslations.Tournament_NoMatch);
             }
             CheckPrivilages(match.Tournament, userId);
-            if (! new List<int> { (int)MatchStateEnum.Creating }.Contains(match.StateId))
+            if (! new List<int> { (int)MatchStateEnum.Creating, (int)MatchStateEnum.Finished }.Contains(match.StateId))
             {
                 throw new UserDataException(CoreTranslations.Match_IncorrectState);
             }
             match.StateId = (int)MatchStateEnum.Pending;
+            this._dbContext.Matches.Update(match);
+            this._dbContext.SaveChanges();
+        }
+
+        public void ChangeMatchStateToFinished(int matchId, int userId)
+        {
+            var match = _dbContext.Matches
+                .Include(t => t.HomeTeam.Players)
+                .Include(t => t.AwayTeam.Players)
+                .Include(t => t.Tournament.Admins).FirstOrDefault(t => t.Id == matchId);
+            if (match == null || !match.IsActive)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoMatch);
+            }
+            CheckPrivilages(match.Tournament, userId);
+            if (!new List<int> { (int)MatchStateEnum.Ongoing, (int)MatchStateEnum.Pending }.Contains(match.StateId))
+            {
+                throw new UserDataException(CoreTranslations.Match_IncorrectState);
+            }
+            match.StateId = (int)MatchStateEnum.Finished;
+            this._dbContext.Matches.Update(match);
+            this._dbContext.SaveChanges();
+        }
+
+        public void ChangeMatchStateToOngoing(int matchId, int userId)
+        {
+            var match = _dbContext.Matches
+                .Include(t => t.HomeTeam.Players)
+                .Include(t => t.AwayTeam.Players)
+                .Include(t => t.Tournament.Admins).FirstOrDefault(t => t.Id == matchId);
+            if (match == null || !match.IsActive)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoMatch);
+            }
+            CheckPrivilages(match.Tournament, userId);
+            if (!new List<int> { (int)MatchStateEnum.Pending}.Contains(match.StateId))
+            {
+                throw new UserDataException(CoreTranslations.Match_IncorrectState);
+            }
+            match.StateId = (int)MatchStateEnum.Ongoing;
             this._dbContext.Matches.Update(match);
             this._dbContext.SaveChanges();
         }

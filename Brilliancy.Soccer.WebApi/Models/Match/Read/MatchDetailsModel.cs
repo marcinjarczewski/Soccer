@@ -29,6 +29,10 @@ namespace Brilliancy.Soccer.WebApi.Models.Match.Read
 
         public List<Player.Read.PlayerReadModel> AwayPlayers { get; set; }
 
+        public List<GoalReadModel> HomeGoalsList { get; set; }
+
+        public List<GoalReadModel> AwayGoalsList { get; set; }
+
         public List<Player.Read.PlayerReadModel> AvailablePlayers { get; set; }
 
         public DateTime? Date { get; set; }
@@ -36,5 +40,7 @@ namespace Brilliancy.Soccer.WebApi.Models.Match.Read
         public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }
+
+        public GoalReadModel EmptyGoal { get; set; }
     }
 }

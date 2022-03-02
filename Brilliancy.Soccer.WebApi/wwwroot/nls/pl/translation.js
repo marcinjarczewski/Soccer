@@ -37,7 +37,21 @@ define({
         teamsSaved: "Składy zostały zapisane",
         teamsConfirmed: "Mecz został potwierdzony",
         saveChanges: "zapisz zmiany",
-        confirmTeams: "potwierdź składy"
+        confirmTeams: "potwierdź składy",
+        homeGoals: "Bramki strzelone przez gospodarzy",
+        awayGoals: "Bramki strzelone przez gości",
+        halfHomeGoals: "Bramki strzelone przez gospodarzy do połowy",
+        halfAwayGoals: "Bramki strzelone przez gości do połowy",
+        addHomeGoal: "Dodaj bramkę (gospodarze)",
+        addAwayGoal: "Dodaj bramkę (goście)",
+        goal: "gol",
+        assist: "asysta",
+        time: "czas",
+        step: "krok",
+        minute: "minuta",
+        goalsSaved: "Bramki zostały zapisane",
+        goOngoing: "rozpocznij mecz",
+        endMatch: "zakończ mecz"
     },
     tournamentCreate: {
         created: "Turniej został utworzony",
