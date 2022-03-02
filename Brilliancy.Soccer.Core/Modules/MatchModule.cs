@@ -2,6 +2,7 @@
 using Brilliancy.Soccer.Common.Contracts.Modules;
 using Brilliancy.Soccer.Common.Dtos.Authentication;
 using Brilliancy.Soccer.Common.Dtos.Match;
+using Brilliancy.Soccer.Common.Dtos.Player;
 using Brilliancy.Soccer.Common.Dtos.Tournament;
 using Brilliancy.Soccer.Common.Dtos.User;
 using Brilliancy.Soccer.Common.Enums;
@@ -25,6 +26,41 @@ namespace Brilliancy.Soccer.Core.Modules
             _dbContext = context;
         }
 
+        public MatchEditDto GetMatch(int id, int userId)
+        {
+            var match = _dbContext.Matches
+             .Include(t => t.HomeTeam.Players)
+             .Include(t => t.AwayTeam.Players)
+             .Include(t => t.Goals).ThenInclude(g => g.Assist)
+             .Include(t => t.Goals).ThenInclude(g => g.Scorer)
+             .Include(t => t.State)
+             .Include(t => t.Tournament.Players)
+             .Include(t => t.Tournament.Admins).FirstOrDefault(t => t.Id == id);
+            var result = _mapper.Map<MatchEditDto>(match);
+            result.Goals = _mapper.Map<List<GoalDto>>(match.Goals.Where(g => g.IsActive));
+            var homeIdPlayers = result.HomePlayers.Select(p => p.Id).ToList();
+            var awayIdPlayers = result.AwayPlayers.Select(p => p.Id).ToList();
+            var availablePlayers = match.Tournament.Players.Where(p => p.IsActive && !homeIdPlayers.Contains(p.Id)).Where(p => !awayIdPlayers.Contains(p.Id)).ToList();
+            result.AvailablePlayers = _mapper.Map<List<PlayerDto>>(availablePlayers);
+            return result;
+        }
+
+        private void CheckTeamNames(string homeTeam, string awayTeam)
+        {
+            if (string.IsNullOrEmpty(homeTeam))
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoHomeTeam);
+            }
+            if (string.IsNullOrEmpty(awayTeam))
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoAwayTeam);
+            }
+            if (homeTeam == awayTeam)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_SameTeams);
+            }
+        }
+
         public int AddTournamentMatch(NewMatchDto dto, int userId)
         {
             if (dto == null)
@@ -37,20 +73,7 @@ namespace Brilliancy.Soccer.Core.Modules
                 throw new UserDataException(CoreTranslations.Tournament_NoTournament);
             }
             CheckPrivilages(tournament, userId);
-
-            if (string.IsNullOrEmpty(dto.HomeTeamName))
-            {
-                throw new UserDataException(CoreTranslations.Tournament_NoHomeTeam);
-    
-            }
-            if (string.IsNullOrEmpty(dto.AwayTeamName))
-            {
-                throw new UserDataException(CoreTranslations.Tournament_NoAwayTeam);
-            }
-            if (dto.HomeTeamName == dto.AwayTeamName)
-            {
-                throw new UserDataException(CoreTranslations.Tournament_SameTeams);
-            }
+            CheckTeamNames(dto.HomeTeamName, dto.AwayTeamName);
             var state = _dbContext.MatchStates.FirstOrDefault(f => f.Id == (int)MatchStateEnum.Creating);
             var match = _mapper.Map<MatchDbModel>(dto);
             match.HomeTeam = new TeamDbModel
@@ -73,36 +96,152 @@ namespace Brilliancy.Soccer.Core.Modules
             return match.Id;
         }
 
-        public int EditTournamentMatch(MatchEditDto dto, int userId)
+        public void ChangeMatchStateToPending(int matchId, int userId)
+        {
+            var match = _dbContext.Matches
+                .Include(t => t.HomeTeam.Players)
+                .Include(t => t.AwayTeam.Players)
+                .Include(t => t.Tournament.Admins).FirstOrDefault(t => t.Id == matchId);
+            if (match == null || !match.IsActive)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoMatch);
+            }
+            CheckPrivilages(match.Tournament, userId);
+            if (! new List<int> { (int)MatchStateEnum.Creating, (int)MatchStateEnum.Finished }.Contains(match.StateId))
+            {
+                throw new UserDataException(CoreTranslations.Match_IncorrectState);
+            }
+            match.StateId = (int)MatchStateEnum.Pending;
+            this._dbContext.Matches.Update(match);
+            this._dbContext.SaveChanges();
+        }
+
+        public void ChangeMatchStateToFinished(int matchId, int userId)
+        {
+            var match = _dbContext.Matches
+                .Include(t => t.HomeTeam.Players)
+                .Include(t => t.AwayTeam.Players)
+                .Include(t => t.Tournament.Admins).FirstOrDefault(t => t.Id == matchId);
+            if (match == null || !match.IsActive)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoMatch);
+            }
+            CheckPrivilages(match.Tournament, userId);
+            if (!new List<int> { (int)MatchStateEnum.Ongoing, (int)MatchStateEnum.Pending }.Contains(match.StateId))
+            {
+                throw new UserDataException(CoreTranslations.Match_IncorrectState);
+            }
+            match.StateId = (int)MatchStateEnum.Finished;
+            this._dbContext.Matches.Update(match);
+            this._dbContext.SaveChanges();
+        }
+
+        public void ChangeMatchStateToOngoing(int matchId, int userId)
+        {
+            var match = _dbContext.Matches
+                .Include(t => t.HomeTeam.Players)
+                .Include(t => t.AwayTeam.Players)
+                .Include(t => t.Tournament.Admins).FirstOrDefault(t => t.Id == matchId);
+            if (match == null || !match.IsActive)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoMatch);
+            }
+            CheckPrivilages(match.Tournament, userId);
+            if (!new List<int> { (int)MatchStateEnum.Pending}.Contains(match.StateId))
+            {
+                throw new UserDataException(CoreTranslations.Match_IncorrectState);
+            }
+            match.StateId = (int)MatchStateEnum.Ongoing;
+            this._dbContext.Matches.Update(match);
+            this._dbContext.SaveChanges();
+        }
+
+        public void ChangeMatchStateToCanceled(int matchId, int userId)
+        {
+            var match = _dbContext.Matches
+                .Include(t => t.HomeTeam.Players)
+                .Include(t => t.AwayTeam.Players)
+                .Include(t => t.Tournament.Admins).FirstOrDefault(t => t.Id == matchId);
+            if (match == null || !match.IsActive)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoMatch);
+            }
+            CheckPrivilages(match.Tournament, userId);
+            match.StateId = (int)MatchStateEnum.Canceled;
+            this._dbContext.Matches.Update(match);
+            this._dbContext.SaveChanges();
+        }
+
+        public int EditCreatingMatch(MatchCreatingEditDto dto, int userId)
         {
             if (dto == null)
             {
                 throw new UserDataException(CoreTranslations.Tournament_NoMatch);
             }
-          
+
             var match = _dbContext.Matches
-                .Include(t => t.HomeTeam)
-                .Include(t => t.AwayTeam)
+                .Include(t => t.HomeTeam.Players)
+                .Include(t => t.AwayTeam.Players)
+                .Include(t => t.Tournament.Players)
                 .Include(t => t.Tournament.Admins).FirstOrDefault(t => t.Id == dto.Id);
             if (match == null || !match.IsActive)
             {
                 throw new UserDataException(CoreTranslations.Tournament_NoMatch);
             }
             CheckPrivilages(match.Tournament, userId);
+            CheckTeamNames(dto.HomeTeamName, dto.AwayTeamName);
             match.HomeTeam.Name = dto.HomeTeamName;
             match.AwayTeam.Name = dto.AwayTeamName;
-            match.AwayGoals = dto.AwayGoals;
             match.Date = dto.Date;
-            match.HomeGoals = dto.HomeGoals;
-            match.HalfAwayGoals = dto.HalfAwayGoals;
-            match.HalfHomeGoals = dto.HalfHomeGoals;
+
+            var homePlayersDto = dto.HomePlayers ?? new List<PlayerDto>();
+            var homePlayersId = homePlayersDto.Where(g => g.Id.HasValue).Select(g => g.Id).ToList();
+            //remove home players
+            var removedHomePlayers = match.HomeTeam.Players.Where(g => !homePlayersId.Contains(g.Id)).ToList();
+            foreach (var removedPlayer in removedHomePlayers)
+            {
+                match.HomeTeam.Players.Remove(removedPlayer);
+            }
+
+            //add home players
+            foreach (var homePlayerDto in homePlayersDto)
+            {
+                if (!match.HomeTeam.Players.Any(p => p.Id == homePlayerDto.Id))
+                {
+                    var player = match.Tournament.Players.FirstOrDefault(p => p.Id == homePlayerDto.Id);
+                    if (player == null)
+                    {
+                        throw new UserDataException(CoreTranslations.Match_PlayerNotInTournament);
+                    }
+                    match.HomeTeam.Players.Add(player);
+                }
+            }
+
+            var awayPlayersDto = dto.AwayPlayers ?? new List<PlayerDto>();
+            var awayPlayersId = awayPlayersDto.Where(g => g.Id.HasValue).Select(g => g.Id).ToList();
+            //remove away players
+            var removedAwayPlayers = match.AwayTeam.Players.Where(g => !awayPlayersId.Contains(g.Id)).ToList();
+            foreach (var removedPlayer in removedAwayPlayers)
+            {
+                match.AwayTeam.Players.Remove(removedPlayer);
+            }
+
+            //add away players
+            foreach (var awayPlayerDto in awayPlayersDto)
+            {
+                if (!match.AwayTeam.Players.Any(p => p.Id == awayPlayerDto.Id))
+                {
+                    var player = match.Tournament.Players.FirstOrDefault(p => p.Id == awayPlayerDto.Id);
+                    match.AwayTeam.Players.Add(player);
+                }
+            }
 
             this._dbContext.Matches.Update(match);
             this._dbContext.SaveChanges();
             return match.Id;
         }
 
-        public void EditGoals(List<GoalDto> dto, int matchId, int userId)
+        public void EditGoals(MatchPendingEditDto dto, int userId)
         {
             if (dto == null)
             {
@@ -112,14 +251,16 @@ namespace Brilliancy.Soccer.Core.Modules
             var match = _dbContext.Matches
                 .Include(t => t.Goals)
                 .Include(t => t.Tournament.Players)
-                .Include(t => t.Tournament.Admins).FirstOrDefault(t => t.Id == matchId);
+                .Include(t => t.Tournament.Admins).FirstOrDefault(t => t.Id == dto.Id);
             if (match == null || !match.IsActive)
             {
                 throw new UserDataException(CoreTranslations.Tournament_NoMatch);
             }
             CheckPrivilages(match.Tournament, userId);
+            match.HomeGoals = dto.HomeGoals;
+            match.AwayGoals = dto.AwayGoals;
 
-            var goalIdList = dto.Where(g => g.Id.HasValue).Select(g => g.Id).ToList();
+            var goalIdList = dto.Goals.Where(g => g.Id.HasValue).Select(g => g.Id).ToList();
             //remove goals
             var removedGoals = match.Goals.Where(g => !goalIdList.Contains(g.Id)).ToList();
             foreach (var removedGoal in removedGoals)
@@ -129,10 +270,10 @@ namespace Brilliancy.Soccer.Core.Modules
             //update goals
             foreach (var goal in match.Goals)
             {
-                if(goal.IsActive)
+                if (goal.IsActive)
                 {
-                    var goalDto = dto.FirstOrDefault(g => g.Id == goal.Id);
-                    if(goalDto != null)
+                    var goalDto = dto.Goals.FirstOrDefault(g => g.Id == goal.Id);
+                    if (goalDto != null)
                     {
                         goal.AssistId = goalDto.AssistId;
                         goal.ScorerId = goalDto.ScorerId;
@@ -143,15 +284,15 @@ namespace Brilliancy.Soccer.Core.Modules
                 }
             }
             //add goals
-            foreach (var goal in dto.Where(g => !g.Id.HasValue))
+            foreach (var goal in dto.Goals.Where(g => !g.Id.HasValue || g.Id == 0))
             {
                 var scorer = match.Tournament.Players.FirstOrDefault(p => p.Id == goal.ScorerId);
-                if(scorer == null)
+                if (scorer == null)
                 {
                     throw new UserDataException(CoreTranslations.Tournament_InvalidScorer);
                 }
                 PlayerDbModel assist = null;
-                if(goal.AssistId.HasValue)
+                if (goal.AssistId.HasValue)
                 {
                     assist = match.Tournament.Players.FirstOrDefault(p => p.Id == goal.AssistId);
                     if (assist == null)
@@ -167,7 +308,7 @@ namespace Brilliancy.Soccer.Core.Modules
                     IsOwnGoal = goal.IsOwnGoal,
                     Time = goal.Time,
                     IsHomeTeam = goal.IsHomeTeam
-                }); 
+                });
             }
 
             this._dbContext.Matches.Update(match);
@@ -177,7 +318,7 @@ namespace Brilliancy.Soccer.Core.Modules
         public void DeleteMatchFromTournament(int matchId, int userId)
         {
             var match = _dbContext.Matches.Include(p => p.Tournament.Admins).FirstOrDefault(p => p.Id == matchId);
-            if(match == null)
+            if (match == null)
             {
                 throw new UserDataException(CoreTranslations.Tournament_NoMatch);
             }
@@ -188,4 +329,3 @@ namespace Brilliancy.Soccer.Core.Modules
         }
     }
 }
- 

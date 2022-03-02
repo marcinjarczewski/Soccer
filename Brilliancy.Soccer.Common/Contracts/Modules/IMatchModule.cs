@@ -10,6 +10,16 @@ namespace Brilliancy.Soccer.Common.Contracts.Modules
     {
         int AddTournamentMatch(NewMatchDto dto, int userId);
 
-        void EditGoals(List<GoalDto> dto, int matchId, int userId);
+        void EditGoals(MatchPendingEditDto dto, int userId);
+
+        MatchEditDto GetMatch(int id, int userId);
+
+        void ChangeMatchStateToPending(int matchId, int userId);
+
+        void ChangeMatchStateToOngoing(int matchId, int userId);
+
+        void ChangeMatchStateToFinished(int matchId, int userId);
+
+        int EditCreatingMatch(MatchCreatingEditDto dto, int userId);
     }
 }

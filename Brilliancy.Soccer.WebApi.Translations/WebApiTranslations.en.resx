@@ -156,6 +156,9 @@
   <data name="MatchController_AddSuccess" xml:space="preserve">
     <value>The match has been added.</value>
   </data>
+  <data name="MatchController_EditTitle" xml:space="preserve">
+    <value>Match edit</value>
+  </data>
   <data name="PlayerController_Edit" xml:space="preserve">
     <value>The players data has been saved.</value>
   </data>

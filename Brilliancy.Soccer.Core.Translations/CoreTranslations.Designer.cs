@@ -79,11 +79,29 @@ namespace Brilliancy.Soccer.Core.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nieprawidłowy stan meczu.
+        /// </summary>
+        public static string Match_IncorrectState {
+            get {
+                return ResourceManager.GetString("Match_IncorrectState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Brak nazwy drużyny..
         /// </summary>
         public static string Match_NoTeamName {
             get {
                 return ResourceManager.GetString("Match_NoTeamName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wskazany zawodnik nie bierze udziału w tym turnieju. .
+        /// </summary>
+        public static string Match_PlayerNotInTournament {
+            get {
+                return ResourceManager.GetString("Match_PlayerNotInTournament", resourceCulture);
             }
         }
         

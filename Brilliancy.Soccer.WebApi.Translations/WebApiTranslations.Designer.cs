@@ -178,6 +178,15 @@ namespace Brilliancy.Soccer.WebApi.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edycja meczu.
+        /// </summary>
+        public static string MatchController_EditTitle {
+            get {
+                return ResourceManager.GetString("MatchController_EditTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dane o zawodnikach zostały zapisane..
         /// </summary>
         public static string PlayerController_Edit {
