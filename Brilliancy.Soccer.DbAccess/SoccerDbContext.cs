@@ -41,5 +41,11 @@ namespace Brilliancy.Soccer.DbAccess
         public DbSet<MatchStateDbModel> MatchStates { get; set; }
 
         public DbSet<ConfigurationDbModel> Configurations { get; set; }
+
+        public DbSet<TranslationDbModel> Translations { get; set; }
+
+        public DbSet<TranslationEntryDbModel> TranslationEntries { get; set; }
+
+        public DbSet<LanguageDbModel> Languages { get; set; }
     }
 }
