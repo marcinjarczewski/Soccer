@@ -180,6 +180,9 @@
   <data name="TournamentController_CreateTitle" xml:space="preserve">
     <value>Utwórz turniej</value>
   </data>
+  <data name="TournamentController_Edited" xml:space="preserve">
+    <value>Zmiany zostały zapisane.</value>
+  </data>
   <data name="TournamentController_EditTitle" xml:space="preserve">
     <value>Edytuj turniej</value>
   </data>

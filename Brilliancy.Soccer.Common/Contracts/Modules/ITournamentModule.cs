@@ -12,7 +12,7 @@ namespace Brilliancy.Soccer.Common.Contracts.Modules
 
         int AddTournament(NewTournamentDto dto);
 
-        void EditTournament(NewTournamentDto dto, int userId);
+        void EditTournament(TournamentDto dto, int userId);
 
         void DeleteTournament(int id, int userId);
 

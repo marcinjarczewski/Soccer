@@ -43,7 +43,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         public ActionResult Edit(int id)
         {
             var dto = _tournamentModule.GetTournament(id, _CurrentUserInfo.Id);
-            var model =  _mapper.Map<EditTournamentModel>(dto);
+            var model =  _mapper.Map<EditTournamentReadModel>(dto);
             model.EmptyMatch = new Models.Match.Write.NewMatchWriteModel();
             model.EmptyPlayer = new Models.Player.Read.PlayerReadModel();
             model.EmptyUser = new Models.User.Read.UserReadModel();
@@ -68,6 +68,29 @@ namespace Brilliancy.Soccer.WebApi.Controllers
                     IsSuccess = true,
                     Data = newId,
                     Message = WebApiTranslations.TournamentController_Created
+                });
+            }
+            else
+            {
+                throw new InvalidDataException(WebApiTranslations.TournamentController_InvalidTournamentData);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("EditTournament")]
+        public IActionResult EditTournament(EditTournamentWriteModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var dto = new TournamentDto();
+                _mapper.Map(model, dto);
+                this._tournamentModule.EditTournament(dto, this._CurrentUserInfo.Id);
+
+                return new JsonResult(new BaseResultReadModel
+                {
+                    IsSuccess = true,
+                    Message = WebApiTranslations.TournamentController_Edited
                 });
             }
             else
