@@ -1,4 +1,4 @@
-﻿define(['jquery', 'knockout', 'moment', 'pikaday', "/js/plugins/i18n.js!/nls/translation.js"], function ($,ko, moment, pikaday, translations) {
+﻿define(['jquery', 'knockout', 'moment', 'pikaday', 'dropzone', "/js/plugins/i18n.js!/nls/translation.js"], function ($,ko, moment, pikaday, dropzone, translations) {
     ko.bindingHandlers.spinner = {
         init: function (element, valueAccessor, allBindings) {
             var deferred = $.Deferred();
@@ -181,7 +181,6 @@
             };
 
             $.extend(options, value);
-
             $(element).addClass('dropzone');
             object(new Dropzone(element, options)); // jshint ignore:line
         }

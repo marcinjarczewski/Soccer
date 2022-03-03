@@ -19,6 +19,10 @@ namespace Brilliancy.Soccer.WebApi.Models.Read.Tournament
 
         public string Address { get; set; }
 
+        public int? LogoId { get; set; }
+
+        public string LogoUrl { get; set; }
+
         public int? DefaultDayOfTheWeek { get; set; }
 
         public TimeSpan? DefaultHour { get; set; }

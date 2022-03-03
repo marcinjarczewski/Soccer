@@ -126,6 +126,18 @@
   <data name="BaseController_UnexpectedError" xml:space="preserve">
     <value>Unexpected error</value>
   </data>
+  <data name="FileController_FileEmpty" xml:space="preserve">
+    <value>Sent file is empty.</value>
+  </data>
+  <data name="FileController_FileError" xml:space="preserve">
+    <value>There was a problem uploading the file.</value>
+  </data>
+  <data name="FileController_FileSuccess" xml:space="preserve">
+    <value>The file has been sent.</value>
+  </data>
+  <data name="FileController_IncorrectFormat" xml:space="preserve">
+    <value>Incorrect file format.</value>
+  </data>
   <data name="LoginController_ComparePassword" xml:space="preserve">
     <value>Passwords must be identical</value>
   </data>

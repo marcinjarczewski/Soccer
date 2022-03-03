@@ -59,9 +59,13 @@ define({
         tournamentName: "Nazwa turnieju",
         tournamentAddress: "Miejsce rozgrywania turnieju",
         tournamentCreate: "Stwórz nowy turniej",
+        tournamentLogo: "Logo turnieju",
+        dropzone: "Upuść tu plik, aby go przesłać."
     },
     tournamentEdit: {
-        created: "Turniej został utworzony"
+        edited: "Zmiany zostały zapisane",
+        tournamentLogo: "Logo turnieju",
+        dropzone: "Upuść tu plik, aby go przesłać."
     },
     loginIndex: {
         login: "Logowanie",

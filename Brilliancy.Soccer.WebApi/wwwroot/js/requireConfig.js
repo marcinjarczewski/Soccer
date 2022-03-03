@@ -13,7 +13,7 @@ requirejs.config({
         bootstrap: 'bootstrap/js/bootstrap.bundle',
         floatLabel: 'floatlabels.js/floatlabels.min',
         bootbox: 'bootbox.js/bootbox.min',     
-
+        dropzone:'dropzone/min/dropzone.min',
 
         knockoutWithAddons: '/js/helpers/knockoutWithAddons',
         knockoutToWindow: '/js/helpers/knockoutToWindow',
@@ -30,7 +30,8 @@ requirejs.config({
         loginRepository: '/js/repositories/loginRepository',
         playerRepository: '/js/repositories/playerRepository',
         tournamentRepository: '/js/repositories/tournamentRepository',
-        matchRepository: '/js/repositories/matchRepository'
+        matchRepository: '/js/repositories/matchRepository',
+        fileRepository: '/js/repositories/fileRepository'
     },
     shim: {
         "knockoutValidation": {

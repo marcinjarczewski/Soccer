@@ -61,6 +61,24 @@ namespace Brilliancy.Soccer.Common.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wystąpił problem z serwerem FTP.
+        /// </summary>
+        public static string FtpClient_Error {
+            get {
+                return ResourceManager.GetString("FtpClient_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brak konfiguracji FTP.
+        /// </summary>
+        public static string FtpClient_NoConfig {
+            get {
+                return ResourceManager.GetString("FtpClient_NoConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Anulowany.
         /// </summary>
         public static string MatchStateEnum_Canceled {

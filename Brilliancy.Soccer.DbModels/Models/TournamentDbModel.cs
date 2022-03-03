@@ -13,6 +13,8 @@ namespace Brilliancy.Soccer.DbModels
 
         public string Name { get; set; }
 
+        public FileDbModel Logo { get; set; }
+
         public UserDbModel Owner { get; set; }
 
         public int OwnerId { get; set; }

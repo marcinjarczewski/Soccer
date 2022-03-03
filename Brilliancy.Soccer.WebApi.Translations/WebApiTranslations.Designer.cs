@@ -88,6 +88,42 @@ namespace Brilliancy.Soccer.WebApi.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Przesłany plik jest pusty..
+        /// </summary>
+        public static string FileController_FileEmpty {
+            get {
+                return ResourceManager.GetString("FileController_FileEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wystąpił problem podczas przesyłania pliku..
+        /// </summary>
+        public static string FileController_FileError {
+            get {
+                return ResourceManager.GetString("FileController_FileError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plik został przesłany..
+        /// </summary>
+        public static string FileController_FileSuccess {
+            get {
+                return ResourceManager.GetString("FileController_FileSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Niepoprawny format pliku..
+        /// </summary>
+        public static string FileController_IncorrectFormat {
+            get {
+                return ResourceManager.GetString("FileController_IncorrectFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hasła muszą być identyczne.
         /// </summary>
         public static string LoginController_ComparePassword {

@@ -12,6 +12,10 @@ namespace Brilliancy.Soccer.Common.Dtos.Tournament
 
         public int OwnerId { get; set; }
 
+        public int? LogoId { get; set; }
+
+        public string LogoUrl { get; set; }
+
         public string Address { get; set; }
 
         public int? DefaultDayOfTheWeek { get; set; }

@@ -59,6 +59,13 @@ define({
         tournamentName: "Tournament name",
         tournamentAddress: "The venue of the tournament",
         tournamentCreate: "Create",
+        tournamentLogo: "Tournament logo",
+        dropzone: "Drop a file here to upload it"
+    },
+    tournamentEdit: {
+        edited: "Changes have been saved.",
+        tournamentLogo: "Tournament logo",
+        dropzone: "Drop a file here to upload it"
     },
     loginIndex: {
         login: "Login",

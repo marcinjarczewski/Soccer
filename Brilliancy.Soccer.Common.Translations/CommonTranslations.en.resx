@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FtpClient_Error" xml:space="preserve">
+    <value>There is a problem with the FTP server</value>
+  </data>
+  <data name="FtpClient_NoConfig" xml:space="preserve">
+    <value>Missing FTP configuration</value>
+  </data>
   <data name="MatchStateEnum_Canceled" xml:space="preserve">
     <value>Canceled</value>
   </data>
