@@ -85,6 +85,7 @@ namespace Brilliancy.Soccer.WebApi
             services.AddTransient<ITournamentModule, TournamentModule>();
             services.AddTransient<IPlayerModule, PlayerModule>();
             services.AddTransient<IMatchModule, MatchModule>();
+            services.AddTransient<IFileModule, FileModule>();
         }
     }
 }

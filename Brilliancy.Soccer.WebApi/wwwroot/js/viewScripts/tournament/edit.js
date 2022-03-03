@@ -40,9 +40,27 @@ define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 
                 globalModel: globalModel(),
                 isBusy: ko.observable(false),
             };
-
+            vm.translations = translations.tournamentEdit;
             vm.model = ko.validatedObservable(mappings.fromJS(options.json, mapping));
             vm.newMatch = ko.validatedObservable(mappings.fromJS(ko.toJS(vm.model().emptyMatch), matchMapping));
+            vm.tournamentLogo = {
+                filesRequestUrl: location.protocol + "//" + location.host + '/file/tournamentLogo',
+                dropzone: ko.observable(),
+                initFunc: function () {
+                    this.on("success",
+                        function (file, result) {
+                            if (result.isSuccess) {
+                                vm.model().logoId(result.data.id);
+                                vm.model().logoUrl(result.data.url);
+                            }
+                        });
+                    this.on("addedfile", function () {
+                        if (this.files[1] != null) {
+                            this.removeFile(this.files[0]);
+                        }
+                    });
+                }
+            };
             vm.addPlayer = function () {
                 vm.model().players.push(ko.toJS(vm.model().emptyPlayer));
             };

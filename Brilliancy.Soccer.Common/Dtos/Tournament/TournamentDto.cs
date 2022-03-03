@@ -18,6 +18,10 @@ namespace Brilliancy.Soccer.Common.Dtos.Tournament
 
         public string Address { get; set; }
 
+        public int? LogoId { get; set; }
+
+        public string LogoUrl { get; set; }
+
         public int? DefaultDayOfTheWeek { get; set; }
 
         public MatchEditDto NextMatch { get; set; }

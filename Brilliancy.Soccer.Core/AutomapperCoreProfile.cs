@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Brilliancy.Soccer.Common.Dtos.Authentication;
+using Brilliancy.Soccer.Common.Dtos.File;
 using Brilliancy.Soccer.Common.Dtos.Match;
 using Brilliancy.Soccer.Common.Dtos.Player;
 using Brilliancy.Soccer.Common.Dtos.Tournament;
@@ -20,6 +21,7 @@ namespace Brilliancy.Soccer.Core
             CreateMap<UserDbModel, LoginDto>();
             CreateMap<RoleDbModel, RoleDto>();
             CreateMap<UserDbModel, UserDto>();
+            CreateMap<FileDbModel, FileDto>();
             CreateMap<GoalDbModel, GoalDto>()
                 .ForMember(dto => dto.ScorerPlayerName, m => m.MapFrom(db => db.Scorer.FirstName + " " + db.Scorer.NickName + " " + db.Scorer.LastName))
                 .ForMember(dto => dto.AssistPlayerName, m => m.MapFrom(db => db.Assist != null ? (db.Assist.FirstName + " " + db.Assist.NickName + " " + db.Assist.LastName) : ""));
@@ -31,7 +33,9 @@ namespace Brilliancy.Soccer.Core
             CreateMap<NewTournamentDto, TournamentDbModel>();
             CreateMap<NewPlayerDto, PlayerDbModel>();
             CreateMap<NewMatchDto, MatchDbModel>();
-            CreateMap<TournamentDbModel, TournamentDto>();
+            CreateMap<TournamentDbModel, TournamentDto>()
+                     .ForMember(dto => dto.LogoId, m => m.MapFrom(db => db.Logo != null ? db.Logo.Id : default(int?)))
+                     .ForMember(dto => dto.LogoUrl, m => m.MapFrom(db => db.Logo != null ? db.Logo.Url : string.Empty));
         }
     }
 

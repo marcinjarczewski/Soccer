@@ -36,6 +36,10 @@ namespace Brilliancy.Soccer.Core.Modules
                 throw new UserDataException(CoreTranslations.Tournament_NoAddress);
             }
             var tournament = _mapper.Map<TournamentDbModel>(dto);
+            if(dto.LogoId.HasValue)
+            {
+                tournament.Logo = _dbContext.Files.FirstOrDefault(f => f.Id == dto.LogoId);
+            }
             tournament.IsActive = true;
             tournament.Owner = _dbContext.Users.FirstOrDefault(u => u.Id == tournament.OwnerId);
             if (tournament.Owner == null)
@@ -61,12 +65,16 @@ namespace Brilliancy.Soccer.Core.Modules
             {
                 throw new UserDataException(CoreTranslations.Tournament_NoAddress);
             }
-            var tournament = _dbContext.Tournaments.FirstOrDefault(t => t.Id == dto.Id);
+            var tournament = _dbContext.Tournaments.Include(t => t.Logo).FirstOrDefault(t => t.Id == dto.Id);
             if (tournament == null)
             {
                 throw new UserDataException(CoreTranslations.Tournament_NoTournament);
             }
             CheckPrivilages(tournament, userId);
+            if (dto.LogoId.HasValue)
+            {
+                tournament.Logo = _dbContext.Files.FirstOrDefault(f => f.Id == dto.LogoId);
+            }
             tournament.Address = dto.Address;
             tournament.DefaultDayOfTheWeek = dto.DefaultDayOfTheWeek;
             tournament.DefaultHour = dto.DefaultHour;
@@ -95,6 +103,7 @@ namespace Brilliancy.Soccer.Core.Modules
         {
             var tournament = _dbContext.Tournaments
                 .Include(t => t.Owner)
+                .Include(t => t.Logo)
                 .Include(t => t.Players)
                 .Include(t => t.Teams)
                 .Include(t => t.Admins).FirstOrDefault(t => t.Id == id);

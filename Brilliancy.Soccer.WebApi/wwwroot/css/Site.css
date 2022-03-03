@@ -1,4 +1,12 @@
-﻿.custom-modal {
+﻿.img-preview{
+    max-height:152px;
+}
+
+.image-preview {
+    text-align:center;
+}
+
+.custom-modal {
     max-width: 500px;
     margin: 0 auto;
 }

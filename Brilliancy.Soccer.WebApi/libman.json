@@ -68,6 +68,10 @@
       "provider": "jsdelivr",
       "library": "pikaday-time@1.6.1",
       "destination": "wwwroot/lib/pikaday-time/"
+    },
+    {
+      "library": "dropzone@5.9.3",
+      "destination": "wwwroot/lib/dropzone/"
     }
   ]
 }

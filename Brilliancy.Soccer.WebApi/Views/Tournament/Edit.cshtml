@@ -4,7 +4,7 @@
 @model Brilliancy.Soccer.WebApi.Models.Read.Tournament.EditTournamentModel
 @{
     ViewData["Title"] = WebApiTranslations.TournamentController_EditTitle;
- Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="section-title-wrap">
@@ -27,63 +27,81 @@
                         <input class="form-control" type="text" data-bind="value:address">
                     </div>
                 </div>
-                @*<div class="col-md-12 col-sm-12">
-                        <div data-bind="validationElement: photoId" class="form-group">
-                            <label>Plakat turnieju</label>
-                            <div data-bind="with: $root.tournamentPhoto">
-                                <div class="form-control" data-bind="dropzone: { init: initFunc, url: filesRequestUrl, maxFilesize: 4294967295, dictDefaultMessage: 'Upuść tu plik, aby go przesłać.' }, object: dropzone" id="file-avatar"></div>
-                            </div>
-                        </div>
-                    </div>*@
-                <div class="col-lg-12 row">
-                    <h5>Zawodnicy</h5>
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <tbody data-bind="foreach: players">
-                                <tr data-bind="" class="clickable-row">
-                                    <td><input class="form-control" data-bind="value:firstName"></td>
-                                    <td><input class="form-control" data-bind="value:nickName"></td>
-                                    <td><input class="form-control" data-bind="value:lastName"></td>
-                                    <td class="last-column">
-                                        <a href="" data-bind="click:$root.removePlayer"
-                                           class="btn btn-round btn-round-danger">
-                                            <i class="fa fa-remove"></i> Usuń
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <a href="" class="btn btn-info" data-bind="click:$root.addPlayer">
-                        <i class="fa fa-plus-circle"></i> Dodaj gracza
-                    </a>
-                    <a href="" class="btn btn-info" data-bind="click:$root.editPlayers">
-                        <i class="fa fa-plus-circle"></i> Zapisz zmiany
-                    </a>
-                </div>
-                <div data-bind="with:$parent.newMatch" class="col-lg-12 row">
-                    <h5>Nowy mecz</h5>
-                    <div class="col-md-6 col-sm-12">
-                        <div data-bind="validationElement: homeTeamName" class="form-group">
-                            <label>Gospodarze</label>
-                            <input class="form-control" data-bind="value:homeTeamName">
+            </div>
+            <div class="col-lg-12 row box">
+                <div class="col-md-6 col-sm-12">
+                    <div data-bind="validationElement: logoId" class="form-group">
+                        <label><span data-bind="text:$root.translations.tournamentLogo"></span></label>
+                        <div data-bind="with: $root.tournamentLogo">
+                            <div class="form-control" data-bind="dropzone: { init: initFunc, url: filesRequestUrl, maxFilesize: 4294967295, dictDefaultMessage: $root.translations.dropzone }, object: dropzone" id="file-avatar"></div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-12">
-                        <div data-bind="validationElement: awayTeamName" class="form-group">
-                            <label>Goście</label>
-                            <input class="form-control" type="text" data-bind="value:awayTeamName">
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label></label>
+                        <div class="form-control image-preview dropzone">
+                            <img class="img-preview" data-bind="attr:{src:logoUrl}" />
                         </div>
                     </div>
-                    <a href="" class="btn btn-info" data-bind="click:$root.addMatch">
-                        <i class="fa fa-plus-circle"></i> Utwórz mecz
-                    </a>
                 </div>
-                <div class="col-lg-12 row">
-                    <a href="" class="btn btn-success" data-bind="click:$root.editTournament">
-                        <i class="fa fa-plus-circle"></i> Edytuj turniej
-                    </a>
+            </div>
+            @*<div class="col-md-12 col-sm-12">
+                    <div data-bind="validationElement: photoId" class="form-group">
+                        <label>Plakat turnieju</label>
+                        <div data-bind="with: $root.tournamentPhoto">
+                            <div class="form-control" data-bind="dropzone: { init: initFunc, url: filesRequestUrl, maxFilesize: 4294967295, dictDefaultMessage: 'Upuść tu plik, aby go przesłać.' }, object: dropzone" id="file-avatar"></div>
+                        </div>
+                    </div>
+                </div>*@
+            <div class="col-lg-12 row box">
+                <h5>Zawodnicy</h5>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <tbody data-bind="foreach: players">
+                            <tr data-bind="" class="clickable-row">
+                                <td><input class="form-control" data-bind="value:firstName"></td>
+                                <td><input class="form-control" data-bind="value:nickName"></td>
+                                <td><input class="form-control" data-bind="value:lastName"></td>
+                                <td class="last-column">
+                                    <a href="" data-bind="click:$root.removePlayer"
+                                       class="btn btn-round btn-round-danger">
+                                        <i class="fa fa-remove"></i> Usuń
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+                <a href="" class="btn btn-info" data-bind="click:$root.addPlayer">
+                    <i class="fa fa-plus-circle"></i> Dodaj gracza
+                </a>
+                <a href="" class="btn btn-info" data-bind="click:$root.editPlayers">
+                    <i class="fa fa-plus-circle"></i> Zapisz zmiany
+                </a>
+            </div>
+            <div data-bind="with:$parent.newMatch" class="col-lg-12 row">
+                <h5>Nowy mecz</h5>
+                <div class="col-md-6 col-sm-12">
+                    <div data-bind="validationElement: homeTeamName" class="form-group">
+                        <label>Gospodarze</label>
+                        <input class="form-control" data-bind="value:homeTeamName">
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div data-bind="validationElement: awayTeamName" class="form-group">
+                        <label>Goście</label>
+                        <input class="form-control" type="text" data-bind="value:awayTeamName">
+                    </div>
+                </div>
+                <a href="" class="btn btn-info" data-bind="click:$root.addMatch">
+                    <i class="fa fa-plus-circle"></i> Utwórz mecz
+                </a>
+            </div>
+            <div class="col-lg-12 row">
+                <a href="" class="btn btn-success" data-bind="click:$root.editTournament">
+                    <i class="fa fa-plus-circle"></i> Edytuj turniej
+                </a>
             </div>
         </div>
     </div>

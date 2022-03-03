@@ -18,6 +18,7 @@ namespace Brilliancy.Soccer.DbAccess
             modelBuilder.ApplyConfiguration(new TeamConfiguration());
             modelBuilder.ApplyConfiguration(new MatchConfiguration());
             modelBuilder.ApplyConfiguration(new MatchStateConfiguration());
+            modelBuilder.ApplyConfiguration(new ConfigurationConfiguration());
         }
         public DbSet<UserDbModel> Users { get; set; }
 
@@ -35,6 +36,10 @@ namespace Brilliancy.Soccer.DbAccess
 
         public DbSet<GoalDbModel> Goals { get; set; }
 
+        public DbSet<FileDbModel> Files { get; set; }
+
         public DbSet<MatchStateDbModel> MatchStates { get; set; }
+
+        public DbSet<ConfigurationDbModel> Configurations { get; set; }
     }
 }
