@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Brilliancy.Soccer.WebApi.Models.Read.Tournament
 {
-    public class EditTournamentModel
+    public class EditTournamentReadModel
     {
         public int Id { get; set; }
 

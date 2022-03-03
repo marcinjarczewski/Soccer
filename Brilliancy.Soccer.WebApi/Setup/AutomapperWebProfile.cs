@@ -36,12 +36,13 @@ namespace Brilliancy.Soccer.WebApi.Setup
             CreateMap<PendingMatchWriteModel, MatchPendingEditDto>()
                 .ForMember(dto => dto.Goals, m => m.MapFrom<GoalFormatter>());
             CreateMap<MatchEditDto, MatchReadModel>();
-            CreateMap<TournamentDto, EditTournamentModel>();
+            CreateMap<TournamentDto, EditTournamentReadModel>();
             CreateMap<PlayerDto, PlayerReadModel>();
             CreateMap<PlayerWriteModel, PlayerDto>()
                 .ForMember(dto => dto.Id, m => m.MapFrom(model => model.Id == 0 ? default(int?) : model.Id));
             CreateMap<CreatingMatchWriteModel, MatchCreatingEditDto>();
             CreateMap<NewMatchWriteModel, NewMatchDto>();
+            CreateMap<EditTournamentWriteModel, TournamentDto>();
             CreateMap<LoginDto, UserInfo>()
                .ForMember(dto => dto.IsAdmin, m => m.MapFrom(db => (db.Roles ?? new System.Collections.Generic.List<RoleDto>()).Any(r => r.Id == (int)RoleEnum.Admin)));
         }

@@ -250,6 +250,15 @@ namespace Brilliancy.Soccer.WebApi.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zmiany zostały zapisane..
+        /// </summary>
+        public static string TournamentController_Edited {
+            get {
+                return ResourceManager.GetString("TournamentController_Edited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edytuj turniej.
         /// </summary>
         public static string TournamentController_EditTitle {

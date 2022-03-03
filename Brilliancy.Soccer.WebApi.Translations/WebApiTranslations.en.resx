@@ -180,6 +180,9 @@
   <data name="TournamentController_CreateTitle" xml:space="preserve">
     <value>Create a tournament</value>
   </data>
+  <data name="TournamentController_Edited" xml:space="preserve">
+    <value>The tournament has been saved.</value>
+  </data>
   <data name="TournamentController_EditTitle" xml:space="preserve">
     <value>Edit the tournament</value>
   </data>

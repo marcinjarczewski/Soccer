@@ -222,14 +222,13 @@ namespace Brilliancy.Soccer.Core.Tests
         [Test]
         public void EditTournament_Success()
         {
-            _tournamentModule.EditTournament(new Common.Dtos.Tournament.NewTournamentDto
+            _tournamentModule.EditTournament(new Common.Dtos.Tournament.TournamentDto
             {
                 Id = 1,
                 Address = "testAdr",
                 DefaultDayOfTheWeek = (int)DaysOfTheWeekEnum.Friday,
                 DefaultHour = new System.TimeSpan(17, 0, 0),
                 Name = "Ttt tt",
-                OwnerId = 1,
             },1);
             Assert.Pass();
         }
@@ -237,14 +236,13 @@ namespace Brilliancy.Soccer.Core.Tests
         [Test]
         public void EditTournament_NoPrivilages()
         {
-            var ex = Assert.Throws<UserDataException>(() => _tournamentModule.EditTournament(new Common.Dtos.Tournament.NewTournamentDto
+            var ex = Assert.Throws<UserDataException>(() => _tournamentModule.EditTournament(new Common.Dtos.Tournament.TournamentDto
             {
                 Id = 1,
                 Address = "testAdr",
                 DefaultDayOfTheWeek = (int)DaysOfTheWeekEnum.Friday,
                 DefaultHour = new System.TimeSpan(17, 0, 0),
                 Name = "Ttt tt",
-                OwnerId = 1,
             }, 3));
             Assert.IsTrue(ex.Message == CoreTranslations.Tournament_NoPrivileges);
         }
