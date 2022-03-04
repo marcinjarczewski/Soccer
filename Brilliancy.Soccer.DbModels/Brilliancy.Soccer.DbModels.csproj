@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Data\UserRegisterContentEN.html" />
+    <None Remove="Data\UserRegisterContentPL.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Data\UserRegisterContentEN.html" />
+    <EmbeddedResource Include="Data\UserRegisterContentPL.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.12" />
   </ItemGroup>

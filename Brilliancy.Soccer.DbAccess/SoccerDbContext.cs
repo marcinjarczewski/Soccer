@@ -19,7 +19,13 @@ namespace Brilliancy.Soccer.DbAccess
             modelBuilder.ApplyConfiguration(new MatchConfiguration());
             modelBuilder.ApplyConfiguration(new MatchStateConfiguration());
             modelBuilder.ApplyConfiguration(new ConfigurationConfiguration());
+            modelBuilder.ApplyConfiguration(new LanguageConfiguration());
+            modelBuilder.ApplyConfiguration(new TranslationConfiguration());
+            modelBuilder.ApplyConfiguration(new TranslationEntryConfiguration());
+            modelBuilder.ApplyConfiguration(new TemplateConfiguration());
+            modelBuilder.ApplyConfiguration(new EmailConfiguration());
         }
+
         public DbSet<UserDbModel> Users { get; set; }
 
         public DbSet<RoleDbModel> Roles { get; set; }
@@ -38,8 +44,18 @@ namespace Brilliancy.Soccer.DbAccess
 
         public DbSet<FileDbModel> Files { get; set; }
 
+        public DbSet<EmailDbModel> Emails { get; set; }
+
         public DbSet<MatchStateDbModel> MatchStates { get; set; }
 
         public DbSet<ConfigurationDbModel> Configurations { get; set; }
+
+        public DbSet<TranslationDbModel> Translations { get; set; }
+
+        public DbSet<TranslationEntryDbModel> TranslationEntries { get; set; }
+
+        public DbSet<LanguageDbModel> Languages { get; set; }
+
+        public DbSet<TemplateDbModel> Templates { get; set; }
     }
 }
