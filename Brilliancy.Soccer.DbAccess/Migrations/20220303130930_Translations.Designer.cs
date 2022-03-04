@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Brilliancy.Soccer.DbAccess.Migrations
 {
     [DbContext(typeof(SoccerDbContext))]
-    [Migration("20220303124516_Translations")]
+    [Migration("20220303130930_Translations")]
     partial class Translations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -386,8 +386,6 @@ namespace Brilliancy.Soccer.DbAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LanguageId");
-
                     b.HasIndex("TranslationId");
 
                     b.ToTable("TranslationEntries");
@@ -581,7 +579,7 @@ namespace Brilliancy.Soccer.DbAccess.Migrations
                 {
                     b.HasOne("Brilliancy.Soccer.DbModels.LanguageDbModel", "Language")
                         .WithMany("TranslationEntries")
-                        .HasForeignKey("LanguageId")
+                        .HasForeignKey("TranslationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

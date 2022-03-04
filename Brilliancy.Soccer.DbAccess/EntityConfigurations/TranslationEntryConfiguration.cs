@@ -1,4 +1,5 @@
-﻿using Brilliancy.Soccer.DbModels;
+﻿using Brilliancy.Soccer.Common.Helpers;
+using Brilliancy.Soccer.DbModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -19,6 +20,22 @@ namespace Brilliancy.Soccer.DbAccess.EntityConfigurations
              .WithMany(t => t.TranslationEntries)
              .HasForeignKey(t => t.TranslationId)
              .IsRequired();
+
+            modelBuilder.HasData(new TranslationEntryDbModel
+            {
+                Id = 1,
+                LanguageId = 2,
+                Text = ResourceHelper.GetResourceAsString("UserRegisterContentEN.html", typeof(UserDbModel)),
+                TranslationId = 1
+            });
+
+            modelBuilder.HasData(new TranslationEntryDbModel
+            {
+                Id = 2,
+                LanguageId = 2,
+                Text = "@Model.Name - welcome to Soccer portal!",
+                TranslationId = 2
+            });
         }
     }
 }

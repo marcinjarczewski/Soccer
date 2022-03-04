@@ -45,8 +45,8 @@ namespace Brilliancy.Soccer.DbAccess.Migrations
                 {
                     table.PrimaryKey("PK_TranslationEntries", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TranslationEntries_Languages_LanguageId",
-                        column: x => x.LanguageId,
+                        name: "FK_TranslationEntries_Languages_TranslationId",
+                        column: x => x.TranslationId,
                         principalTable: "Languages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -57,11 +57,6 @@ namespace Brilliancy.Soccer.DbAccess.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TranslationEntries_LanguageId",
-                table: "TranslationEntries",
-                column: "LanguageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TranslationEntries_TranslationId",
