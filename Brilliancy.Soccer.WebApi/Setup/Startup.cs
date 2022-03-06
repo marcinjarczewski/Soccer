@@ -12,6 +12,7 @@ using Brilliancy.Soccer.WebApi.Setup;
 using Brilliancy.Soccer.DbModels.Interfaces;
 using Brilliancy.Soccer.DbAccess.Repositories;
 using Brilliancy.Soccer.WebApi.Providers;
+using Brilliancy.Soccer.Common.Contracts.Repositories;
 
 namespace Brilliancy.Soccer.WebApi
 {
@@ -79,7 +80,9 @@ namespace Brilliancy.Soccer.WebApi
             var mapper = AutomapperBootstrapper.Init();
 
             services.AddSingleton(mapper);
-            services.AddTransient<ILoginRepository, LoginRepository>();
+            services.AddTransient<ILoginRepository, LoginModule>();
+            services.AddTransient<IEmailRepository, EmailModule>();
+            services.AddTransient<IConfigurationRepository, ConfigurationModule>();
             services.AddTransient<IApplicationUserManager, ApplicationUserManager>();
             services.AddTransient<ILoginModule, LoginModule>();
             services.AddTransient<ITournamentModule, TournamentModule>();

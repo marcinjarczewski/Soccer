@@ -9,6 +9,7 @@ using Brilliancy.Soccer.Common.Enums;
 using Brilliancy.Soccer.DbModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Brilliancy.Soccer.Core
@@ -18,7 +19,8 @@ namespace Brilliancy.Soccer.Core
         public AutomapperCoreProfile()
         {
             CreateMap<RegisterUserDto, UserDbModel>();
-            CreateMap<UserDbModel, LoginDto>();
+            CreateMap<UserDbModel, LoginDto>()
+                .ForMember(dto => dto.Roles, m => m.MapFrom(db => db.UserRoles.Select(u => new RoleDto { Id = u.RoleId, Name = ((RoleEnum)u.RoleId).ToString() }).ToList()));
             CreateMap<RoleDbModel, RoleDto>();
             CreateMap<UserDbModel, UserDto>();
             CreateMap<FileDbModel, FileDto>();

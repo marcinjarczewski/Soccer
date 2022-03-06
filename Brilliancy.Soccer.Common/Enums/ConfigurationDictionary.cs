@@ -13,5 +13,23 @@
         public static string FtpUser = "FtpUser";
 
         public static string FtpPassword = "FtpPassword";
+
+        public static string EmailRegisterAddress = "EmailRegisterAddress";
+
+        public static string EmailRegisterName = "EmailRegisterName";
+
+        public static string EmailRegisterPassword = "EmailRegisterPassword";
+
+        public static string EmailRegisterSMTP = "EmailRegisterSMTP";
+
+        public static string EmailRegisterPort = "EmailRegisterPort";
+
+        public static string EmailRegisterSSLEnabled = "EmailRegisterSSLEnabled";
+
+        public static string EmailRegisterReplyTo = "EmailRegisterReplyTo";
+
+        public static string EmailServiceSleepTime = "EmailServiceSleepTime";
+
+        public static string EmailServiceSendingTime = "EmailServiceSendingTime";
     }
 }
