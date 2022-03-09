@@ -5,8 +5,8 @@ namespace Brilliancy.Soccer.Common.Contracts.Repositories
 {
     public interface IEmailRepository
     {
-        IList<EmailDto> GetEmailsToSend();
+        IList<EmailDto> GetEmailsToSend(int maxCounter);
 
-        EmailDto Update(EmailDto entity);
+        EmailDto Update(EmailDto dto);
     }
 }

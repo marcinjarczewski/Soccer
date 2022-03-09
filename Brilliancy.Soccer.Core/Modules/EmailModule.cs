@@ -56,12 +56,12 @@ namespace Brilliancy.Soccer.Core.Modules
             emailService.WakeUp();
         }
 
-        public IList<EmailDto> GetEmailsToSend()
+        public IList<EmailDto> GetEmailsToSend(int maxCounter)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<List<EmailDto>>(_dbContext.Emails.Where(e => e.DateSent == null && e.Counter <= maxCounter).ToList());
         }
 
-        public EmailDto Update(EmailDto entity)
+        public EmailDto Update(EmailDto dto)
         {
             throw new NotImplementedException();
         }

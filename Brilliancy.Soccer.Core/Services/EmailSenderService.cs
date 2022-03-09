@@ -15,13 +15,11 @@ namespace Brilliancy.Soccer.Core.Services
     public class EmailSenderService
     {
         private volatile bool isRunning = false;
-
-        protected AutoResetEvent WaitHandle =  new AutoResetEvent(false);
-
+        protected AutoResetEvent WaitHandle = new AutoResetEvent(false);
         private static readonly object _lock = new object();
-        private IConfigurationRepository configurationRepository;
-        private IEmailRepository emailRepository;
 
+        private IConfigurationRepository _configurationRepository;
+        private IEmailRepository _emailRepository;
         private EmailSenderService() { }
         private static EmailSenderService _instance;
 
@@ -30,29 +28,28 @@ namespace Brilliancy.Soccer.Core.Services
             _instance.WaitHandle.Set();
         }
 
-        public static EmailSenderService Init(
-            IConfigurationRepository configurationRepository,
-            IEmailRepository emailRepository)
+        public EmailSenderService(IConfigurationRepository configurationRepository,IEmailRepository emailRepository)
         {
-
-            _instance = new EmailSenderService();
-            _instance.configurationRepository = configurationRepository;
-            _instance.emailRepository = emailRepository;
-
-            return _instance;
+            if (_instance == null)
+            {
+                lock (_lock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new EmailSenderService();
+                        _instance._configurationRepository = configurationRepository;
+                        _instance._emailRepository = emailRepository;
+                    }
+                }
+            }
         }
 
         public static EmailSenderService GetInstance()
         {
-            if(_instance == null)
-            {
-                throw new NullReferenceException("");
-            }
-
             return _instance;
         }
 
-        public void Start()
+        internal void Start()
         {
             var thread = new Thread(new ThreadStart(this.Running));
             thread.IsBackground = false;
@@ -61,12 +58,12 @@ namespace Brilliancy.Soccer.Core.Services
             thread.Start();
         }
 
-        public void Stop()
+        internal void Stop()
         {
             this.isRunning = false;
         }
 
-        public void Running()
+        private void Running()
         {
             while (this.isRunning)
             {
@@ -80,70 +77,79 @@ namespace Brilliancy.Soccer.Core.Services
 
         private int Send()
         {
-            var emails = this.emailRepository.GetEmailsToSend();
-            int emailServiceSleepTime = int.Parse(this.configurationRepository.GetValue(ConfigurationDictionary.EmailServiceSleepTime));
-
-            if (emails.Count > 0)
+            try
             {
-                var emailAddress = this.configurationRepository.GetValue(ConfigurationDictionary.EmailRegisterAddress);
-                var emailName = this.configurationRepository.GetValue(ConfigurationDictionary.EmailRegisterName);
-                var emailPassword = this.configurationRepository.GetValue(ConfigurationDictionary.EmailRegisterPassword);
-                var emailHost = this.configurationRepository.GetValue(ConfigurationDictionary.EmailRegisterSMTP);
-                int emailPort = int.Parse(this.configurationRepository.GetValue(ConfigurationDictionary.EmailRegisterPort));
-                bool emailSSL = bool.Parse(this.configurationRepository.GetValue(ConfigurationDictionary.EmailRegisterSSLEnabled));
-                var emailRegisterReplyTo = this.configurationRepository.GetValue(ConfigurationDictionary.EmailRegisterReplyTo);
-                var emailSendingTime = this.configurationRepository.GetValue(ConfigurationDictionary.EmailServiceSendingTime);
+                var configurationRepository = _instance._configurationRepository;
+                var emailRepository = _instance._emailRepository;
+
+                var emailSendingTime = configurationRepository.GetValue(ConfigurationDictionary.EmailServiceSendingTime);
                 var timeTable = emailSendingTime.Split(';').Select(t => int.Parse(t));
-
-                var smtp = new SmtpClient(emailHost, emailPort);
-                if (emailSSL) smtp.EnableSsl = true;
-                smtp.Credentials = new NetworkCredential(emailAddress, emailPassword);
-
-                foreach (var email in emails)
+                var emails = emailRepository.GetEmailsToSend(timeTable.Count());
+                int emailServiceSleepTime = int.Parse(configurationRepository.GetValue(ConfigurationDictionary.EmailServiceSleepTime));
+                if (emails.Count > 0)
                 {
-                    if (IsSendingTime(timeTable, email))
+                    var emailAddress = configurationRepository.GetValue(ConfigurationDictionary.EmailRegisterAddress);
+                    var emailName = configurationRepository.GetValue(ConfigurationDictionary.EmailRegisterName);
+                    var emailPassword = configurationRepository.GetValue(ConfigurationDictionary.EmailRegisterPassword);
+                    var emailHost = configurationRepository.GetValue(ConfigurationDictionary.EmailRegisterSMTP);
+                    int emailPort = int.Parse(configurationRepository.GetValue(ConfigurationDictionary.EmailRegisterPort));
+                    bool emailSSL = bool.Parse(configurationRepository.GetValue(ConfigurationDictionary.EmailRegisterSSLEnabled));
+                    var emailRegisterReplyTo = configurationRepository.GetValue(ConfigurationDictionary.EmailRegisterReplyTo);
+
+                    var smtp = new SmtpClient(emailHost, emailPort);
+                    if (emailSSL) smtp.EnableSsl = true;
+                    smtp.Credentials = new NetworkCredential(emailAddress, emailPassword);
+
+                    foreach (var email in emails)
                     {
-                        try
+                        if (IsSendingTime(timeTable, email))
                         {
-                            MailMessage mailMessage = new MailMessage { IsBodyHtml = true };
-                            mailMessage.From = new MailAddress(emailAddress, emailName);
-                            mailMessage.ReplyToList.Add(new MailAddress(emailRegisterReplyTo));
-                            mailMessage.Subject = email.Subject;
-
-                            if (string.IsNullOrEmpty(email.Address))
+                            try
                             {
-                                throw new NullReferenceException("Recipient is null");
+                                MailMessage mailMessage = new MailMessage { IsBodyHtml = true };
+                                mailMessage.From = new MailAddress(emailAddress, emailName);
+                                mailMessage.ReplyToList.Add(new MailAddress(emailRegisterReplyTo));
+                                mailMessage.Subject = email.Subject;
+
+                                if (string.IsNullOrEmpty(email.Address))
+                                {
+                                    throw new NullReferenceException("Recipient is null");
+                                }
+
+                                if (string.IsNullOrEmpty(email.Recipient))
+                                {
+                                    mailMessage.To.Add(new MailAddress(email.Address));
+                                }
+                                else
+                                {
+                                    mailMessage.To.Add(new MailAddress(email.Address, email.Recipient));
+                                }
+
+                                var htmlView = AlternateView.CreateAlternateViewFromString(email.Body, null, MediaTypeNames.Text.Html);
+                                mailMessage.AlternateViews.Add(htmlView);
+
+                                smtp.Send(mailMessage);
+                                email.DateSent = DateTime.Now;
+                            }
+                            catch (Exception ex)
+                            {
+                                email.Counter++;
+                                email.LastErrorMessage = ex.Message;
                             }
 
-                            if (string.IsNullOrEmpty(email.Recipient))
-                            {
-                                mailMessage.To.Add(new MailAddress(email.Address));
-                            }
-                            else
-                            {
-                                mailMessage.To.Add(new MailAddress(email.Address, email.Recipient));
-                            }
-
-                            var htmlView = AlternateView.CreateAlternateViewFromString(email.Body, null, MediaTypeNames.Text.Html);
-                            mailMessage.AlternateViews.Add(htmlView);
-
-                            smtp.Send(mailMessage);
-                            email.DateSent = DateTime.Now;
+                            emailRepository.Update(email);
                         }
-                        catch (Exception ex)
-                        {
-                            email.Counter++;
-                            email.LastErrorMessage = ex.Message;
-                        }
-
-                        emailRepository.Update(email);
                     }
                 }
+                return emailServiceSleepTime;
+            }
+            catch (Exception ex)
+            {
+
             }
 
-            return emailServiceSleepTime;
+            return 60 * 1000; // one minute default
         }
-
         private void Sleep(int time)
         {
             _instance.WaitHandle.WaitOne(time);

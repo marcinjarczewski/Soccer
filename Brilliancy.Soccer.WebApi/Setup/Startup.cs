@@ -10,9 +10,9 @@ using Brilliancy.Soccer.Common.Contracts.Modules;
 using Brilliancy.Soccer.Core.Modules;
 using Brilliancy.Soccer.WebApi.Setup;
 using Brilliancy.Soccer.DbModels.Interfaces;
-using Brilliancy.Soccer.DbAccess.Repositories;
 using Brilliancy.Soccer.WebApi.Providers;
 using Brilliancy.Soccer.Common.Contracts.Repositories;
+using Brilliancy.Soccer.Core.Services;
 
 namespace Brilliancy.Soccer.WebApi
 {
@@ -43,6 +43,7 @@ namespace Brilliancy.Soccer.WebApi
                   options.AccessDeniedPath = new PathString("/login?unauth");
               });
 
+            services.AddHostedService<ServiceManager>();
         }
 
 
@@ -80,15 +81,15 @@ namespace Brilliancy.Soccer.WebApi
             var mapper = AutomapperBootstrapper.Init();
 
             services.AddSingleton(mapper);
-            services.AddTransient<ILoginRepository, LoginModule>();
-            services.AddTransient<IEmailRepository, EmailModule>();
-            services.AddTransient<IConfigurationRepository, ConfigurationModule>();
-            services.AddTransient<IApplicationUserManager, ApplicationUserManager>();
-            services.AddTransient<ILoginModule, LoginModule>();
-            services.AddTransient<ITournamentModule, TournamentModule>();
-            services.AddTransient<IPlayerModule, PlayerModule>();
-            services.AddTransient<IMatchModule, MatchModule>();
-            services.AddTransient<IFileModule, FileModule>();
+            services.AddScoped<ILoginRepository, LoginModule>();
+            services.AddScoped<IEmailRepository, EmailModule>();
+            services.AddScoped<IConfigurationRepository, ConfigurationModule>();
+            services.AddScoped<IApplicationUserManager, ApplicationUserManager>();
+            services.AddScoped<ILoginModule, LoginModule>();
+            services.AddScoped<ITournamentModule, TournamentModule>();
+            services.AddScoped<IPlayerModule, PlayerModule>();
+            services.AddScoped<IMatchModule, MatchModule>();
+            services.AddScoped<IFileModule, FileModule>();
         }
     }
 }
