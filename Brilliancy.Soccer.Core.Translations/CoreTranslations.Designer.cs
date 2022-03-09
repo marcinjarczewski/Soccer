@@ -61,6 +61,51 @@ namespace Brilliancy.Soccer.Core.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Brak wskazanego emaila..
+        /// </summary>
+        public static string Email_NoEmail {
+            get {
+                return ResourceManager.GetString("Email_NoEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brak szablonu wiadomości email.
+        /// </summary>
+        public static string Email_NoTemplate {
+            get {
+                return ResourceManager.GetString("Email_NoTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wystąpił problem z emailem..
+        /// </summary>
+        public static string EmailSender_NoEmail {
+            get {
+                return ResourceManager.GetString("EmailSender_NoEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adres email nie został podany..
+        /// </summary>
+        public static string EmailSender_NoEmailAddress {
+            get {
+                return ResourceManager.GetString("EmailSender_NoEmailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wystąpił problem z konfiguracją usługi wysyłającą maile..
+        /// </summary>
+        public static string EmailSender_WrongConfig {
+            get {
+                return ResourceManager.GetString("EmailSender_WrongConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login nie może być pusty..
         /// </summary>
         public static string EmptyLogin {

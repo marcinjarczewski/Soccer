@@ -1,4 +1,5 @@
 ﻿
+using Brilliancy.Soccer.Common.Contracts.Repositories;
 using Brilliancy.Soccer.Common.Dtos.Authentication;
 using Brilliancy.Soccer.Common.Exceptions;
 using Brilliancy.Soccer.DbModels.Interfaces;
@@ -13,8 +14,6 @@ using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Brilliancy.Soccer.WebApi.Providers
 {
@@ -30,7 +29,7 @@ namespace Brilliancy.Soccer.WebApi.Providers
 
         public LoginDto LoginUser(string login, string password)
         {
-            var user =  _loginRepository.GetUser(login);
+            var user =  _loginRepository.GetUserForUserManager(login);
             if(user == null)
             {
                 return null;

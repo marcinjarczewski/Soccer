@@ -53,6 +53,10 @@ namespace Brilliancy.Soccer.Core.Modules
 
         public void EditTournament(TournamentDto dto, int userId)
         {
+            if (dto == null)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoTournament);
+            }
             if (string.IsNullOrEmpty(dto.Name))
             {
                 throw new UserDataException(CoreTranslations.Tournament_NoName);

@@ -4,10 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Brilliancy.Soccer.DbModels.Interfaces
+namespace Brilliancy.Soccer.Common.Contracts.Repositories
 {
-    public interface ILoginRepository
+    public interface IConfigurationRepository
     {
-        LoginDto GetUser(string login);
+        string GetValue(string key);
     }
 }

@@ -5,7 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Brilliancy.Soccer.Core.Tests</_Parameter1>
+    </AssemblyAttribute>
+    <!-- Make assembly usable for Moq, so Moq is able to instanciate objects of 'internal' classes -->
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+  
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
     <PackageReference Include="PagedList" Version="1.17.0" />
   </ItemGroup>
 

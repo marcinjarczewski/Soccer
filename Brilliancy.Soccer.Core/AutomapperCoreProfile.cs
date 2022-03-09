@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Brilliancy.Soccer.Common.Dtos.Authentication;
+using Brilliancy.Soccer.Common.Dtos.Email;
 using Brilliancy.Soccer.Common.Dtos.File;
 using Brilliancy.Soccer.Common.Dtos.Match;
 using Brilliancy.Soccer.Common.Dtos.Player;
@@ -9,6 +10,7 @@ using Brilliancy.Soccer.Common.Enums;
 using Brilliancy.Soccer.DbModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Brilliancy.Soccer.Core
@@ -18,10 +20,12 @@ namespace Brilliancy.Soccer.Core
         public AutomapperCoreProfile()
         {
             CreateMap<RegisterUserDto, UserDbModel>();
-            CreateMap<UserDbModel, LoginDto>();
+            CreateMap<UserDbModel, LoginDto>()
+                .ForMember(dto => dto.Roles, m => m.MapFrom(db => db.UserRoles.Select(u => new RoleDto { Id = u.RoleId, Name = ((RoleEnum)u.RoleId).ToString() }).ToList()));
             CreateMap<RoleDbModel, RoleDto>();
             CreateMap<UserDbModel, UserDto>();
             CreateMap<FileDbModel, FileDto>();
+            CreateMap<EmailDbModel, EmailDto>();
             CreateMap<GoalDbModel, GoalDto>()
                 .ForMember(dto => dto.ScorerPlayerName, m => m.MapFrom(db => db.Scorer.FirstName + " " + db.Scorer.NickName + " " + db.Scorer.LastName))
                 .ForMember(dto => dto.AssistPlayerName, m => m.MapFrom(db => db.Assist != null ? (db.Assist.FirstName + " " + db.Assist.NickName + " " + db.Assist.LastName) : ""));
