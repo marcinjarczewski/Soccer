@@ -1,16 +1,8 @@
 ﻿using Brilliancy.Soccer.Common.Contracts.Repositories;
-using Brilliancy.Soccer.Common.Dtos.Email;
-using Brilliancy.Soccer.Common.Enums;
-using Brilliancy.Soccer.DbAccess;
-using Microsoft.EntityFrameworkCore;
+using Brilliancy.Soccer.Core.Services.EmailSender;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Mail;
-using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
 

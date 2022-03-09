@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Brilliancy.Soccer.Common.Dtos.Authentication;
+using Brilliancy.Soccer.Common.Dtos.Email;
 using Brilliancy.Soccer.Common.Dtos.File;
 using Brilliancy.Soccer.Common.Dtos.Match;
 using Brilliancy.Soccer.Common.Dtos.Player;
@@ -24,6 +25,7 @@ namespace Brilliancy.Soccer.Core
             CreateMap<RoleDbModel, RoleDto>();
             CreateMap<UserDbModel, UserDto>();
             CreateMap<FileDbModel, FileDto>();
+            CreateMap<EmailDbModel, EmailDto>();
             CreateMap<GoalDbModel, GoalDto>()
                 .ForMember(dto => dto.ScorerPlayerName, m => m.MapFrom(db => db.Scorer.FirstName + " " + db.Scorer.NickName + " " + db.Scorer.LastName))
                 .ForMember(dto => dto.AssistPlayerName, m => m.MapFrom(db => db.Assist != null ? (db.Assist.FirstName + " " + db.Assist.NickName + " " + db.Assist.LastName) : ""));

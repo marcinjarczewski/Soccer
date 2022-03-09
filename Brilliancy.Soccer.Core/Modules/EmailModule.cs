@@ -10,6 +10,7 @@ using Brilliancy.Soccer.Common.Enums;
 using Brilliancy.Soccer.Common.Exceptions;
 using Brilliancy.Soccer.Core.Helpers;
 using Brilliancy.Soccer.Core.Services;
+using Brilliancy.Soccer.Core.Services.EmailSender;
 using Brilliancy.Soccer.Core.Translations;
 using Brilliancy.Soccer.DbAccess;
 using Brilliancy.Soccer.DbModels;
@@ -35,7 +36,7 @@ namespace Brilliancy.Soccer.Core.Modules
                 .FirstOrDefault(f => f.Id == (int)TemplateEnum.UserRegister);
             if(template == null)
             {
-                throw new Exception();
+                throw new  UserDataException(CoreTranslations.Email_NoEmail);
             }
             var email = new EmailDbModel
             {
@@ -56,14 +57,28 @@ namespace Brilliancy.Soccer.Core.Modules
             emailService.WakeUp();
         }
 
-        public IList<EmailDto> GetEmailsToSend(int maxCounter)
+        public List<EmailDto> GetEmailsToSend(int maxCounter)
         {
             return _mapper.Map<List<EmailDto>>(_dbContext.Emails.Where(e => e.DateSent == null && e.Counter <= maxCounter).ToList());
         }
 
-        public EmailDto Update(EmailDto dto)
+        public void Update(EmailDto dto)
         {
-            throw new NotImplementedException();
+            if(dto == null)
+            {
+                throw new UserDataException(CoreTranslations.Email_NoEmail);
+            }
+            var email = _dbContext.Emails.FirstOrDefault(e => e.Id == dto.Id);
+            if (email == null)
+            {
+                throw new UserDataException(CoreTranslations.Email_NoEmail);
+            }
+            email.Counter = dto.Counter;
+            email.DateSent = dto.DateSent;
+            email.LastErrorDate = dto.LastErrorDate;
+            email.LastErrorMessage = dto.LastErrorMessage;
+            _dbContext.Emails.Update(email);
+            _dbContext.SaveChanges();
         }
     }
 }

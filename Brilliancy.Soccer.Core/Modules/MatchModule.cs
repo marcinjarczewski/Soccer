@@ -308,7 +308,7 @@ namespace Brilliancy.Soccer.Core.Modules
                     IsOwnGoal = goal.IsOwnGoal,
                     Time = goal.Time,
                     IsHomeTeam = goal.IsHomeTeam
-                });
+                }); 
             }
 
             this._dbContext.Matches.Update(match);
