@@ -1,24 +1,24 @@
-﻿using Brilliancy.Soccer.Common.Dtos.Configuration;
+﻿using Brilliancy.Soccer.Common.Contracts.Providers;
+using Brilliancy.Soccer.Common.Dtos.Configuration;
 using Brilliancy.Soccer.Common.Exceptions;
 using System;
 using System.IO;
 using System.Net;
 
-namespace Brilliancy.Soccer.Common.Helpers
+namespace Brilliancy.Soccer.Common.Providers
 {
-
-    public class FtpClient
+    public class FtpClient : IFtpClient
     {
         #region Properties
-        public string _ftpUploadRoot { get;  }
+        private string _ftpUploadRoot { get;  }
 
-        public string _ftpDownloadRoot { get; }
+        private string _ftpDownloadRoot { get; }
 
-        public string _ftpPhotoSubfolder { get; }
+        private string _ftpPhotoSubfolder { get; }
 
-        public string _ftpUser { get; }
+        private string _ftpUser { get; }
 
-        public string _ftpPassword { get; }
+        private string _ftpPassword { get; }
 
         #endregion Properties
 
@@ -78,7 +78,7 @@ namespace Brilliancy.Soccer.Common.Helpers
             return null;
         }
 
-        private bool CreateNewDirectory(string path)
+        public bool CreateNewDirectory(string path)
         {
             try
             {
