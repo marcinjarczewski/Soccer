@@ -1,5 +1,5 @@
 define(['jquery', 'storageHelper', 'messageQueue', 'amplify', 'baseRepository'], function ($, storageHelper, messageQueue, amplify, baseRepository) {
-    var apiUrl = '/api/';
+    var apiUrl = '/login/';
     var loginRepository = {
         login: function (userName, password) {
             baseRepository.spinner(true);
@@ -26,6 +26,7 @@ define(['jquery', 'storageHelper', 'messageQueue', 'amplify', 'baseRepository'],
             });
         },
         changeLanguage: function (data, callback) {
+            data.__ko_mapping__ = null;
             return amplify.request({
                 resourceId: "changeLanguage",
                 data: data,
@@ -33,6 +34,8 @@ define(['jquery', 'storageHelper', 'messageQueue', 'amplify', 'baseRepository'],
             });
         },
         register: function (data, callback) {
+            data.__ko_mapping__ = null;
+            debugger;
             return amplify.request({
                 resourceId: "register",
                 data: data,
@@ -56,7 +59,7 @@ define(['jquery', 'storageHelper', 'messageQueue', 'amplify', 'baseRepository'],
                 }
             });
             amplify.request.define("changeLanguage", "ajax", {
-                url: apiUrl + "login/changeLanguage",
+                url: apiUrl + "changeLanguage",
                 dataType: "json",
                 type: "POST",
                 decoder: "globalDecoder",
@@ -72,7 +75,7 @@ define(['jquery', 'storageHelper', 'messageQueue', 'amplify', 'baseRepository'],
             });
 
             amplify.request.define("getRoles", "ajax", {
-                url: apiUrl + "login/getroles",
+                url: apiUrl + "getroles",
                 dataType: "json",
                 type: "POST"
             });

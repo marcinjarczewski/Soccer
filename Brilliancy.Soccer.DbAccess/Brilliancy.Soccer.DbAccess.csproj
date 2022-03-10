@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Brilliancy.Soccer.Common\Brilliancy.Soccer.Common.csproj" />
     <ProjectReference Include="..\Brilliancy.Soccer.DbModels\Brilliancy.Soccer.DbModels.csproj" />
   </ItemGroup>
 

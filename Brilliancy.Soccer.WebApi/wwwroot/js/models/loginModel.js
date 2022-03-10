@@ -13,7 +13,7 @@
         self.logout = function () {
             var ajaxLogout = function () {
                 return $.ajax({
-                    url: '/api/logout',
+                    url: '/login/logout',
                     type: "Post",
                     contentType: 'application/json; charset=utf-8',
                     error: function (data) {

@@ -19,9 +19,9 @@ using System.Linq;
 
 namespace Brilliancy.Soccer.Core.Tests
 {
-    public class EmailModuleTest
+    public class EmailServiceTest
     {
-        private EmailModule _emailModule;
+        private EmailService _emailModule;
         private SoccerDbContext _soccerDbContext;
 
         [SetUp]
@@ -103,7 +103,7 @@ namespace Brilliancy.Soccer.Core.Tests
                 cfg.AddProfile<AutomapperCommonProfile>();
                 cfg.AddProfile<AutomapperCoreProfile>();
             }).CreateMapper();
-            _emailModule = new EmailModule(mapper, _soccerDbContext);
+            _emailModule = new EmailService(mapper, _soccerDbContext);
             var service = new EmailSenderService(null, null);
         }
 
@@ -118,7 +118,8 @@ namespace Brilliancy.Soccer.Core.Tests
         public void SentWelcomeEmail_Success()
         {
             var count = _soccerDbContext.Emails.Count();
-            _emailModule.SentWelcomeEmail("test@gmail.com","Johny Kowalsky", "mysite.com", Common.Enums.LanguageEnum.Polish);
+            _emailModule.AddWelcomeEmail("test@gmail.com","Johny Kowalsky", "mysite.com", Common.Enums.LanguageEnum.Polish);
+            _soccerDbContext.SaveChanges();
             Assert.AreEqual(count + 1, _soccerDbContext.Emails.Count());
         }
 

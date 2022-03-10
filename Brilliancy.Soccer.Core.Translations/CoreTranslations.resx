@@ -132,11 +132,14 @@
   <data name="Email_NoTemplate" xml:space="preserve">
     <value>Brak szablonu wiadomości email</value>
   </data>
-  <data name="EmptyLogin" xml:space="preserve">
+  <data name="Login_EmptyLogin" xml:space="preserve">
     <value>Login nie może być pusty.</value>
   </data>
-  <data name="LoginInUse" xml:space="preserve">
+  <data name="Login_LoginInUse" xml:space="preserve">
     <value>Wprowadzony login jest już zajęty.</value>
+  </data>
+  <data name="Login_NoUser" xml:space="preserve">
+    <value>Użytkownik nie istnieje lub jest nieaktywny.</value>
   </data>
   <data name="Match_IncorrectState" xml:space="preserve">
     <value>Nieprawidłowy stan meczu</value>
@@ -146,9 +149,6 @@
   </data>
   <data name="Match_PlayerNotInTournament" xml:space="preserve">
     <value>Wskazany zawodnik nie bierze udziału w tym turnieju. </value>
-  </data>
-  <data name="NoUser" xml:space="preserve">
-    <value>Użytkownik nie istnieje lub jest nieaktywny.</value>
   </data>
   <data name="Tournament_InvalidAssist" xml:space="preserve">
     <value>Nieprawidłowy asystent przy bramce.</value>

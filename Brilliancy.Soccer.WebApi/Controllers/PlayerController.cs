@@ -10,6 +10,7 @@ using Brilliancy.Soccer.WebApi.Models.Shared;
 using Brilliancy.Soccer.WebApi.Models.Write.Tournament;
 using Brilliancy.Soccer.WebApi.Translations;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -21,7 +22,8 @@ namespace Brilliancy.Soccer.WebApi.Controllers
     {
         private readonly ITournamentModule _tournamentModule;
         private readonly IPlayerModule _playerModule;
-        public PlayerController(IMapper mapper, ILoginModule loginModule, ITournamentModule tournamentModule, IPlayerModule playerModule) : base(mapper, loginModule)
+        public PlayerController(IMapper mapper, ILoginModule loginModule, ITournamentModule tournamentModule, IPlayerModule playerModule, IHttpContextAccessor httpContextAccessor)
+            : base(mapper, loginModule, httpContextAccessor)
         {
             _playerModule = playerModule;
             _tournamentModule = tournamentModule;

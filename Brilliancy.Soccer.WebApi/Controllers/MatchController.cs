@@ -9,6 +9,7 @@ using Brilliancy.Soccer.WebApi.Models.Shared;
 using Brilliancy.Soccer.WebApi.Models.Write.Tournament;
 using Brilliancy.Soccer.WebApi.Translations;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -19,9 +20,10 @@ namespace Brilliancy.Soccer.WebApi.Controllers
     {
         private readonly ITournamentModule _tournamentModule;
         private readonly IMatchModule _matchModule;
-        public MatchController(IMapper mapper, ILoginModule loginModule, ITournamentModule tournamentModule, IMatchModule matchNodule) : base(mapper, loginModule)
+        public MatchController(IMapper mapper, ILoginModule loginModule, ITournamentModule tournamentModule, IMatchModule matchModule, IHttpContextAccessor httpContextAccessor)
+            : base(mapper, loginModule, httpContextAccessor)
         {
-            _matchModule = matchNodule;
+            _matchModule = matchModule;
             _tournamentModule = tournamentModule;
         }
 

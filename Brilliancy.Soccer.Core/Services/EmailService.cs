@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Brilliancy.Soccer.Common.Contracts.Modules;
 using Brilliancy.Soccer.Common.Contracts.Repositories;
+using Brilliancy.Soccer.Common.Contracts.Services;
 using Brilliancy.Soccer.Common.Dtos.Email;
 using Brilliancy.Soccer.Common.Enums;
 using Brilliancy.Soccer.Common.Exceptions;
 using Brilliancy.Soccer.Common.Helpers;
+using Brilliancy.Soccer.Core.Modules;
 using Brilliancy.Soccer.Core.Services.EmailSender;
 using Brilliancy.Soccer.Core.Translations;
 using Brilliancy.Soccer.DbAccess;
@@ -12,22 +14,23 @@ using Brilliancy.Soccer.DbModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
-namespace Brilliancy.Soccer.Core.Modules
+namespace Brilliancy.Soccer.Core.Services
 {
-    public class EmailModule : BaseModule, IEmailModule, IEmailRepository
+    public class EmailService : BaseModule, IEmailService, IEmailRepository
     {
         private SoccerDbContext _dbContext { get; }
-        public EmailModule(IMapper mapper, SoccerDbContext context) : base(mapper)
+        public EmailService(IMapper mapper, SoccerDbContext context) : base(mapper)
         {
             _dbContext = context;
         }
 
-        public void SentWelcomeEmail(string emailAdrress, string name, string appUrl, LanguageEnum language)
+        public void AddWelcomeEmail(string emailAdrress, string name, string appUrl, LanguageEnum language)
         {
-            var template = _dbContext.Templates.Include(t => t.TranslateContent.TranslationEntries).Include(t => t.TranslateHeader)
+            var template = _dbContext.Templates
+                .Include(t => t.TranslateContent.TranslationEntries)
+                .Include(t => t.TranslateHeader.TranslationEntries)
                 .FirstOrDefault(f => f.Id == (int)TemplateEnum.UserRegister);
             if(template == null)
             {
@@ -38,8 +41,8 @@ namespace Brilliancy.Soccer.Core.Modules
                     (template.TranslateContent?.TranslationEntries?.FirstOrDefault(te => te.LanguageId == (int)language)?.Text ?? template.Content),
                     new { Name = name, AppUrl = appUrl });
             var subject = TemplateFillerHelper.FillTemplate(language == LanguageEnum.Polish ?
-                    template.Content :
-                    (template.TranslateHeader?.TranslationEntries?.FirstOrDefault(te => te.LanguageId == (int)language)?.Text ?? template.Content)
+                    template.Header :
+                    (template.TranslateHeader?.TranslationEntries?.FirstOrDefault(te => te.LanguageId == (int)language)?.Text ?? template.Header)
                     , new { Name = name });
             var email = new EmailDbModel
             {
@@ -51,9 +54,6 @@ namespace Brilliancy.Soccer.Core.Modules
                 Subject = subject
             };
             _dbContext.Emails.Add(email);
-            _dbContext.SaveChanges();
-            var emailService = EmailSenderService.GetInstance();
-            emailService.WakeUp();
         }
 
         public List<EmailDto> GetEmailsToSend(int maxCounter)
