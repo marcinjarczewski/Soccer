@@ -1,15 +1,10 @@
 ﻿using AutoMapper;
 using Brilliancy.Soccer.Common.Contracts.Modules;
 using Brilliancy.Soccer.Common.Contracts.Repositories;
-using Brilliancy.Soccer.Common.Dtos.Authentication;
-using Brilliancy.Soccer.Common.Dtos.Configuration;
 using Brilliancy.Soccer.Common.Dtos.Email;
-using Brilliancy.Soccer.Common.Dtos.File;
-using Brilliancy.Soccer.Common.Dtos.User;
 using Brilliancy.Soccer.Common.Enums;
 using Brilliancy.Soccer.Common.Exceptions;
-using Brilliancy.Soccer.Core.Helpers;
-using Brilliancy.Soccer.Core.Services;
+using Brilliancy.Soccer.Common.Helpers;
 using Brilliancy.Soccer.Core.Services.EmailSender;
 using Brilliancy.Soccer.Core.Translations;
 using Brilliancy.Soccer.DbAccess;
@@ -30,7 +25,7 @@ namespace Brilliancy.Soccer.Core.Modules
             _dbContext = context;
         }
 
-        public void SentWelcomeEmail(string emailAdrress, string name, LanguageEnum language)
+        public void SentWelcomeEmail(string emailAdrress, string name, string appUrl, LanguageEnum language)
         {
             var template = _dbContext.Templates.Include(t => t.TranslateContent.TranslationEntries).Include(t => t.TranslateHeader)
                 .FirstOrDefault(f => f.Id == (int)TemplateEnum.UserRegister);
@@ -38,18 +33,22 @@ namespace Brilliancy.Soccer.Core.Modules
             {
                 throw new  UserDataException(CoreTranslations.Email_NoEmail);
             }
+            var body = TemplateFillerHelper.FillTemplate(language == LanguageEnum.Polish ?
+                    template.Content :
+                    (template.TranslateContent?.TranslationEntries?.FirstOrDefault(te => te.LanguageId == (int)language)?.Text ?? template.Content),
+                    new { Name = name, AppUrl = appUrl });
+            var subject = TemplateFillerHelper.FillTemplate(language == LanguageEnum.Polish ?
+                    template.Content :
+                    (template.TranslateHeader?.TranslationEntries?.FirstOrDefault(te => te.LanguageId == (int)language)?.Text ?? template.Content)
+                    , new { Name = name });
             var email = new EmailDbModel
             {
                 AddedDate = DateTime.Now,
                 Address = emailAdrress,
-                Body = language == LanguageEnum.Polish ?
-                    template.Content :
-                    (template.TranslateContent?.TranslationEntries?.FirstOrDefault(te => te.LanguageId == (int)language)?.Text ?? template.Content),
+                Body = body,
                 Counter = 0,
                 Recipient = name,
-                Subject = language == LanguageEnum.Polish ?
-                    template.Content :
-                    (template.TranslateHeader?.TranslationEntries?.FirstOrDefault(te => te.LanguageId == (int)language)?.Text ?? template.Content)
+                Subject = subject
             };
             _dbContext.Emails.Add(email);
             _dbContext.SaveChanges();
