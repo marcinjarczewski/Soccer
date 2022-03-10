@@ -118,7 +118,7 @@ namespace Brilliancy.Soccer.Core.Tests
         public void SentWelcomeEmail_Success()
         {
             var count = _soccerDbContext.Emails.Count();
-            _emailModule.SentWelcomeEmail("test@gmail.com","Johny Kowalsky", Common.Enums.LanguageEnum.Polish);
+            _emailModule.SentWelcomeEmail("test@gmail.com","Johny Kowalsky", "mysite.com", Common.Enums.LanguageEnum.Polish);
             Assert.AreEqual(count + 1, _soccerDbContext.Emails.Count());
         }
 

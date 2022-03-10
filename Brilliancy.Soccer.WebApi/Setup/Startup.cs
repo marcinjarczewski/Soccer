@@ -13,6 +13,8 @@ using Brilliancy.Soccer.DbModels.Interfaces;
 using Brilliancy.Soccer.WebApi.Providers;
 using Brilliancy.Soccer.Common.Contracts.Repositories;
 using Brilliancy.Soccer.Core.Services;
+using Brilliancy.Soccer.Common.Contracts.Providers;
+using Brilliancy.Soccer.Common.Providers;
 
 namespace Brilliancy.Soccer.WebApi
 {
@@ -81,6 +83,7 @@ namespace Brilliancy.Soccer.WebApi
             var mapper = AutomapperBootstrapper.Init();
 
             services.AddSingleton(mapper);
+            services.AddScoped<IFtpClientFactory, FtpClientFactory>();
             services.AddScoped<ILoginRepository, LoginModule>();
             services.AddScoped<IEmailRepository, EmailModule>();
             services.AddScoped<IConfigurationRepository, ConfigurationModule>();

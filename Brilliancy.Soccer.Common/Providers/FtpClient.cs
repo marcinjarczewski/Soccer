@@ -1,6 +1,7 @@
 ﻿using Brilliancy.Soccer.Common.Contracts.Providers;
 using Brilliancy.Soccer.Common.Dtos.Configuration;
 using Brilliancy.Soccer.Common.Exceptions;
+using Brilliancy.Soccer.Common.Translations;
 using System;
 using System.IO;
 using System.Net;
@@ -42,9 +43,9 @@ namespace Brilliancy.Soccer.Common.Providers
             {             
                 this.UploadFile(fileStream, _ftpPhotoSubfolder, fileName);
             }
-            catch (Exception ex)
+            catch
             {
-                throw new UserDataException("a");
+                throw new UserDataException(CommonTranslations.FtpClient_Error);
             }
 
             return Path.Combine(this._ftpDownloadRoot, _ftpPhotoSubfolder, fileName);

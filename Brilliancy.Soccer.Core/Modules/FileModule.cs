@@ -1,15 +1,10 @@
 ﻿using AutoMapper;
 using Brilliancy.Soccer.Common.Contracts.Modules;
 using Brilliancy.Soccer.Common.Contracts.Providers;
-using Brilliancy.Soccer.Common.Dtos.Authentication;
 using Brilliancy.Soccer.Common.Dtos.Configuration;
 using Brilliancy.Soccer.Common.Dtos.File;
-using Brilliancy.Soccer.Common.Dtos.User;
 using Brilliancy.Soccer.Common.Enums;
-using Brilliancy.Soccer.Common.Exceptions;
-using Brilliancy.Soccer.Common.Providers;
-using Brilliancy.Soccer.Core.Helpers;
-using Brilliancy.Soccer.Core.Translations;
+using Brilliancy.Soccer.Common.Helpers;
 using Brilliancy.Soccer.DbAccess;
 using Brilliancy.Soccer.DbModels;
 using System;

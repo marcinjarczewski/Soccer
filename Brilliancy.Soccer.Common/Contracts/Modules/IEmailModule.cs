@@ -11,6 +11,6 @@ namespace Brilliancy.Soccer.Common.Contracts.Modules
 {
     public interface IEmailModule
     {
-        void SentWelcomeEmail(string emailAdrress, string name, LanguageEnum language);
+        void SentWelcomeEmail(string emailAdrress, string name, string appUrl, LanguageEnum language);
     }
 }
