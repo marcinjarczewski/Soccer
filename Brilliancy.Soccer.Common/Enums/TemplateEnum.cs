@@ -2,6 +2,8 @@
 {
     public enum TemplateEnum
     {
-        UserRegister = 1
+        UserRegister = 1,
+        AdminInvite,
+        PlayerInvite
     }
 }
