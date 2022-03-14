@@ -1,9 +1,5 @@
-﻿using Brilliancy.Soccer.Common.Dtos.Authentication;
-using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
+﻿using Brilliancy.Soccer.Common.Dtos.Login;
 using System.Security.Claims;
-using System.Text;
 
 namespace Brilliancy.Soccer.DbModels.Interfaces
 {

@@ -61,6 +61,33 @@ namespace Brilliancy.Soccer.Core.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Brak adresu email..
+        /// </summary>
+        public static string Authentication_NoEmail {
+            get {
+                return ResourceManager.GetString("Authentication_NoEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brak wskazanego zawodnika..
+        /// </summary>
+        public static string Authentication_NoPlayer {
+            get {
+                return ResourceManager.GetString("Authentication_NoPlayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aby zostać administratorem, gracz musi mieć połączonego użytkownika..
+        /// </summary>
+        public static string Authentication_NoUserForInvite {
+            get {
+                return ResourceManager.GetString("Authentication_NoUserForInvite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Brak wskazanego emaila..
         /// </summary>
         public static string Email_NoEmail {

@@ -31,5 +31,9 @@
         public static string EmailServiceSleepTime = "EmailServiceSleepTime";
 
         public static string EmailServiceSendingTime = "EmailServiceSendingTime";
+
+        public static string InvitePlayerDaysExpiration = "InvitePlayerDaysExpiration";
+
+        public static string InviteAdminDaysExpiration = "InviteAdminDaysExpiration";
     }
 }

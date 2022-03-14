@@ -2,9 +2,8 @@
 using Brilliancy.Soccer.Common.Contracts.Modules;
 using Brilliancy.Soccer.Common.Contracts.Repositories;
 using Brilliancy.Soccer.Common.Contracts.Services;
-using Brilliancy.Soccer.Common.Dtos.Authentication;
+using Brilliancy.Soccer.Common.Dtos.Login;
 using Brilliancy.Soccer.Common.Dtos.User;
-using Brilliancy.Soccer.Common.Enums;
 using Brilliancy.Soccer.Common.Exceptions;
 using Brilliancy.Soccer.Common.Helpers;
 using Brilliancy.Soccer.Core.Services.EmailSender;

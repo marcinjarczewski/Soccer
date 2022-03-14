@@ -1,8 +1,4 @@
-﻿using Brilliancy.Soccer.Common.Dtos.Authentication;
-using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Brilliancy.Soccer.Common.Dtos.Login;
 
 namespace Brilliancy.Soccer.Common.Contracts.Repositories
 {

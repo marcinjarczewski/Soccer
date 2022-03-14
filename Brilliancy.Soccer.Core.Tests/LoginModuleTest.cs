@@ -1,12 +1,14 @@
 using AutoMapper;
 using Brilliancy.Soccer.Common.Contracts.Automapper;
+using Brilliancy.Soccer.Common.Contracts.Services;
 using Brilliancy.Soccer.Common.Dtos.User;
 using Brilliancy.Soccer.Common.Exceptions;
 using Brilliancy.Soccer.Core.Modules;
+using Brilliancy.Soccer.Core.Services.EmailSender;
 using Brilliancy.Soccer.DbAccess;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 using NUnit.Framework;
-using System.IO;
 using System.Linq;
 
 namespace Brilliancy.Soccer.Core.Tests
@@ -56,7 +58,9 @@ namespace Brilliancy.Soccer.Core.Tests
                 cfg.AddProfile<AutomapperCommonProfile>();
                 cfg.AddProfile<AutomapperCoreProfile>();
             }).CreateMapper();
-            _loginModule = new LoginModule(mapper, _soccerDbContext);
+            var emailService = new Mock<IEmailService>();
+            var emailSenderService = new EmailSenderService(null, null);
+            _loginModule = new LoginModule(mapper, emailService.Object,  _soccerDbContext);
         }
 
         [Test]

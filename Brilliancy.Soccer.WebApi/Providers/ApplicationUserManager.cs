@@ -1,6 +1,7 @@
 ﻿
 using Brilliancy.Soccer.Common.Contracts.Repositories;
 using Brilliancy.Soccer.Common.Dtos.Authentication;
+using Brilliancy.Soccer.Common.Dtos.Login;
 using Brilliancy.Soccer.Common.Exceptions;
 using Brilliancy.Soccer.DbModels.Interfaces;
 using Brilliancy.Soccer.WebApi.Setup;

@@ -1,0 +1,11 @@
+﻿using Brilliancy.Soccer.Common.Dtos.Authentication;
+
+namespace Brilliancy.Soccer.Common.Contracts.Modules
+{
+    public interface IAuthenticationModule
+    {
+        void InvitePlayer(AuthenticationDto dto, int userId);
+
+        void InviteAdmin(AuthenticationDto dto, int userId);
+    }
+}

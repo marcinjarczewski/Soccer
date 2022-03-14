@@ -2,6 +2,7 @@
 using Brilliancy.Soccer.Common.Dtos.Authentication;
 using Brilliancy.Soccer.Common.Dtos.Email;
 using Brilliancy.Soccer.Common.Dtos.File;
+using Brilliancy.Soccer.Common.Dtos.Login;
 using Brilliancy.Soccer.Common.Dtos.Match;
 using Brilliancy.Soccer.Common.Dtos.Player;
 using Brilliancy.Soccer.Common.Dtos.Tournament;
