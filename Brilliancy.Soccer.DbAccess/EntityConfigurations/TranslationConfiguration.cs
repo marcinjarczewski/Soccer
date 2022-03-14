@@ -38,6 +38,16 @@ namespace Brilliancy.Soccer.DbAccess.EntityConfigurations
             {
                 Id = 6
             });
+
+            modelBuilder.HasData(new TranslationDbModel
+            {
+                Id = 7
+            });
+
+            modelBuilder.HasData(new TranslationDbModel
+            {
+                Id = 8
+            });
         }
     }
 }

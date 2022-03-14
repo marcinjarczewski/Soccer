@@ -113,6 +113,7 @@ namespace Brilliancy.Soccer.Core.Tests
             var configMock = new Mock<IConfigurationRepository>();
             configMock.Setup(c => c.GetValue(ConfigurationDictionary.InvitePlayerDaysExpiration)).Returns("15");
             configMock.Setup(c => c.GetValue(ConfigurationDictionary.InviteAdminDaysExpiration)).Returns("15");
+            configMock.Setup(c => c.GetValue(ConfigurationDictionary.ResetPasswordDaysExpiration)).Returns("5");
             _authenticationModule = new AuthenticationModule(mapper, emailService.Object, configMock.Object, _soccerDbContext);
         }
 
@@ -126,6 +127,21 @@ namespace Brilliancy.Soccer.Core.Tests
                 PlayerId = 1,
             }, 1);
             Assert.AreEqual(count + 1, _soccerDbContext.Authentications.Count());
+        }
+
+        [Test]
+        public void ForgottenPassword_Success()
+        {
+            var count = _soccerDbContext.Authentications.Count();
+            _authenticationModule.ForgottenPassword("test@test.com");
+            Assert.AreEqual(count + 1, _soccerDbContext.Authentications.Count());
+        }
+
+        [Test]
+        public void ForgottenPassword_EmptyEmail()
+        {
+            var ex = Assert.Throws<Common.Exceptions.UserDataException>(() => _authenticationModule.ForgottenPassword(""));
+            Assert.IsTrue(ex.Message == CoreTranslations.Authentication_NoEmail);
         }
 
         [Test]

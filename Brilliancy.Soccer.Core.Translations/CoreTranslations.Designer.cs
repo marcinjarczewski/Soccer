@@ -61,6 +61,15 @@ namespace Brilliancy.Soccer.Core.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email nie jest unikalny w skali aplikacji. Podaj nazwę użytkownika..
+        /// </summary>
+        public static string Authentication_EmailNotUnique {
+            get {
+                return ResourceManager.GetString("Authentication_EmailNotUnique", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Brak adresu email..
         /// </summary>
         public static string Authentication_NoEmail {
@@ -183,6 +192,15 @@ namespace Brilliancy.Soccer.Core.Translations {
         public static string Match_PlayerNotInTournament {
             get {
                 return ResourceManager.GetString("Match_PlayerNotInTournament", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         

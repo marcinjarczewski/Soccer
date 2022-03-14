@@ -7,6 +7,8 @@
   <ItemGroup>
     <None Remove="Data\AdminInvateEN.html" />
     <None Remove="Data\AdminInvatePL.html" />
+    <None Remove="Data\ForgottenPasswordEN.html" />
+    <None Remove="Data\ForgottenPasswordPL.html" />
     <None Remove="Data\PlayerInvateEN.html" />
     <None Remove="Data\PlayerInvatePL.html" />
     <None Remove="Data\UserRegisterContentEN.html" />
@@ -14,6 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Data\ForgottenPasswordEN.html" />
+    <EmbeddedResource Include="Data\ForgottenPasswordPL.html" />
     <EmbeddedResource Include="Data\AdminInvatePL.html" />
     <EmbeddedResource Include="Data\AdminInvateEN.html" />
     <EmbeddedResource Include="Data\PlayerInvateEN.html" />
