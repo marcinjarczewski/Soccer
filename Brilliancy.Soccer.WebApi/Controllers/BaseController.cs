@@ -1,17 +1,9 @@
 ﻿using AutoMapper;
 using Brilliancy.Soccer.Common.Contracts;
 using Brilliancy.Soccer.Common.Contracts.Modules;
-using Brilliancy.Soccer.WebApi.Models;
-using Brilliancy.Soccer.WebApi.Models.Login.Write;
-using Brilliancy.Soccer.WebApi.Models.Shared;
+using Brilliancy.Soccer.Common.Helpers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Brilliancy.Soccer.WebApi.Controllers
 {
@@ -21,10 +13,12 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         protected ILoginModule _loginModule { get; }
 
         private UserInfo _userInfo;
-        public BaseController(IMapper mapper, ILoginModule loginModule)
+        public BaseController(IMapper mapper, ILoginModule loginModule, IHttpContextAccessor httpContextAccessor) : base()
         {
             _mapper = mapper;
             _loginModule = loginModule;
+            var request = httpContextAccessor.HttpContext.Request;
+            GlobalUrlHelper.AppUrl = $"{request.Scheme}://{request.Host}";
         }
 
         public UserInfo _CurrentUserInfo

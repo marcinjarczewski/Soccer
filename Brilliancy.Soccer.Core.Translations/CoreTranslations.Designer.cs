@@ -61,6 +61,33 @@ namespace Brilliancy.Soccer.Core.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Brak adresu email..
+        /// </summary>
+        public static string Authentication_NoEmail {
+            get {
+                return ResourceManager.GetString("Authentication_NoEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brak wskazanego zawodnika..
+        /// </summary>
+        public static string Authentication_NoPlayer {
+            get {
+                return ResourceManager.GetString("Authentication_NoPlayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aby zostać administratorem, gracz musi mieć połączonego użytkownika..
+        /// </summary>
+        public static string Authentication_NoUserForInvite {
+            get {
+                return ResourceManager.GetString("Authentication_NoUserForInvite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Brak wskazanego emaila..
         /// </summary>
         public static string Email_NoEmail {
@@ -108,18 +135,27 @@ namespace Brilliancy.Soccer.Core.Translations {
         /// <summary>
         ///   Looks up a localized string similar to Login nie może być pusty..
         /// </summary>
-        public static string EmptyLogin {
+        public static string Login_EmptyLogin {
             get {
-                return ResourceManager.GetString("EmptyLogin", resourceCulture);
+                return ResourceManager.GetString("Login_EmptyLogin", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Wprowadzony login jest już zajęty..
         /// </summary>
-        public static string LoginInUse {
+        public static string Login_LoginInUse {
             get {
-                return ResourceManager.GetString("LoginInUse", resourceCulture);
+                return ResourceManager.GetString("Login_LoginInUse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Użytkownik nie istnieje lub jest nieaktywny..
+        /// </summary>
+        public static string Login_NoUser {
+            get {
+                return ResourceManager.GetString("Login_NoUser", resourceCulture);
             }
         }
         
@@ -147,15 +183,6 @@ namespace Brilliancy.Soccer.Core.Translations {
         public static string Match_PlayerNotInTournament {
             get {
                 return ResourceManager.GetString("Match_PlayerNotInTournament", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Użytkownik nie istnieje lub jest nieaktywny..
-        /// </summary>
-        public static string NoUser {
-            get {
-                return ResourceManager.GetString("NoUser", resourceCulture);
             }
         }
         

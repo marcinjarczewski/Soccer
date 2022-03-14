@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Authentication_NoEmail" xml:space="preserve">
+    <value>Brak adresu email.</value>
+  </data>
+  <data name="Authentication_NoPlayer" xml:space="preserve">
+    <value>Brak wskazanego zawodnika.</value>
+  </data>
+  <data name="Authentication_NoUserForInvite" xml:space="preserve">
+    <value>Aby zostać administratorem, gracz musi mieć połączonego użytkownika.</value>
+  </data>
   <data name="EmailSender_NoEmail" xml:space="preserve">
     <value>Wystąpił problem z emailem.</value>
   </data>
@@ -132,11 +141,14 @@
   <data name="Email_NoTemplate" xml:space="preserve">
     <value>Brak szablonu wiadomości email</value>
   </data>
-  <data name="EmptyLogin" xml:space="preserve">
+  <data name="Login_EmptyLogin" xml:space="preserve">
     <value>Login nie może być pusty.</value>
   </data>
-  <data name="LoginInUse" xml:space="preserve">
+  <data name="Login_LoginInUse" xml:space="preserve">
     <value>Wprowadzony login jest już zajęty.</value>
+  </data>
+  <data name="Login_NoUser" xml:space="preserve">
+    <value>Użytkownik nie istnieje lub jest nieaktywny.</value>
   </data>
   <data name="Match_IncorrectState" xml:space="preserve">
     <value>Nieprawidłowy stan meczu</value>
@@ -146,9 +158,6 @@
   </data>
   <data name="Match_PlayerNotInTournament" xml:space="preserve">
     <value>Wskazany zawodnik nie bierze udziału w tym turnieju. </value>
-  </data>
-  <data name="NoUser" xml:space="preserve">
-    <value>Użytkownik nie istnieje lub jest nieaktywny.</value>
   </data>
   <data name="Tournament_InvalidAssist" xml:space="preserve">
     <value>Nieprawidłowy asystent przy bramce.</value>

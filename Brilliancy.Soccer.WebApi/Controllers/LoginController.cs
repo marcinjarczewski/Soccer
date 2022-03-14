@@ -1,27 +1,19 @@
 ﻿using AutoMapper;
 using Brilliancy.Soccer.Common.Contracts.Modules;
-using Brilliancy.Soccer.Common.Dtos.Authentication;
 using Brilliancy.Soccer.Common.Dtos.User;
+using Brilliancy.Soccer.Common.Translations;
+using Brilliancy.Soccer.Core.Translations;
 using Brilliancy.Soccer.DbModels.Interfaces;
-using Brilliancy.Soccer.WebApi.Models;
 using Brilliancy.Soccer.WebApi.Models.Login.Write;
 using Brilliancy.Soccer.WebApi.Models.Shared;
-using Brilliancy.Soccer.WebApi.Setup;
 using Brilliancy.Soccer.WebApi.Translations;
-using JWT;
-using JWT.Algorithms;
-using JWT.Serializers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Brilliancy.Soccer.WebApi.Controllers
@@ -30,7 +22,8 @@ namespace Brilliancy.Soccer.WebApi.Controllers
     public class LoginController : BaseController
     {
         private readonly IApplicationUserManager _userManager;
-        public LoginController(IMapper mapper, ILoginModule loginModule, IApplicationUserManager userManager) : base(mapper, loginModule)
+        public LoginController(IMapper mapper, ILoginModule loginModule, IApplicationUserManager userManager, IHttpContextAccessor httpContextAccessor) 
+            : base(mapper, loginModule, httpContextAccessor)
         {
             _userManager = userManager;
         }
@@ -48,7 +41,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("/api/login")]
+        [Route("login")]
         public async Task<IActionResult> Login(LoginWriteModel credentials)
         {
             if (ModelState.IsValid)
@@ -77,7 +70,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
             }
         }
         [HttpPost]
-        [Route("/api/login/ChangeLanguage")]
+        [Route("ChangeLanguage")]
         public JsonResult ChangeLanguage(LanguageWriteModel model)
         {
             if (string.IsNullOrEmpty(model?.Name))
@@ -88,7 +81,10 @@ namespace Brilliancy.Soccer.WebApi.Controllers
                     Message = WebApiTranslations.BaseController_UnexpectedError
                 }); ;
             }
-            WebApiTranslations.Culture = CultureInfo.CreateSpecificCulture(model.Name);
+            var newCulture = CultureInfo.CreateSpecificCulture(model.Name);
+            WebApiTranslations.Culture = newCulture;
+            CoreTranslations.Culture = newCulture;
+            CommonTranslations.Culture = newCulture;
             return new JsonResult(new BaseResultReadModel
             {
                 IsSuccess = true,
@@ -97,7 +93,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("/api/logout")]
+        [Route("logout")]
         public async Task<IActionResult> Logout()
         {
             var res = await LogoutContext(WebApiTranslations.LoginController_LogoutSuccessful);
@@ -133,7 +129,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("/api/register")]
+        [Route("register")]
         public async Task<IActionResult> Register(RegisterWriteModel model)
         {
             if (ModelState.IsValid)

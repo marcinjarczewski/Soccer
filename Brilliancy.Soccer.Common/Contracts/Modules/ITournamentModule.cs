@@ -17,5 +17,7 @@ namespace Brilliancy.Soccer.Common.Contracts.Modules
         void DeleteTournament(int id, int userId);
 
         void ActivateTournament(int id, int userId);
+
+        void RemoveAdmin(int tournamentId, int adminId, int userId);
     }
 }

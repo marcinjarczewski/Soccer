@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Brilliancy.Soccer.Common.Dtos.Authentication
+namespace Brilliancy.Soccer.Common.Dtos.Login
 {
     public class LoginDto
     {

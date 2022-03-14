@@ -148,5 +148,23 @@ namespace Brilliancy.Soccer.Core.Modules
 
             return new StaticPagedList<TournamentDto>(tournamentDtos, pageNumber, pageSize, total);
         }
+
+        public void RemoveAdmin(int tournamentId, int adminId, int userId) 
+        {
+            var tournament = _dbContext.Tournaments.Include(t => t.Admins).FirstOrDefault(t => t.Id == tournamentId);
+            if (tournament == null)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoTournament);
+            }
+            CheckPrivilages(tournament, userId);
+            var admin = tournament.Admins.FirstOrDefault(a => a.Id == adminId);
+            if(admin == null)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoUser);
+            }
+            tournament.Admins.Remove(admin);
+            _dbContext.Update(tournament);
+            _dbContext.SaveChanges();
+        }
     }
 }

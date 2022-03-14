@@ -30,6 +30,26 @@ namespace Brilliancy.Soccer.DbAccess.EntityConfigurations
                        TranslateContentId = 1,
                        TranslateHeaderId = 2
                    });
+
+            modelBuilder.HasData(
+            new TemplateDbModel
+            {
+                Id = (int)TemplateEnum.AdminInvite,
+                Header = "@Model.Name - potrzebna Twoja pomoc w zarządzaniu turniejem!",
+                Content = ResourceHelper.GetResourceAsString("UserRegisterContentPL.html", typeof(UserDbModel)),
+                TranslateContentId = 3,
+                TranslateHeaderId = 4
+            });
+
+            modelBuilder.HasData(
+            new TemplateDbModel
+            {
+                Id = (int)TemplateEnum.PlayerInvite,
+                Header = "@Model.Name - zostałeś zaproszony jako grajek!",
+                Content = ResourceHelper.GetResourceAsString("UserRegisterContentPL.html", typeof(UserDbModel)),
+                TranslateContentId = 5,
+                TranslateHeaderId = 6
+            });
         }
     }
 }

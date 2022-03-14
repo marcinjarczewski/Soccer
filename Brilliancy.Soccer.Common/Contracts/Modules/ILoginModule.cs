@@ -1,8 +1,5 @@
-﻿using Brilliancy.Soccer.Common.Dtos.Authentication;
-using Brilliancy.Soccer.Common.Dtos.User;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Brilliancy.Soccer.Common.Dtos.User;
+
 
 namespace Brilliancy.Soccer.Common.Contracts.Modules
 {

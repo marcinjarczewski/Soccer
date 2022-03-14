@@ -14,20 +14,20 @@ namespace Brilliancy.Soccer.WebApi.Models.Login.Write
         public string Email { get; set; }
 
         [Required]
-        [Display(Name = "Password", ResourceType = typeof(WebApiTranslations))]
+        [Display(Name = "LoginController_Password", ResourceType = typeof(WebApiTranslations))]
         [StringLength(100, ErrorMessageResourceName = "BaseController_StringLength", MinimumLength = 5, ErrorMessageResourceType = typeof(WebApiTranslations))]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Required]
-        [Display(Name = "Password", ResourceType = typeof(WebApiTranslations))]
+        [Display(Name = "LoginController_Password", ResourceType = typeof(WebApiTranslations))]
         [StringLength(100, ErrorMessageResourceName = "BaseController_StringLength", MinimumLength = 5, ErrorMessageResourceType = typeof(WebApiTranslations))]
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessageResourceName = "LoginController_ComparePassword", ErrorMessageResourceType = typeof(WebApiTranslations))]
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [Display(Name = "Login", ResourceType = typeof(WebApiTranslations))]
+        [Display(Name = "LoginController_Login", ResourceType = typeof(WebApiTranslations))]
         [StringLength(100, ErrorMessageResourceName = "BaseController_StringLength", MinimumLength = 5, ErrorMessageResourceType = typeof(WebApiTranslations))]
         [RegularExpression("^(?!.*[^a-zA-Z0-9_.@]).*$", ErrorMessageResourceName = "LoginController_LoginCharacters", ErrorMessageResourceType = typeof(WebApiTranslations))]
         public string Login { get; set; }

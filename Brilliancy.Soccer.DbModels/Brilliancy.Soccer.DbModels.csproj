@@ -5,22 +5,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Data\AdminInvateEN.html" />
+    <None Remove="Data\AdminInvatePL.html" />
+    <None Remove="Data\PlayerInvateEN.html" />
+    <None Remove="Data\PlayerInvatePL.html" />
     <None Remove="Data\UserRegisterContentEN.html" />
     <None Remove="Data\UserRegisterContentPL.html" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Data\AdminInvatePL.html" />
+    <EmbeddedResource Include="Data\AdminInvateEN.html" />
+    <EmbeddedResource Include="Data\PlayerInvateEN.html" />
     <EmbeddedResource Include="Data\UserRegisterContentEN.html" />
+    <EmbeddedResource Include="Data\PlayerInvatePL.html" />
     <EmbeddedResource Include="Data\UserRegisterContentPL.html" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.12" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Brilliancy.Soccer.Common\Brilliancy.Soccer.Common.csproj" />
   </ItemGroup>
 
 </Project>

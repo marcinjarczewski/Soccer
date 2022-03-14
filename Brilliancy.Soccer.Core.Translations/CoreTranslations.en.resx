@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Authentication_NoEmail" xml:space="preserve">
+    <value>Email does not exists.</value>
+  </data>
+  <data name="Authentication_NoPlayer" xml:space="preserve">
+    <value>Selected player does not exists.</value>
+  </data>
+  <data name="Authentication_NoUserForInvite" xml:space="preserve">
+    <value>The Player has to have connected user to become an admin.</value>
+  </data>
   <data name="EmailSender_NoEmail" xml:space="preserve">
     <value>There is a problem with the email.</value>
   </data>
@@ -124,16 +133,19 @@
     <value>Email address has not been provided.</value>
   </data>
   <data name="Email_NoEmail" xml:space="preserve">
-    <value>Email not exists.</value>
+    <value>Email does not exists.</value>
   </data>
   <data name="Email_NoTemplate" xml:space="preserve">
-    <value>Email template not exists.</value>
+    <value>Email template does not exists.</value>
   </data>
-  <data name="EmptyLogin" xml:space="preserve">
+  <data name="Login_EmptyLogin" xml:space="preserve">
     <value>Login can't be empty.</value>
   </data>
-  <data name="LoginInUse" xml:space="preserve">
+  <data name="Login_LoginInUse" xml:space="preserve">
     <value>Login is in use.</value>
+  </data>
+  <data name="Login_NoUser" xml:space="preserve">
+    <value>User is inactive or not exists.</value>
   </data>
   <data name="Match_IncorrectState" xml:space="preserve">
     <value>Incorrect match state.</value>
@@ -143,9 +155,6 @@
   </data>
   <data name="Match_PlayerNotInTournament" xml:space="preserve">
     <value>The indicated player does not take part in this tournament.</value>
-  </data>
-  <data name="NoUser" xml:space="preserve">
-    <value>User is inactive or not exists.</value>
   </data>
   <data name="Tournament_InvalidAssist" xml:space="preserve">
     <value>Invalid goal assistant.</value>
@@ -181,7 +190,7 @@
     <value>Tournament not found.</value>
   </data>
   <data name="Tournament_NoUser" xml:space="preserve">
-    <value>User not exists.</value>
+    <value>User does not exists.</value>
   </data>
   <data name="Tournament_SameTeams" xml:space="preserve">
     <value>The home and away team cannot be the same.</value>

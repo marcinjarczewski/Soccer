@@ -23,7 +23,8 @@ namespace Brilliancy.Soccer.WebApi.Controllers
     public class FileController : BaseController
     {
         private readonly IFileModule _fileModule;
-        public FileController(IMapper mapper, ILoginModule loginModule, IFileModule fileModule) : base(mapper, loginModule)
+        public FileController(IMapper mapper, ILoginModule loginModule, IFileModule fileModule, IHttpContextAccessor httpContextAccessor)
+            : base(mapper, loginModule, httpContextAccessor)
         {
             _fileModule = fileModule;
         }
