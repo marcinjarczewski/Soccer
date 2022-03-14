@@ -50,6 +50,16 @@ namespace Brilliancy.Soccer.DbAccess.EntityConfigurations
                 TranslateContentId = 5,
                 TranslateHeaderId = 6
             });
+
+            modelBuilder.HasData(
+              new TemplateDbModel
+              {
+                  Id = (int)TemplateEnum.ForgottenPassword,
+                  Header = "@Model.Name - zmiana hasła",
+                  Content = ResourceHelper.GetResourceAsString("ForgottenPasswordPL.html", typeof(UserDbModel)),
+                  TranslateContentId = 7,
+                  TranslateHeaderId = 8
+              });
         }
     }
 }

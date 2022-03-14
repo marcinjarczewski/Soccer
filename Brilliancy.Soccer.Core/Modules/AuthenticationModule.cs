@@ -36,7 +36,7 @@ namespace Brilliancy.Soccer.Core.Modules
 
             if (string.IsNullOrEmpty(dto.Email))
             {
-                throw new InvalidDataException(CoreTranslations.Authentication_NoEmail);
+                throw new UserDataException(CoreTranslations.Authentication_NoEmail);
             }
             var player = this._dbContext.Players
                 .Include(t => t.Tournament.Admins)
@@ -70,6 +70,44 @@ namespace Brilliancy.Soccer.Core.Modules
             emailService.WakeUp();
         }
 
+        public void ForgottenPassword(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new UserDataException(CoreTranslations.Authentication_NoEmail);
+            }
+            var users = _dbContext.Users.Where(u => u.IsActive && u.Email.ToLower() == email.ToLower());
+            if (users.Count() == 0)
+            {
+                //protect users from searching email based on response.
+                return;
+            }
+            if (users.Count() > 1)
+            {
+                throw new UserDataException(CoreTranslations.Authentication_EmailNotUnique);
+            }
+            var user = users.First();
+            var daysValid = int.Parse(_configurationRepository.GetValue(ConfigurationDictionary.ResetPasswordDaysExpiration));
+            var auth = new AuthenticationDbModel
+            {
+                CreateDate = DateTime.Now,
+                CreatedByUser = users.FirstOrDefault(),
+                Data = $"email:{email}",
+                DateValidaty = DateTime.Now.AddDays(daysValid),
+                Key = GenerateKey(),
+                TypeId = (int)AuthenticationTypeEnum.ResetPassword
+            };
+            _dbContext.Authentications.Add(auth);
+            _emailService.AddForgottenPasswordEmail(
+                email,
+                $"{user.FirstName} {user.LastName}",
+                auth.Key,
+                GlobalUrlHelper.AppUrl,
+                LanguageHelper.GetLanguage(CoreTranslations.Culture?.TwoLetterISOLanguageName));
+            this._dbContext.SaveChanges();
+            var emailService = EmailSenderService.GetInstance();
+            emailService.WakeUp();
+        }
 
 
         private string GenerateKey()

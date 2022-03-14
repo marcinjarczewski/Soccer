@@ -35,5 +35,7 @@
         public static string InvitePlayerDaysExpiration = "InvitePlayerDaysExpiration";
 
         public static string InviteAdminDaysExpiration = "InviteAdminDaysExpiration";
+
+        public static string ResetPasswordDaysExpiration = "ResetPasswordDaysExpiration";
     }
 }

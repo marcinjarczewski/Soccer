@@ -85,6 +85,26 @@ namespace Brilliancy.Soccer.DbAccess.EntityConfigurations
                  Value = "60000",
                  Description = "Service sleep time"
              });
+
+            modelBuilder.HasData(
+                new ConfigurationDbModel
+                {
+                    Key = ConfigurationDictionary.InvitePlayerDaysExpiration,
+                    Value = "5",
+                    Description = "Invite players link valid in days"
+                },
+                new ConfigurationDbModel
+                {
+                    Key = ConfigurationDictionary.InviteAdminDaysExpiration,
+                    Value = "5",
+                    Description = "Invite admins link valid in days"
+                },
+                new ConfigurationDbModel
+                {
+                    Key = ConfigurationDictionary.ResetPasswordDaysExpiration,
+                    Value = "2",
+                    Description = "reset password link valid in days"
+                });
         }
     }
 }

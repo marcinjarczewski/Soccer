@@ -4,6 +4,7 @@
     {
         UserRegister = 1,
         AdminInvite,
-        PlayerInvite
+        PlayerInvite,
+        ForgottenPassword
     }
 }

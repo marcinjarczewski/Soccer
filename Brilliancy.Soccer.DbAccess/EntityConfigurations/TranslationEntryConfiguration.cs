@@ -68,6 +68,23 @@ namespace Brilliancy.Soccer.DbAccess.EntityConfigurations
                 Text = "@Model.Name, you have been invited to a tournament!",
                 TranslationId = 6
             });
+
+
+            modelBuilder.HasData(new TranslationEntryDbModel
+            {
+                Id = 7,
+                LanguageId = 2,
+                Text = ResourceHelper.GetResourceAsString("ForgottenPasswordEN.html", typeof(UserDbModel)),
+                TranslationId = 7
+            });
+
+            modelBuilder.HasData(new TranslationEntryDbModel
+            {
+                Id = 8,
+                LanguageId = 2,
+                Text = "@Model.Name - lost password",
+                TranslationId = 8
+            });
         }
     }
 }

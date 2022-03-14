@@ -3,6 +3,7 @@
     public enum AuthenticationTypeEnum
     {
         TournamentPlayerInvite = 1,
-        TournamentAdminInvite = 2
+        TournamentAdminInvite = 2,
+        ResetPassword = 3
     }
 }
