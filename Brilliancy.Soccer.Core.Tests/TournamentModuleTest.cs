@@ -278,5 +278,35 @@ namespace Brilliancy.Soccer.Core.Tests
             var paged = _tournamentModule.GetTournaments("OTHER", 1, perPage);
             Assert.AreEqual(totalPages, paged.Count);
         }
+
+
+        [Test]
+        public void RemoveAdmin_Success()
+        {
+            var admins = _soccerDbContext.Tournaments.FirstOrDefault(t => t.Id == 4).Admins.Count;
+            _tournamentModule.RemoveAdmin(4, 2, 1);
+            Assert.AreEqual(admins - 1, _soccerDbContext.Tournaments.FirstOrDefault(t => t.Id == 4).Admins.Count);
+        }
+
+        [Test]
+        public void RemoveAdmin_NoPrivilages()
+        {
+            var ex = Assert.Throws<UserDataException>(() => _tournamentModule.RemoveAdmin(4, 2, 3));
+            Assert.IsTrue(ex.Message == CoreTranslations.Tournament_NoPrivileges);
+        }
+
+        [Test]
+        public void RemoveAdmin_NoTournament()
+        {
+            var ex = Assert.Throws<UserDataException>(() => _tournamentModule.RemoveAdmin(114, 2, 1));
+            Assert.IsTrue(ex.Message == CoreTranslations.Tournament_NoTournament);
+        }
+
+        [Test]
+        public void RemoveAdmin_NoUser()
+        {
+            var ex = Assert.Throws<UserDataException>(() => _tournamentModule.RemoveAdmin(4, 3, 1));
+            Assert.IsTrue(ex.Message == CoreTranslations.Tournament_NoUser);
+        }
     }
 }
