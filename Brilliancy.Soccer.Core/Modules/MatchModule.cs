@@ -107,7 +107,7 @@ namespace Brilliancy.Soccer.Core.Modules
                 throw new UserDataException(CoreTranslations.Tournament_NoMatch);
             }
             CheckPrivilages(match.Tournament, userId);
-            if (! new List<int> { (int)MatchStateEnum.Creating, (int)MatchStateEnum.Finished }.Contains(match.StateId))
+            if (!new List<int> { (int)MatchStateEnum.Creating, (int)MatchStateEnum.Finished }.Contains(match.StateId))
             {
                 throw new UserDataException(CoreTranslations.Match_IncorrectState);
             }
@@ -147,7 +147,7 @@ namespace Brilliancy.Soccer.Core.Modules
                 throw new UserDataException(CoreTranslations.Tournament_NoMatch);
             }
             CheckPrivilages(match.Tournament, userId);
-            if (!new List<int> { (int)MatchStateEnum.Pending}.Contains(match.StateId))
+            if (!new List<int> { (int)MatchStateEnum.Pending }.Contains(match.StateId))
             {
                 throw new UserDataException(CoreTranslations.Match_IncorrectState);
             }
@@ -308,7 +308,7 @@ namespace Brilliancy.Soccer.Core.Modules
                     IsOwnGoal = goal.IsOwnGoal,
                     Time = goal.Time,
                     IsHomeTeam = goal.IsHomeTeam
-                }); 
+                });
             }
 
             this._dbContext.Matches.Update(match);
@@ -325,6 +325,89 @@ namespace Brilliancy.Soccer.Core.Modules
 
             CheckPrivilages(match.Tournament, userId);
             match.IsActive = false;
+            this._dbContext.SaveChanges();
+        }
+
+        public void AddGoal(MatchOngoingEditDto dto, int userId)
+        {
+            if (dto == null || dto.Goal == null)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoGoals);
+            }
+
+            var match = _dbContext.Matches
+                .Include(t => t.Goals)
+                .Include(t => t.Tournament.Players)
+                .Include(t => t.Tournament.Admins).FirstOrDefault(t => t.Id == dto.Id);
+            if (match == null || !match.IsActive)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoMatch);
+            }
+            if (match.StateId != (int)MatchStateEnum.Ongoing)
+            {
+                throw new UserDataException(CoreTranslations.Match_IncorrectState);
+            }
+            CheckPrivilages(match.Tournament, userId);
+
+            {
+                var scorer = match.Tournament.Players.FirstOrDefault(p => p.Id == dto.Goal.ScorerId);
+                if (scorer == null)
+                {
+                    throw new UserDataException(CoreTranslations.Tournament_InvalidScorer);
+                }
+                PlayerDbModel assist = null;
+                if (dto.Goal.AssistId.HasValue)
+                {
+                    assist = match.Tournament.Players.FirstOrDefault(p => p.Id == dto.Goal.AssistId);
+                    if (assist == null)
+                    {
+                        throw new UserDataException(CoreTranslations.Tournament_InvalidAssist);
+                    }
+                }
+                match.Goals.Add(new GoalDbModel
+                {
+                    Scorer = scorer,
+                    Assist = assist,
+                    IsActive = true,
+                    IsOwnGoal = dto.Goal.IsOwnGoal,
+                    Time = dto.Goal.Time,
+                    IsHomeTeam = dto.Goal.IsHomeTeam
+                });
+            }
+
+            this._dbContext.Matches.Update(match);
+            this._dbContext.SaveChanges();
+        }
+
+        public void RemoveGoal(MatchOngoingEditDto dto, int userId)
+        {
+            if (dto == null || dto.Goal == null)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoGoals);
+            }
+
+            var match = _dbContext.Matches
+                .Include(t => t.Goals)
+                .Include(t => t.Tournament.Players)
+                .Include(t => t.Tournament.Admins).FirstOrDefault(t => t.Id == dto.Id);
+            if (match == null || !match.IsActive)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoMatch);
+            }
+            if (match.StateId != (int)MatchStateEnum.Ongoing)
+            {
+                throw new UserDataException(CoreTranslations.Match_IncorrectState);
+            }
+            CheckPrivilages(match.Tournament, userId);
+
+            var goal = match.Goals.FirstOrDefault(g => g.Id == dto.Goal.Id);
+            if (goal == null)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoGoals);
+            }
+
+            match.Goals.Remove(goal);
+            this._dbContext.Matches.Update(match);
             this._dbContext.SaveChanges();
         }
     }

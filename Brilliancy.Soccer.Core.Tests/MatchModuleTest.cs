@@ -9,6 +9,7 @@ using Brilliancy.Soccer.Core.Translations;
 using Brilliancy.Soccer.DbAccess;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
+using System;
 using System.IO;
 using System.Linq;
 
@@ -67,6 +68,11 @@ namespace Brilliancy.Soccer.Core.Tests
             {
                 Id = (int)MatchStateEnum.Creating,
                 Name = MatchStateEnum.Creating.ToString()
+            });
+            _soccerDbContext.MatchStates.Add(new DbModels.MatchStateDbModel
+            {
+                Id = (int)MatchStateEnum.Ongoing,
+                Name = MatchStateEnum.Ongoing.ToString()
             });
             _soccerDbContext.SaveChanges();
             _soccerDbContext.Tournaments.Add(
@@ -217,6 +223,7 @@ namespace Brilliancy.Soccer.Core.Tests
                     Id = 2,
                     IsActive = true,
                     TournamentId = 4,
+                    StateId = (int)MatchStateEnum.Ongoing,
                     Goals = new System.Collections.Generic.List<DbModels.GoalDbModel>
                     {
                         new DbModels.GoalDbModel
@@ -487,6 +494,71 @@ namespace Brilliancy.Soccer.Core.Tests
                 }
             }, 1);
             Assert.AreEqual(0, _soccerDbContext.Goals.Where(g => g.IsActive).Count(p => p.Match.Id == 2));
+        }
+
+        [Test]
+        public void AddGoal_Success()
+        {
+            var goals = _soccerDbContext.Goals.Count(p => p.Match.Id == 2);
+            _matchModule.AddGoal(new Common.Dtos.Match.MatchOngoingEditDto
+            {
+                Id = 2,
+                Date = DateTime.Now,
+                Goal = new Common.Dtos.Match.GoalDto
+                {
+                    AssistId = 3,
+                    ScorerId = 4,
+                    Time = 3                   
+                }
+            }, 1);
+            Assert.AreEqual(goals + 1, _soccerDbContext.Goals.Count(p => p.Match.Id == 2));
+        }
+
+        [Test]
+        public void RemoveGoal_Success()
+        {
+            var goals = _soccerDbContext.Goals.Count(p => p.Match.Id == 2);
+            _matchModule.RemoveGoal(new Common.Dtos.Match.MatchOngoingEditDto
+            {
+                Id = 2,
+                Date = DateTime.Now,
+                Goal = new Common.Dtos.Match.GoalDto
+                {
+                    Id = 1
+                }
+            }, 1);
+            Assert.AreEqual(goals - 1, _soccerDbContext.Goals.Count(p => p.Match.Id == 2));
+        }
+
+        [Test]
+        public void AddGoal_IncorrectState()
+        {
+            var ex = Assert.Throws<UserDataException>(() => _matchModule.AddGoal(new Common.Dtos.Match.MatchOngoingEditDto
+            {
+                Id = 1,
+                Date = DateTime.Now,
+                Goal = new Common.Dtos.Match.GoalDto
+                {
+                    AssistId = 3,
+                    ScorerId = 4,
+                    Time = 3
+                }
+            }, 1));
+            Assert.IsTrue(ex.Message == CoreTranslations.Match_IncorrectState);
+        }
+
+        [Test]
+        public void RemoveGoal_IncorrectState()
+        {
+            var ex = Assert.Throws<UserDataException>(() => _matchModule.RemoveGoal(new Common.Dtos.Match.MatchOngoingEditDto
+            {
+                Id = 1,
+                Goal = new Common.Dtos.Match.GoalDto
+                {
+                    Id = 1
+                }
+            }, 1));
+            Assert.IsTrue(ex.Message == CoreTranslations.Match_IncorrectState);
         }
 
         [Test]
