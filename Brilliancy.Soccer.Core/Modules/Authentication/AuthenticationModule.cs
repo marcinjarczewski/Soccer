@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
-namespace Brilliancy.Soccer.Core.Modules
+namespace Brilliancy.Soccer.Core.Modules.Authentication
 {
     public class AuthenticationModule : BaseModule, IAuthenticationModule
     {
@@ -27,6 +27,26 @@ namespace Brilliancy.Soccer.Core.Modules
             _emailService = emailService;
             _configurationRepository = configurationRepository;
         }
+
+        public void ConfirmPlayerInvitation(string key, int userId)
+        {
+            var confirm = new ConfirmPlayerInvate(_dbContext);
+            confirm.ProccessLink(key, userId);
+        }
+
+        public void ConfirmAdminInvitation(string key, int userId)
+        {
+            var confirm = new ConfirmAdminInvite(_dbContext);
+            confirm.ProccessLink(key, userId);
+        }
+
+        public int ConfirmEmailReset(string key)
+        {
+            var confirm = new ConfirmResetPassword(_dbContext);
+            confirm.ProccessLink(key);
+            return confirm.UserId;
+        }
+
         public void InvitePlayer(AuthenticationDto dto, int userId)
         {
             if(dto == null)
@@ -52,7 +72,7 @@ namespace Brilliancy.Soccer.Core.Modules
             {
                 CreateDate = DateTime.Now,
                 CreatedByUserId = userId,
-                Data = $"email:{dto.Email};playerId:{dto.PlayerId}",
+                Data = $"{EmailDataDictionary.Email}:{dto.Email};{EmailDataDictionary.PlayerId}:{dto.PlayerId}",
                 DateValidaty = DateTime.Now.AddDays(daysValid),
                 Key = GenerateKey(),
                 TypeId = (int)AuthenticationTypeEnum.TournamentPlayerInvite
@@ -92,7 +112,7 @@ namespace Brilliancy.Soccer.Core.Modules
             {
                 CreateDate = DateTime.Now,
                 CreatedByUser = users.FirstOrDefault(),
-                Data = $"email:{email}",
+                Data = $"{EmailDataDictionary.Email}:{email}",
                 DateValidaty = DateTime.Now.AddDays(daysValid),
                 Key = GenerateKey(),
                 TypeId = (int)AuthenticationTypeEnum.ResetPassword
@@ -152,7 +172,7 @@ namespace Brilliancy.Soccer.Core.Modules
             {
                 CreateDate = DateTime.Now,
                 CreatedByUserId = userId,
-                Data = $"email:{dto.Email};playerId:{dto.PlayerId}",
+                Data = $"{EmailDataDictionary.Email}:{dto.Email};{EmailDataDictionary.PlayerId}:{dto.PlayerId}",
                 DateValidaty = DateTime.Now.AddDays(daysValid),
                 Key = GenerateKey(),
                 TypeId = (int)AuthenticationTypeEnum.TournamentAdminInvite

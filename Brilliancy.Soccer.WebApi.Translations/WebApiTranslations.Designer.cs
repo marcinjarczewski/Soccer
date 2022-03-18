@@ -61,6 +61,33 @@ namespace Brilliancy.Soccer.WebApi.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zostałeś administratorem turnieju..
+        /// </summary>
+        public static string AuthenticationController_ValidKeyInviteAdmin {
+            get {
+                return ResourceManager.GetString("AuthenticationController_ValidKeyInviteAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zaproszenie przyjęte..
+        /// </summary>
+        public static string AuthenticationController_ValidKeyInvitePlayer {
+            get {
+                return ResourceManager.GetString("AuthenticationController_ValidKeyInvitePlayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klucz prawidłowy. Wprowadź nowe hasło. .
+        /// </summary>
+        public static string AuthenticationController_ValidKeyResetPassword {
+            get {
+                return ResourceManager.GetString("AuthenticationController_ValidKeyResetPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dane nie zostały uzupełnione prawidłowo..
         /// </summary>
         public static string BaseController_InvalidData {

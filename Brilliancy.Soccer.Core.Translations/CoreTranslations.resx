@@ -117,17 +117,38 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Authentication_AlreadyConfirmed" xml:space="preserve">
+    <value>Klucz został już wcześniej użyty. Proszę wygenerować nowy.</value>
+  </data>
   <data name="Authentication_EmailNotUnique" xml:space="preserve">
     <value>Email nie jest unikalny w skali aplikacji. Podaj nazwę użytkownika.</value>
+  </data>
+  <data name="Authentication_InvalidAuthData" xml:space="preserve">
+    <value>Dane autoryzacyjne są niepoprawne. Skontaktuj się z administratorem.</value>
+  </data>
+  <data name="Authentication_InvalidKey" xml:space="preserve">
+    <value>Nieprawidłowy klucz.</value>
+  </data>
+  <data name="Authentication_KeyExpired" xml:space="preserve">
+    <value>Klucz wygasł. Proszę wygenerować nowy.</value>
   </data>
   <data name="Authentication_NoEmail" xml:space="preserve">
     <value>Brak adresu email.</value>
   </data>
+  <data name="Authentication_NoKey" xml:space="preserve">
+    <value>Nieprawidłowy link. Spróbuj wygenerować nowy klucz.</value>
+  </data>
   <data name="Authentication_NoPlayer" xml:space="preserve">
     <value>Brak wskazanego zawodnika.</value>
   </data>
+  <data name="Authentication_NoUser" xml:space="preserve">
+    <value>Użytkownik nie istnieje.</value>
+  </data>
   <data name="Authentication_NoUserForInvite" xml:space="preserve">
     <value>Aby zostać administratorem, gracz musi mieć połączonego użytkownika.</value>
+  </data>
+  <data name="Authentication_PlayerAlreadyHasUser" xml:space="preserve">
+    <value>Player already has an user.</value>
   </data>
   <data name="EmailSender_NoEmail" xml:space="preserve">
     <value>Wystąpił problem z emailem.</value>
@@ -161,9 +182,6 @@
   </data>
   <data name="Match_PlayerNotInTournament" xml:space="preserve">
     <value>Wskazany zawodnik nie bierze udziału w tym turnieju. </value>
-  </data>
-  <data name="String1" xml:space="preserve">
-    <value />
   </data>
   <data name="Tournament_InvalidAssist" xml:space="preserve">
     <value>Nieprawidłowy asystent przy bramce.</value>

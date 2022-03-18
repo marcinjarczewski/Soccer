@@ -86,7 +86,7 @@ namespace Brilliancy.Soccer.Core.Services
                         Name = name,
                         AppUrl = appUrl,
                         TournamentName = tournamentName,
-                        AppUrlKey = $"{appUrl}/{key}",
+                        AppUrlKey = $"{appUrl}/InvitePlayers/{key}",
                         AppUrlRegister = $"{appUrl}/login"
                     });
             var subject = TemplateFillerHelper.FillTemplate(language == LanguageEnum.Polish ?
@@ -122,7 +122,7 @@ namespace Brilliancy.Soccer.Core.Services
                     {
                         Name = name,
                         AppUrl = appUrl,
-                        AppUrlKey = $"{appUrl}/{key}"
+                        AppUrlKey = $"{appUrl}/LostPassword/{key}"
                     });
             var subject = TemplateFillerHelper.FillTemplate(language == LanguageEnum.Polish ?
                     template.Header :
@@ -165,7 +165,7 @@ namespace Brilliancy.Soccer.Core.Services
                         Name = name,
                         AppUrl = appUrl,
                         TournamentName = tournamentName,
-                        AppUrlKey = $"{appUrl}/{key}",
+                        AppUrlKey = $"{appUrl}/InviteAdmin/{key}",
                         AppUrlRegister = $"{appUrl}/login"
                     });
             var subject = TemplateFillerHelper.FillTemplate(language == LanguageEnum.Polish ?
