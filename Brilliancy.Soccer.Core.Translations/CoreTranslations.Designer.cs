@@ -61,11 +61,47 @@ namespace Brilliancy.Soccer.Core.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Klucz został już wcześniej użyty. Proszę wygenerować nowy..
+        /// </summary>
+        public static string Authentication_AlreadyConfirmed {
+            get {
+                return ResourceManager.GetString("Authentication_AlreadyConfirmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email nie jest unikalny w skali aplikacji. Podaj nazwę użytkownika..
         /// </summary>
         public static string Authentication_EmailNotUnique {
             get {
                 return ResourceManager.GetString("Authentication_EmailNotUnique", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dane autoryzacyjne są niepoprawne. Skontaktuj się z administratorem..
+        /// </summary>
+        public static string Authentication_InvalidAuthData {
+            get {
+                return ResourceManager.GetString("Authentication_InvalidAuthData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieprawidłowy klucz..
+        /// </summary>
+        public static string Authentication_InvalidKey {
+            get {
+                return ResourceManager.GetString("Authentication_InvalidKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klucz wygasł. Proszę wygenerować nowy..
+        /// </summary>
+        public static string Authentication_KeyExpired {
+            get {
+                return ResourceManager.GetString("Authentication_KeyExpired", resourceCulture);
             }
         }
         
@@ -79,6 +115,15 @@ namespace Brilliancy.Soccer.Core.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nieprawidłowy link. Spróbuj wygenerować nowy klucz..
+        /// </summary>
+        public static string Authentication_NoKey {
+            get {
+                return ResourceManager.GetString("Authentication_NoKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Brak wskazanego zawodnika..
         /// </summary>
         public static string Authentication_NoPlayer {
@@ -88,11 +133,29 @@ namespace Brilliancy.Soccer.Core.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Użytkownik nie istnieje..
+        /// </summary>
+        public static string Authentication_NoUser {
+            get {
+                return ResourceManager.GetString("Authentication_NoUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Aby zostać administratorem, gracz musi mieć połączonego użytkownika..
         /// </summary>
         public static string Authentication_NoUserForInvite {
             get {
                 return ResourceManager.GetString("Authentication_NoUserForInvite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Player already has an user..
+        /// </summary>
+        public static string Authentication_PlayerAlreadyHasUser {
+            get {
+                return ResourceManager.GetString("Authentication_PlayerAlreadyHasUser", resourceCulture);
             }
         }
         
@@ -192,15 +255,6 @@ namespace Brilliancy.Soccer.Core.Translations {
         public static string Match_PlayerNotInTournament {
             get {
                 return ResourceManager.GetString("Match_PlayerNotInTournament", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string String1 {
-            get {
-                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         

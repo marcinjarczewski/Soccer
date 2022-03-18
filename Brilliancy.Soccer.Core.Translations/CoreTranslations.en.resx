@@ -117,14 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Authentication_AlreadyConfirmed" xml:space="preserve">
+    <value>The key has already  been used. Please generate a new one.</value>
+  </data>
   <data name="Authentication_EmailNotUnique" xml:space="preserve">
     <value>Email is not unique in the scale of the application. Please enter your username.</value>
+  </data>
+  <data name="Authentication_InvalidAuthData" xml:space="preserve">
+    <value>The authentication data is not correct. Please contact our support.</value>
+  </data>
+  <data name="Authentication_InvalidKey" xml:space="preserve">
+    <value>The key is invalid.</value>
+  </data>
+  <data name="Authentication_KeyExpired" xml:space="preserve">
+    <value>The key has already expired. Please generate a new one.</value>
   </data>
   <data name="Authentication_NoEmail" xml:space="preserve">
     <value>Email does not exists.</value>
   </data>
+  <data name="Authentication_NoKey" xml:space="preserve">
+    <value>Invalid link. Please try to generate a new key.</value>
+  </data>
   <data name="Authentication_NoPlayer" xml:space="preserve">
     <value>Selected player does not exists.</value>
+  </data>
+  <data name="Authentication_NoUser" xml:space="preserve">
+    <value>User does not exists.</value>
   </data>
   <data name="Authentication_NoUserForInvite" xml:space="preserve">
     <value>The Player has to have connected user to become an admin.</value>

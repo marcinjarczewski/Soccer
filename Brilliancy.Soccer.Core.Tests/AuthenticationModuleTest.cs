@@ -4,12 +4,14 @@ using Brilliancy.Soccer.Common.Contracts.Repositories;
 using Brilliancy.Soccer.Common.Contracts.Services;
 using Brilliancy.Soccer.Common.Enums;
 using Brilliancy.Soccer.Core.Modules;
+using Brilliancy.Soccer.Core.Modules.Authentication;
 using Brilliancy.Soccer.Core.Services.EmailSender;
 using Brilliancy.Soccer.Core.Translations;
 using Brilliancy.Soccer.DbAccess;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using NUnit.Framework;
+using System;
 using System.Linq;
 
 namespace Brilliancy.Soccer.Core.Tests
@@ -76,8 +78,36 @@ namespace Brilliancy.Soccer.Core.Tests
                         Id = 3,
                         FirstName = "Robert",
                         LastName = "Lewandowski",
+                        UserId = null
                     }
                 }
+            });
+            _soccerDbContext.Authentications.Add(new DbModels.AuthenticationDbModel
+            {
+                Id = 1,
+                CreateDate = DateTime.Now,
+                Data = $"{EmailDataDictionary.UserId}:1",
+                Key = "abc",
+                TypeId = (int)AuthenticationTypeEnum.ResetPassword,
+                DateValidaty = DateTime.Now.AddDays(1),              
+            });
+            _soccerDbContext.Authentications.Add(new DbModels.AuthenticationDbModel
+            {
+                Id = 2,
+                CreateDate = DateTime.Now,
+                Data = $"{EmailDataDictionary.PlayerId}:1;",
+                Key = "abc-1a",
+                TypeId = (int)AuthenticationTypeEnum.TournamentPlayerInvite,
+                DateValidaty = DateTime.Now.AddDays(1),
+            });
+            _soccerDbContext.Authentications.Add(new DbModels.AuthenticationDbModel
+            {
+                Id = 3,
+                CreateDate = DateTime.Now,
+                Data = $"{EmailDataDictionary.PlayerId}:3;",
+                Key = "abc-3",
+                TypeId = (int)AuthenticationTypeEnum.TournamentPlayerInvite,
+                DateValidaty = DateTime.Now.AddDays(1),
             });
             _soccerDbContext.SaveChanges();
             _soccerDbContext.Tournaments.Add(
@@ -115,6 +145,44 @@ namespace Brilliancy.Soccer.Core.Tests
             configMock.Setup(c => c.GetValue(ConfigurationDictionary.InviteAdminDaysExpiration)).Returns("15");
             configMock.Setup(c => c.GetValue(ConfigurationDictionary.ResetPasswordDaysExpiration)).Returns("5");
             _authenticationModule = new AuthenticationModule(mapper, emailService.Object, configMock.Object, _soccerDbContext);
+        }
+
+
+        [Test]
+        public void ConfirmEmailReset_Success()
+        {
+            var auth = _soccerDbContext.Authentications.FirstOrDefault(f => f.Key == "abc");
+            _authenticationModule.ConfirmEmailReset("abc");
+            Assert.IsTrue(auth.ConfirmDate != null);
+        }
+
+        [Test]
+        public void ConfirmEmailReset_InvalidKey()
+        {
+            var ex = Assert.Throws<Common.Exceptions.UserDataException>(() => _authenticationModule.ConfirmEmailReset("abcd"));
+            Assert.IsTrue(ex.Message == CoreTranslations.Authentication_InvalidKey);
+        }
+
+        [Test]
+        public void ConfirmPlayerInvitation_Success()
+        {
+            var auth = _soccerDbContext.Authentications.FirstOrDefault(f => f.Key == "abc-3");
+            _authenticationModule.ConfirmPlayerInvitation("abc-3", 1);
+            Assert.IsTrue(auth.ConfirmDate != null);
+        }
+
+        [Test]
+        public void ConfirmPlayerInvitation_PlayerAlreadyHasUser()
+        {
+            var ex = Assert.Throws<Common.Exceptions.UserDataException>(() => _authenticationModule.ConfirmPlayerInvitation("abc-1a", 1));
+            Assert.IsTrue(ex.Message == CoreTranslations.Authentication_PlayerAlreadyHasUser);
+        }
+
+        [Test]
+        public void ConfirmPlayerInvitation_NoUser()
+        {
+            var ex = Assert.Throws<Common.Exceptions.InvalidDataException>(() => _authenticationModule.ConfirmPlayerInvitation("abc-1a",5));
+            Assert.IsTrue(ex.Message == CoreTranslations.Authentication_NoUser);
         }
 
         [Test]
