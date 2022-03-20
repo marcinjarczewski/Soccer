@@ -18,7 +18,7 @@ namespace Brilliancy.Soccer.Core.Modules
 {
     public class LoginModule : BaseModule, ILoginModule, ILoginRepository
     {
-        private SoccerDbContext _dbContext {get;}
+        private SoccerDbContext _dbContext { get; }
         private IEmailService _emailService { get; }
         public LoginModule(IMapper mapper, IEmailService emailService, SoccerDbContext context) : base(mapper)
         {
@@ -28,13 +28,13 @@ namespace Brilliancy.Soccer.Core.Modules
 
         public UserDto GetUser(string login)
         {
-            if(string.IsNullOrEmpty(login))
+            if (string.IsNullOrEmpty(login))
             {
                 throw new InvalidDataException(CoreTranslations.Login_EmptyLogin);
             }
 
             var user = _dbContext.Users.FirstOrDefault(u => u.Login.ToLower() == login.ToLower());
-            if(user == null || !user.IsActive)
+            if (user == null || !user.IsActive)
             {
                 throw new UserDataException(CoreTranslations.Login_NoUser);
             }
@@ -44,13 +44,13 @@ namespace Brilliancy.Soccer.Core.Modules
 
         public void RegisterUser(RegisterUserDto dto)
         {
-            if(dto == null || string.IsNullOrEmpty(dto.Login))
+            if (dto == null || string.IsNullOrEmpty(dto.Login))
             {
                 throw new InvalidDataException(CoreTranslations.Login_EmptyLogin);
             }
 
             var oldUser = this._dbContext.Users.FirstOrDefault(u => u.Login.ToLower() == dto.Login.ToLower());
-            if(oldUser != null)
+            if (oldUser != null)
             {
                 throw new UserDataException(CoreTranslations.Login_LoginInUse);
             }
@@ -78,6 +78,27 @@ namespace Brilliancy.Soccer.Core.Modules
             }
 
             return _mapper.Map<LoginDto>(user);
+        }
+
+        public void ChangePassword(string password, int userId, int? authId = null)
+        {
+            var user = _dbContext.Users.FirstOrDefault(a => a.Id == userId);
+            if (user == null)
+            {
+                throw new UserDataException(CoreTranslations.Login_NoUser);
+            }
+
+            if (authId.HasValue)
+            {
+                var auth = _dbContext.Authentications.FirstOrDefault(a => a.Id == authId.Value);
+                if (auth == null)
+                {
+                    throw new UserDataException(CoreTranslations.Login_NoAuth);
+                }
+                auth.ConfirmDate = DateTime.Now;
+            }
+            user.Password = password;
+            _dbContext.SaveChanges();
         }
     }
 }

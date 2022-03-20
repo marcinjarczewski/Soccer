@@ -1,22 +1,12 @@
 ﻿using AutoMapper;
 using Brilliancy.Soccer.Common.Contracts.Modules;
-using Brilliancy.Soccer.Common.Dtos.Player;
-using Brilliancy.Soccer.Common.Dtos.Tournament;
 using Brilliancy.Soccer.Common.Exceptions;
-using Brilliancy.Soccer.DbModels.Interfaces;
-using Brilliancy.Soccer.WebApi.Models.Match.Read;
-using Brilliancy.Soccer.WebApi.Models.Player.Write;
-using Brilliancy.Soccer.WebApi.Models.Read.Tournament;
-using Brilliancy.Soccer.WebApi.Models.Shared;
-using Brilliancy.Soccer.WebApi.Models.Write.Tournament;
+using Brilliancy.Soccer.WebApi.Models.Authentication.Read;
 using Brilliancy.Soccer.WebApi.Translations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace Brilliancy.Soccer.WebApi.Controllers
 {
@@ -31,11 +21,11 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         }
 
 
-        [Route("InvitePlayers/{key}")]
+        [Route("/InvitePlayers/{key}")]
         [Authorize]
         public IActionResult InvitePlayers(string key)
         {
-            var model = new AuthenticationModel { IsKeyValid = true };
+            var model = new AuthenticationModel { IsKeyValid = true};
             try
             {
                 _authModule.ConfirmPlayerInvitation(key, this._CurrentUserInfo.Id);
@@ -57,11 +47,11 @@ namespace Brilliancy.Soccer.WebApi.Controllers
             return View(model);
         }
 
-        [Route("InviteAdmin/{key}")]
+        [Route("/InviteAdmin/{key}")]
         [Authorize]
         public IActionResult InviteAdmin(string key)
         {
-            var model = new AuthenticationModel { IsKeyValid = true };
+            var model = new AuthenticationModel { IsKeyValid = true};
             try
             {
                 _authModule.ConfirmAdminInvitation(key, this._CurrentUserInfo.Id);
@@ -72,6 +62,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
                 {
                     model.IsKeyValid = false;
                     model.Message = ex.Message;
+                    return View(model);
                 }
                 else
                 {
@@ -79,17 +70,17 @@ namespace Brilliancy.Soccer.WebApi.Controllers
                 }
             }
 
-            model.Message = WebApiTranslations.AuthenticationController_ValidKeyInvitePlayer;
+            model.Message = WebApiTranslations.AuthenticationController_ValidKeyInviteAdmin;
             return View(model);
         }
 
-        [Route("LostPassword/{key}")]
+        [Route("/LostPassword/{key}")]
         public IActionResult LostPassword(string key)
         {
             var model = new AuthenticationModel { IsKeyValid = true };
             try
             {
-                _authModule.ConfirmEmailReset(key);
+                model.AuthId = _authModule.ConfirmEmailReset(key);
             }
             catch (Exception ex)
             {
@@ -97,6 +88,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
                 {
                     model.IsKeyValid = false;
                     model.Message = ex.Message;
+                    return View(model);
                 }
                 else
                 {
@@ -104,7 +96,6 @@ namespace Brilliancy.Soccer.WebApi.Controllers
                 }
             }
 
-            model.Message = WebApiTranslations.AuthenticationController_ValidKeyInvitePlayer;
             return View(model);
         }
     }

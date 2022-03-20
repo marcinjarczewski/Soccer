@@ -150,6 +150,9 @@
   <data name="LoginController_ComparePassword" xml:space="preserve">
     <value>Hasła muszą być identyczne</value>
   </data>
+  <data name="LoginController_EmailSend" xml:space="preserve">
+    <value>Jeżeli konto istnieje email z przypomnieniem hasła zostanie wysłany.</value>
+  </data>
   <data name="LoginController_InvalidLoginOrPassword" xml:space="preserve">
     <value>Nieprawidłowy login lub hasło</value>
   </data>
@@ -170,6 +173,9 @@
   </data>
   <data name="LoginController_Password" xml:space="preserve">
     <value>Hasło</value>
+  </data>
+  <data name="LoginController_PasswordChanged" xml:space="preserve">
+    <value>Hasło zostało zmienione.</value>
   </data>
   <data name="LoginController_RegisterSuccessful" xml:space="preserve">
     <value>Rejestracja zakończona powodzeniem.</value>
@@ -197,5 +203,8 @@
   </data>
   <data name="TournamentController_InvalidTournamentData" xml:space="preserve">
     <value>Dane turnieju nie zostały uzupełnione poprawnie.</value>
+  </data>
+  <data name="TournamentController_LostPasswordTitle" xml:space="preserve">
+    <value>Odzyskiwanie dostępu</value>
   </data>
 </root>

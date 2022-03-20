@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -9,11 +10,10 @@ namespace Brilliancy.Soccer.Common.Helpers
     {
         public static string FillTemplate(string content, object model)
         {
-            var match = Regex.Match(content, @"@Model\.([a-zA-Z0-9]*)");
             var result = content;
             var modelType = model.GetType();
-
-            while (match.Success)
+            var match = Regex.Matches(content, @"@Model\.([a-zA-Z0-9]*)").OrderByDescending(o => o.Length).FirstOrDefault(m => m.Success);
+            while (match != null)
             {
                 var obj = match.Groups[0].Value;
                 var group = match.Groups[1].Value;
@@ -27,7 +27,7 @@ namespace Brilliancy.Soccer.Common.Helpers
                 {
                 }
                 result = result.Replace(obj, value);
-                match = match.NextMatch();
+                match = Regex.Matches(result, @"@Model\.([a-zA-Z0-9]*)").OrderByDescending(o => o.Length).FirstOrDefault(m => m.Success);
             }
 
             return result;

@@ -12,7 +12,7 @@ namespace Brilliancy.Soccer.Core.Modules.Authentication
         {
         }
 
-        public override void ProccessData(Dictionary<string, int> dataDictionary, int userId)
+        public override void ProccessData(Dictionary<string, string> dataDictionary, int userId)
         {
             var player = GetPlayer(dataDictionary, userId);
             if(!player.Tournament.Admins.Any(a => a.Id == userId))

@@ -171,6 +171,9 @@
   <data name="Login_LoginInUse" xml:space="preserve">
     <value>Wprowadzony login jest już zajęty.</value>
   </data>
+  <data name="Login_NoAuth" xml:space="preserve">
+    <value>Wystąpił problem z autoryzacją.</value>
+  </data>
   <data name="Login_NoUser" xml:space="preserve">
     <value>Użytkownik nie istnieje lub jest nieaktywny.</value>
   </data>

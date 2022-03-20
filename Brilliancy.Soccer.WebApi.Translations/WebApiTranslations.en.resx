@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AuthenticationController_ValidKeyInviteAdmin" xml:space="preserve">
+    <value>You have become the tournament administrator.</value>
+  </data>
+  <data name="AuthenticationController_ValidKeyInvitePlayer" xml:space="preserve">
+    <value>Invitation accepted</value>
+  </data>
+  <data name="AuthenticationController_ValidKeyResetPassword" xml:space="preserve">
+    <value>The key is valid. Enter a new password.</value>
+  </data>
   <data name="BaseController_InvalidData" xml:space="preserve">
     <value>The data has not been completed correctly.</value>
   </data>
@@ -141,6 +150,9 @@
   <data name="LoginController_ComparePassword" xml:space="preserve">
     <value>Passwords must be identical</value>
   </data>
+  <data name="LoginController_EmailSend" xml:space="preserve">
+    <value>An email has been sent.</value>
+  </data>
   <data name="LoginController_InvalidLoginOrPassword" xml:space="preserve">
     <value>Invalid login or password</value>
   </data>
@@ -161,6 +173,9 @@
   </data>
   <data name="LoginController_Password" xml:space="preserve">
     <value>Password</value>
+  </data>
+  <data name="LoginController_PasswordChanged" xml:space="preserve">
+    <value>The password has been changed.</value>
   </data>
   <data name="LoginController_RegisterSuccessful" xml:space="preserve">
     <value>register successful</value>
@@ -188,5 +203,8 @@
   </data>
   <data name="TournamentController_InvalidTournamentData" xml:space="preserve">
     <value>The tournament data has not been completed correctly.</value>
+  </data>
+  <data name="TournamentController_LostPasswordTitle" xml:space="preserve">
+    <value>Lost password</value>
   </data>
 </root>

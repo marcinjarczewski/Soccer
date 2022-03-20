@@ -44,7 +44,18 @@ namespace Brilliancy.Soccer.Core.Modules.Authentication
         {
             var confirm = new ConfirmResetPassword(_dbContext);
             confirm.ProccessLink(key);
-            return confirm.UserId;
+            return confirm.AuthId;
+        }
+
+        public int GetUserFromAuth(int authId)
+        {
+            var confirm = new ConfirmResetPassword(_dbContext);
+            var dictionary = confirm.SplitData(_dbContext.Authentications.FirstOrDefault(a => a.Id == authId)?.Data);
+            if (!dictionary.ContainsKey(EmailDataDictionary.UserId))
+            {
+                throw new Common.Exceptions.InvalidDataException(CoreTranslations.Authentication_InvalidAuthData);
+            }
+            return int.Parse(dictionary[EmailDataDictionary.UserId]);
         }
 
         public void InvitePlayer(AuthenticationDto dto, int userId)
@@ -112,7 +123,7 @@ namespace Brilliancy.Soccer.Core.Modules.Authentication
             {
                 CreateDate = DateTime.Now,
                 CreatedByUser = users.FirstOrDefault(),
-                Data = $"{EmailDataDictionary.Email}:{email}",
+                Data = $"{EmailDataDictionary.Email}:{email};{EmailDataDictionary.UserId}:{user.Id}",
                 DateValidaty = DateTime.Now.AddDays(daysValid),
                 Key = GenerateKey(),
                 TypeId = (int)AuthenticationTypeEnum.ResetPassword

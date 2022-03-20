@@ -48,10 +48,15 @@ namespace Brilliancy.Soccer.Core.Modules.Authentication
             auth.ConfirmDate = DateTime.Now;
         }
 
-        protected Dictionary<string,int> SplitData(string data)
+        public Dictionary<string,string> SplitData(string data)
         {
-           return data.Split(";", StringSplitOptions.RemoveEmptyEntries).Select(s => new KeyValuePair<string, int>(
-                 s.Trim().Split(":")[0], int.Parse(s.Trim().Split(":")[1]))).ToDictionary(x => x.Key, y => y.Value);
+            if(string.IsNullOrEmpty(data))
+            {
+                return new Dictionary<string, string>();
+            }
+
+           return data.Split(";", StringSplitOptions.RemoveEmptyEntries).Select(s => new KeyValuePair<string, string>(
+                 s.Trim().Split(":")[0], s.Trim().Split(":")[1])).ToDictionary(x => x.Key, y => y.Value);
         }
 
         public virtual string GetData(AuthenticationDbModel auth)
@@ -64,7 +69,7 @@ namespace Brilliancy.Soccer.Core.Modules.Authentication
             _dbContext.SaveChanges();
         }
 
-        public PlayerDbModel GetPlayer(Dictionary<string, int> dataDictionary, int userId)
+        public PlayerDbModel GetPlayer(Dictionary<string, string> dataDictionary, int userId)
         {
             if (!_dbContext.Users.Any(u => u.Id == userId))
             {
@@ -74,7 +79,7 @@ namespace Brilliancy.Soccer.Core.Modules.Authentication
             {
                 throw new InvalidDataException(CoreTranslations.Authentication_InvalidAuthData);
             }
-            var player = _dbContext.Players.Include(p => p.User).Include(p => p.Tournament.Admins).FirstOrDefault(p => p.Id == dataDictionary[EmailDataDictionary.PlayerId]);
+            var player = _dbContext.Players.Include(p => p.User).Include(p => p.Tournament.Admins).FirstOrDefault(p => p.Id ==int.Parse(dataDictionary[EmailDataDictionary.PlayerId]));
             if (player == null)
             {
                 throw new InvalidDataException(CoreTranslations.Authentication_InvalidAuthData);
@@ -82,7 +87,7 @@ namespace Brilliancy.Soccer.Core.Modules.Authentication
             return player;
         }
 
-        public abstract void ProccessData(Dictionary<string, int> dataDictionary, int userId);
+        public abstract void ProccessData(Dictionary<string, string> dataDictionary, int userId);
 
         public virtual void ProccessLink(string key, int? userId = default(int?))
         {

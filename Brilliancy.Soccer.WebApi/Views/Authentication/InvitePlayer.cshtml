@@ -1,0 +1,75 @@
+﻿@using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
+@using Brilliancy.Soccer.WebApi.Translations
+@model Brilliancy.Soccer.WebApi.Models.Write.Tournament.NewTournamentModel
+@{
+    ViewData["Title"] = WebApiTranslations.TournamentController_CreateTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="section-title-wrap">
+    <div class="section-title" data-bind="with:model"><h3 class="section-title-h"><span data-bind="text:$root.translations.newTournament"></span></h3></div>
+</div>
+<div class="col-lg-12">
+    <div data-bind="with:model">
+        <div class="overlay" style="display: none;"></div>
+        <div id="tournament-create" style="padding-top:10px;" class="row">
+            <div class="col-lg-12 row box">
+                <div class="col-md-6 col-sm-12">
+                    <div data-bind="validationElement: name" class="form-group">
+                        <label><span data-bind="text:$root.translations.tournamentName"></span></label>
+                        <input class="form-control" data-bind="value:name">
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div data-bind="validationElement: address" class="form-group">
+                        <label><span data-bind="text:$root.translations.tournamentAddress"></span></label>
+                        <input class="form-control" type="text" data-bind="value:address">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 row box">
+                <div class="col-md-6 col-sm-12">
+                    <div data-bind="validationElement: logoId" class="form-group">
+                        <label><span data-bind="text:$root.translations.tournamentLogo"></span></label>
+                        <div data-bind="with: $root.tournamentLogo">
+                            <div class="form-control" data-bind="dropzone: { init: initFunc, url: filesRequestUrl, maxFilesize: 4294967295, dictDefaultMessage: $root.translations.dropzone }, object: dropzone" id="file-avatar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label></label>
+                        <div class="form-control image-preview dropzone">
+                            <img class="img-preview" data-bind="attr:{src:logoUrl}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="col-lg-12 row">
+                    <a href="" class="btn btn-round btn-round-success" data-toggle="modal" data-bind="click:$root.addTournament">
+                        <i class="fa fa-plus-circle"></i> <span data-bind="text:$root.translations.tournamentCreate"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        require(['requireConfig'], function () {
+            require(['/js/viewScripts/tournament/create.js', 'knockout'], function (viewModel, ko) {
+                @{var json = JsonConvert.SerializeObject(
+                    Model,
+                    Formatting.None,
+                    new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+                }
+                ko.applyBindings(viewModel({
+                json: @Html.Raw(json)
+            }));
+            });
+        });
+    </script>
+}

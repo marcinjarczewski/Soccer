@@ -1,8 +1,8 @@
 define(['amplify', 'helpers', 'knockout'], function (amplify, helpers, ko) {   
     amplify.request.decoders.globalDecoder =
         function (data, status, xhr, success, error) {
-            debugger;
             model.spinner(false);
+            model.isBusy(false);
             if (data == null) {
                 helpers.log('Unexpected error', 'error');
                 error('Unexpected error', "fatal");
@@ -20,6 +20,6 @@ define(['amplify', 'helpers', 'knockout'], function (amplify, helpers, ko) {
                 error('Unexpected error', "fatal");
             }
         };
-    var model = { spinner: ko.observable(false) };
+    var model = { spinner: ko.observable(false), isBusy: ko.observable(false) };
     return model;
 });
