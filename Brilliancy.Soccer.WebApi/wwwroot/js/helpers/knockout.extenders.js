@@ -1,4 +1,4 @@
-﻿define(['knockout', 'knockoutValidation', "/js/plugins/i18n.js!/nls/translation.js"], function (ko, koVal) {
+﻿define(['knockout', 'knockoutValidation', "/js/plugins/i18n.js!/nls/translation.js"], function (ko, koVal, translations) {
     ko.extenders.localStore = function (target, options, translations) {
         var store = amplify.store.localStorage;
         var value = store(options.key);
@@ -88,6 +88,12 @@
         message: translations.validation.checkbox
     };
 
+    ko.validation.rules['equalPasswords'] = {
+        validator: function (val, params) {
+            return val === params;
+        },
+        message: translations.validation.equalPasswords
+    };
     ko.validation.registerExtenders();
 
 });

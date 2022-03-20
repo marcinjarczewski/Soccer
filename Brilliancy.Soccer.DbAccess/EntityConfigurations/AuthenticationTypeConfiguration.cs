@@ -19,7 +19,12 @@ namespace Brilliancy.Soccer.DbAccess.EntityConfigurations
                  {
                      Id = (int)AuthenticationTypeEnum.TournamentAdminInvite,
                      Name = AuthenticationTypeEnum.TournamentAdminInvite.ToString()
-                 });
+                 },
+                new AuthenticationTypeDbModel
+                {
+                    Id = (int)AuthenticationTypeEnum.ResetPassword,
+                    Name = AuthenticationTypeEnum.ResetPassword.ToString()
+                });
         }
     }
 }

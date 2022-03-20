@@ -2,7 +2,8 @@ define({
     validation: {
         fieldEmpty: "Pole nie może być puste",
         email: "Nieprawidłowy format adresu email",
-        checkbox: "Checkbox musi być zaznaczony"
+        checkbox: "Checkbox musi być zaznaczony",
+        equalPasswords: "Hasła muszą być identyczne"
     },
     layout: {
         login: "Logowanie",
@@ -22,6 +23,12 @@ define({
         weekdays: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
         weekdaysShort: ['Nie', 'Pon', 'Wto', 'Śro', 'Czw', 'Pią', 'Sob'],
         hour: 'Godzina:'
+    },
+    authenticationLostPassword: {
+        lostPasswordTitle: "Zmiana hasła",
+        password: "Hasło",
+        repeatPassword: "Powtórz hasło",
+        confirm: "Potwierdź"
     },
     matchEdit: {
         title: "Edycja meczu",
@@ -85,5 +92,10 @@ define({
         fieldRequired: "pole wymagane",
         registerCompleted: "Rejestracja zakończona",
         registerCompletedDescription: "Dziękujemy za rejestrację! teraz możesz się zalogować.",
+    },
+    loginLostPassword: {
+        lostPasswordTitle: "Zmiana hasła",
+        lostPassword: "Wpisz email, na który założone zostało konto",
+        sendEmail: "Wyślij email"
     }
 });

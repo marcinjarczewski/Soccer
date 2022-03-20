@@ -223,6 +223,15 @@ namespace Brilliancy.Soccer.Core.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wystąpił problem z autoryzacją..
+        /// </summary>
+        public static string Login_NoAuth {
+            get {
+                return ResourceManager.GetString("Login_NoAuth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Użytkownik nie istnieje lub jest nieaktywny..
         /// </summary>
         public static string Login_NoUser {

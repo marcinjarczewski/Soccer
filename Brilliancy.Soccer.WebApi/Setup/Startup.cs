@@ -16,6 +16,7 @@ using Brilliancy.Soccer.Core.Services;
 using Brilliancy.Soccer.Common.Contracts.Providers;
 using Brilliancy.Soccer.Common.Providers;
 using Brilliancy.Soccer.Common.Contracts.Services;
+using Brilliancy.Soccer.Core.Modules.Authentication;
 
 namespace Brilliancy.Soccer.WebApi
 {
@@ -95,6 +96,7 @@ namespace Brilliancy.Soccer.WebApi
             services.AddScoped<IPlayerModule, PlayerModule>();
             services.AddScoped<IMatchModule, MatchModule>();
             services.AddScoped<IFileModule, FileModule>();
+            services.AddScoped<IAuthenticationModule, AuthenticationModule>();
         }
     }
 }

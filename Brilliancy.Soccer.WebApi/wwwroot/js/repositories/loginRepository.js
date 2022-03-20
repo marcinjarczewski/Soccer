@@ -26,16 +26,27 @@ define(['jquery', 'storageHelper', 'messageQueue', 'amplify', 'baseRepository'],
             });
         },
         changeLanguage: function (data, callback) {
-            data.__ko_mapping__ = null;
             return amplify.request({
                 resourceId: "changeLanguage",
                 data: data,
                 success: callback,
             });
         },
+        lostPassword: function (data, callback) {
+            return amplify.request({
+                resourceId: "lostPassword",
+                data: data,
+                success: callback,
+            });
+        },
+        changePassword: function (data, callback) {
+            return amplify.request({
+                resourceId: "changePassword",
+                data: data,
+                success: callback,
+            });
+        },
         register: function (data, callback) {
-            data.__ko_mapping__ = null;
-            debugger;
             return amplify.request({
                 resourceId: "register",
                 data: data,
@@ -67,6 +78,18 @@ define(['jquery', 'storageHelper', 'messageQueue', 'amplify', 'baseRepository'],
                     xhr.setRequestHeader("Authorization", storageHelper.readCookie("token"));
                 }
             });
+            amplify.request.define("lostPassword", "ajax", {
+                url: "/login/LostPassword",
+                dataType: "json",
+                type: "POST",
+                decoder: "globalDecoder",
+            });
+            amplify.request.define("changePassword", "ajax", {
+                url: "/login/changePassword",
+                dataType: "json",
+                type: "POST",
+                decoder: "globalDecoder",
+            });
             amplify.request.define("register", "ajax", {
                 url: apiUrl + "register",
                 dataType: "json",
@@ -75,7 +98,7 @@ define(['jquery', 'storageHelper', 'messageQueue', 'amplify', 'baseRepository'],
             });
 
             amplify.request.define("getRoles", "ajax", {
-                url: apiUrl + "getroles",
+                url: apiUrl + "login/getroles",
                 dataType: "json",
                 type: "POST"
             });

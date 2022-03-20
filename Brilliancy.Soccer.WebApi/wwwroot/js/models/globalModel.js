@@ -8,7 +8,9 @@
         MessageQueue.viewAllMessages();
         //init spinner
         self.spinner = ko.observable(false);
+        self.isBusy = ko.observable(false);
         baseRepository.spinner = self.spinner;
+        baseRepository.isBusy = self.isBusy;
         //set language
         self.changeLanguage = function (name) {
             storageHelper.saveLanguage(name);

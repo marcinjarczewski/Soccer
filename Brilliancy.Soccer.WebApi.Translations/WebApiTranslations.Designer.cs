@@ -160,6 +160,15 @@ namespace Brilliancy.Soccer.WebApi.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Jeżeli konto istnieje email z przypomnieniem hasła zostanie wysłany..
+        /// </summary>
+        public static string LoginController_EmailSend {
+            get {
+                return ResourceManager.GetString("LoginController_EmailSend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nieprawidłowy login lub hasło.
         /// </summary>
         public static string LoginController_InvalidLoginOrPassword {
@@ -219,6 +228,15 @@ namespace Brilliancy.Soccer.WebApi.Translations {
         public static string LoginController_Password {
             get {
                 return ResourceManager.GetString("LoginController_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hasło zostało zmienione..
+        /// </summary>
+        public static string LoginController_PasswordChanged {
+            get {
+                return ResourceManager.GetString("LoginController_PasswordChanged", resourceCulture);
             }
         }
         
@@ -300,6 +318,15 @@ namespace Brilliancy.Soccer.WebApi.Translations {
         public static string TournamentController_InvalidTournamentData {
             get {
                 return ResourceManager.GetString("TournamentController_InvalidTournamentData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Odzyskiwanie dostępu.
+        /// </summary>
+        public static string TournamentController_LostPasswordTitle {
+            get {
+                return ResourceManager.GetString("TournamentController_LostPasswordTitle", resourceCulture);
             }
         }
     }

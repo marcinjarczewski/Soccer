@@ -2,7 +2,8 @@ define({
     validation: {
         fieldEmpty: "Field can't be empty",
         email: "Incorrect email address",
-        checkbox: "Checkbox must be checked"
+        checkbox: "Checkbox must be checked",
+        equalPasswords: "Passwords must be equals"
     },
     layout: {
         login: "Login",
@@ -53,6 +54,12 @@ define({
         goOngoing: "go live",
         endMatch: "end match"
     },
+    authenticationLostPassword: {
+        lostPasswordTitle: "Change password",
+        password: "Password",
+        repeatPassword: "RepeatPassword",
+        confirm: "Confirm"
+    },
     tournamentCreate: {
         created: "The tournament has been created.",
         newTournament: "New tournament",
@@ -85,5 +92,10 @@ define({
         fieldRequired: "field required",
         registerCompleted: "Registration complete",
         registerCompletedDescription: "Thank you for registration! You can now login.",
+    },
+    loginLostPassword: {
+        lostPasswordTitle: "Lost password",
+        lostPassword: "Enter the email address for which the account has been created",
+        sendEmail: "Send"
     }
 });

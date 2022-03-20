@@ -13,5 +13,9 @@ namespace Brilliancy.Soccer.Common.Contracts.Modules
         void ConfirmAdminInvitation(string key, int userId);
 
         int ConfirmEmailReset(string key);
+
+        void ForgottenPassword(string email);
+
+        int GetUserFromAuth(int authId);
     }
 }

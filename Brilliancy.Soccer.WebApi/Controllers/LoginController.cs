@@ -22,10 +22,13 @@ namespace Brilliancy.Soccer.WebApi.Controllers
     public class LoginController : BaseController
     {
         private readonly IApplicationUserManager _userManager;
-        public LoginController(IMapper mapper, ILoginModule loginModule, IApplicationUserManager userManager, IHttpContextAccessor httpContextAccessor) 
+        private IAuthenticationModule _authModule { get; }
+
+        public LoginController(IMapper mapper, ILoginModule loginModule, IAuthenticationModule authModule, IApplicationUserManager userManager, IHttpContextAccessor httpContextAccessor) 
             : base(mapper, loginModule, httpContextAccessor)
         {
             _userManager = userManager;
+            _authModule = authModule;
         }
 
         public ActionResult Index(string returnUrl = null)
@@ -38,6 +41,64 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         public ActionResult Test()
         {
             return View();
+        }
+
+        [Route("LostPassword")]
+        public ActionResult LostPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("lostPassword")]
+        public IActionResult LostPassword(LostPasswordWriteModel model)
+        {
+            _authModule.ForgottenPassword(model.Email);
+            return new JsonResult(new BaseResultReadModel
+            {
+                IsSuccess = true,
+                Message = WebApiTranslations.LoginController_EmailSend
+            });
+        }
+
+        [HttpPost]
+        [Route("ChangePassword")]
+        public IActionResult ChangePassword(NewPasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var password = _userManager.GeneratePassword(model.Password);
+                var userId =_authModule.GetUserFromAuth(model.AuthId);
+                _loginModule.ChangePassword(password, userId);
+                return new JsonResult(new BaseResultReadModel
+                {
+                    IsSuccess = true,
+                    Message = WebApiTranslations.LoginController_PasswordChanged
+                });
+            }
+            else
+            {
+                if (ModelState.Keys.Any())
+                {
+                    foreach (var item in ModelState.Keys)
+                    {
+                        var obj = ModelState[item];
+                        if (obj.Errors.Any())
+                        {
+                            return new JsonResult(new BaseResultReadModel
+                            {
+                                IsSuccess = false,
+                                Message = obj.Errors[0].ErrorMessage
+                            });
+                        }
+                    }
+                }
+                return new JsonResult(new BaseResultReadModel
+                {
+                    IsSuccess = false,
+                    Message = WebApiTranslations.LoginController_InvalidLoginOrPassword
+                });
+            }
         }
 
         [HttpPost]
