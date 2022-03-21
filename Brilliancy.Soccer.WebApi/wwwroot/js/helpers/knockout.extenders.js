@@ -19,6 +19,63 @@
         return target;
     };
 
+    ko.bindingHandlers.timer = {
+        init: function (element, valueAccessor, allBindingsAccessor) {
+            var observable = valueAccessor();
+            var value = observable;
+            if (typeof (value) === "function") {
+                value = observable();
+            }
+
+            var interceptor = ko.computed({
+                read: function () {
+                    return formatTime(value, ':');
+                },
+                write: function (newValue) {
+                    debugger;
+                    return reverseFormat(newValue, ':');
+                }
+            });
+
+            if (element.tagName == 'INPUT')
+                ko.applyBindingsToNode(element, {
+                    value: interceptor
+                });
+            else
+                ko.applyBindingsToNode(element, {
+                    text: interceptor
+                });
+
+            function formatTime(x, seperator) {
+                if (x == null) {
+                    return "";
+                }
+                let seconds = x % 60;
+                let minutes = x / 60;
+                return Math.floor(minutes) + seperator + seconds.toString().padStart(2, '0');
+            }
+
+            function reverseFormat(x, seperator) {
+                if (x == null) {
+                    return "";
+                }
+                var temp = x.split(separator);
+                if (temp.length == 1) {
+                    return 0;
+                }
+
+                return temp[0] * 60 + seperator + temp[1].toString().padStart(2, '0');
+            }
+        },
+        update: function (element, valueAccessor) {
+            let x = valueAccessor()();
+            let seconds = x % 60;
+            let minutes = x / 60;
+            $(element).text(Math.floor(minutes) + ':' + seconds.toString().padStart(2, '0'));
+            return true;
+        }
+    };
+
     ko.bindingHandlers.decimal = {
         init: function (element, valueAccessor, allBindingsAccessor) {
             var observable = valueAccessor();

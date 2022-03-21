@@ -57,10 +57,64 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         }
 
         [Authorize]
+        [HttpGet("LiveEdit/{id}")]
+        public ActionResult LiveEdit(int id)
+        {
+            var match = _matchModule.GetMatch(id, this._CurrentUserInfo.Id);
+            var model = _mapper.Map<MatchDetailsModel>(match);
+            model.EmptyGoal = new GoalReadModel();
+            return View(model);
+        }
+
+
+        [Authorize]
+        [HttpGet("LiveEditModel/{id}")]
+        public ActionResult LiveEditModel(int id)
+        {
+            var match = _matchModule.GetMatch(id, this._CurrentUserInfo.Id);
+            var model = _mapper.Map<MatchDetailsModel>(match);
+            model.EmptyGoal = new GoalReadModel();
+            return new JsonResult(new BaseResultWithDataReadModel
+            {
+                IsSuccess = true,
+                Data = model
+            });
+        }
+
+
+        [Authorize]
         [HttpPost("ChangeToPending")]
         public ActionResult ChangeToPending(MatchChangeStateWriteModel model)
         {
             _matchModule.ChangeMatchStateToPending(model?.Id ?? 0, this._CurrentUserInfo.Id);
+            return new JsonResult(new BaseResultWithDataReadModel
+            {
+                IsSuccess = true,
+                Data = model?.Id,
+                Message = WebApiTranslations.MatchController_AddSuccess
+            });
+        }
+
+        [Authorize]
+        [HttpPost("AddGoal")]
+        public ActionResult AddGoal(MatchOngoingEditModel model)
+        {
+            var dto = _mapper.Map<MatchOngoingEditDto>(model);
+            _matchModule.AddGoal(dto, this._CurrentUserInfo.Id);
+            return new JsonResult(new BaseResultWithDataReadModel
+            {
+                IsSuccess = true,
+                Data = model?.Id,
+                Message = WebApiTranslations.MatchController_AddSuccess
+            });
+        }
+
+        [Authorize]
+        [HttpPost("RemoveGoal")]
+        public ActionResult RemoveGoal(MatchOngoingEditModel model)
+        {
+            var dto = _mapper.Map<MatchOngoingEditDto>(model);
+            _matchModule.RemoveGoal(dto, this._CurrentUserInfo.Id);
             return new JsonResult(new BaseResultWithDataReadModel
             {
                 IsSuccess = true,

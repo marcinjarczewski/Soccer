@@ -37,6 +37,10 @@ namespace Brilliancy.Soccer.Core.Modules
              .Include(t => t.Tournament.Players)
              .Include(t => t.Tournament.Admins).FirstOrDefault(t => t.Id == id);
             var result = _mapper.Map<MatchEditDto>(match);
+            if(match == null)
+            {
+                throw new InvalidDataException(CoreTranslations.Tournament_NoMatch);
+            }
             result.Goals = _mapper.Map<List<GoalDto>>(match.Goals.Where(g => g.IsActive));
             var homeIdPlayers = result.HomePlayers.Select(p => p.Id).ToList();
             var awayIdPlayers = result.AwayPlayers.Select(p => p.Id).ToList();
@@ -132,6 +136,7 @@ namespace Brilliancy.Soccer.Core.Modules
                 throw new UserDataException(CoreTranslations.Match_IncorrectState);
             }
             match.StateId = (int)MatchStateEnum.Finished;
+            match.EndDate = DateTime.Now;
             this._dbContext.Matches.Update(match);
             this._dbContext.SaveChanges();
         }
@@ -152,6 +157,7 @@ namespace Brilliancy.Soccer.Core.Modules
                 throw new UserDataException(CoreTranslations.Match_IncorrectState);
             }
             match.StateId = (int)MatchStateEnum.Ongoing;
+            match.StartDate = DateTime.Now;
             this._dbContext.Matches.Update(match);
             this._dbContext.SaveChanges();
         }
@@ -374,7 +380,8 @@ namespace Brilliancy.Soccer.Core.Modules
                     IsHomeTeam = dto.Goal.IsHomeTeam
                 });
             }
-
+            match.HomeGoals = match.Goals.Count(m => m.IsActive && ((m.IsHomeTeam && !m.IsOwnGoal) || (!m.IsHomeTeam && m.IsOwnGoal)));
+            match.AwayGoals = match.Goals.Count(m => m.IsActive && ((m.IsHomeTeam && m.IsOwnGoal) || (!m.IsHomeTeam && !m.IsOwnGoal)));
             this._dbContext.Matches.Update(match);
             this._dbContext.SaveChanges();
         }

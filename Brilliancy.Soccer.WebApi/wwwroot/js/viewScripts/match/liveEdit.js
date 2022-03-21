@@ -59,13 +59,20 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
                 vm.newGoalStep(3);
             }
 
-            vm.cancelNewGoal = function () {
+            vm.ownGoal = function () {
                 vm.newGoalStep(1);
-                vm.showModal(false);
+                vm.isOwngoal(!vm.isOwngoal());
+                vm.showHomeTeam(!vm.showHomeTeam());
             }
 
             vm.stepBack = function () {
                 vm.newGoalStep(vm.newGoalStep() -1);
+            }
+
+            vm.cancelNewGoal = function () { 
+                vm.newGoalStep(1);
+                vm.isOwngoal(false);
+                vm.showModal(false);
             }
 
             vm.noAssist = function () {
@@ -75,27 +82,96 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
             }
 
             vm.removeHomeGoal = function (data) {
-                vm.model().homeGoalsList.remove(data);
-                vm.model().homeGoals(vm.model().homeGoalsList().length);
+                let dataObject = {
+                    id: vm.model().id(),
+                    goal: {
+                        id: data.id()
+                    }
+                };
+                vm.globalModel.isBusy(true);
+                let callback = function (result) {
+                    vm.globalModel.spinner(false);
+                    vm.globalModel.isBusy(false);
+                    vm.model().homeGoalsList.remove(data);
+                    vm.model().homeGoals(vm.model().homeGoalsList().length);
+                    if (!result.isSuccess) {
+                        helpers.log(result.message, 'error');
+                        return false;
+                    }
+                    else {
+                        helpers.log(translations.matchEdit.goalsSaved, 'success');
+                    }
+                    return true;
+                };
+                matchRepository.removeGoal(dataObject, callback);
             }
+
             vm.removeAwayGoal = function (data) {
-                vm.model().awayGoalsList.remove(data);
-                vm.model().awayGoals(vm.model().awayGoalsList().length);
+                let dataObject = {
+                    id: vm.model().id(),
+                    goal: {
+                        id: data.id()
+                    }
+                };
+                vm.globalModel.isBusy(true);
+                let callback = function (result) {
+                    vm.globalModel.spinner(false);
+                    vm.globalModel.isBusy(false);
+                    vm.model().awayGoalsList.remove(data);
+                    vm.model().awayGoals(vm.model().awayGoalsList().length);
+                    if (!result.isSuccess) {
+                        helpers.log(result.message, 'error');
+                        return false;
+                    }
+                    else {
+                        helpers.log(translations.matchEdit.goalsSaved, 'success');
+                    }
+                    return true;
+                };
+                matchRepository.removeGoal(dataObject, callback);
             }
 
             vm.saveGoal = function () {
-                vm.newGoalStep(1);
-                vm.showModal(false);
-                vm.isOwngoal(false);
+                vm.newGoal().time(Math.ceil(vm.timer() / 60));
+                let dataObject = {
+                    id: vm.model().id(),
+                    goal: {
+                        assistId: vm.newGoal().assistId(),
+                        isOwnGoal: vm.newGoal().isOwnGoal(),
+                        scorerId: vm.newGoal().scorerId(),
+                        time: vm.newGoal().time()
+                    }
+                };
                 if ((vm.showHomeTeam() && !vm.isOwngoal()) || (!vm.showHomeTeam() && vm.isOwngoal())) {
                     vm.model().homeGoalsList.push(vm.newGoal());
+                    dataObject.goal.isHomeTeam = true;
                 }
                 else {
                     vm.model().awayGoalsList.push(vm.newGoal());
+                    dataObject.goal.isHomeTeam = false;
                 }
-                vm.newGoal(mappings.fromJS(ko.toJS(vm.model().emptyGoal)));
-                vm.model().homeGoals(vm.model().homeGoalsList().length);
-                vm.model().awayGoals(vm.model().awayGoalsList().length);
+
+           
+                vm.globalModel.isBusy(true);
+                let callback = function (result) {
+                    vm.globalModel.spinner(false);
+                    vm.globalModel.isBusy(false);
+                    vm.newGoal(mappings.fromJS(ko.toJS(vm.model().emptyGoal)));
+                    vm.model().homeGoals(vm.model().homeGoalsList().length);
+                    vm.model().awayGoals(vm.model().awayGoalsList().length);
+                    vm.newGoalStep(1);
+                    vm.showModal(false);
+                    vm.isOwngoal(false);
+                    if (!result.isSuccess) {
+                        helpers.log(result.message, 'error');
+                        return false;
+                    }
+                    else {
+                        helpers.log(translations.matchEdit.goalsSaved, 'success');
+                    }
+                    return true;
+                };
+                matchRepository.addGoal(dataObject, callback);
             }
       
             vm.matchErrors = ko.validation.group([
@@ -107,6 +183,14 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
                 vm.isOwngoal(false);
                 vm.showModal(true);
             }
+
+            vm.timer = ko.observable(600);
+
+            function setTimer() {
+                vm.timer(vm.timer() + 1);
+            }
+
+            vm.timerEvent = setInterval(setTimer, 1000);
 
             vm.addAwayGoal = function () {
                 vm.showHomeTeam(false);

@@ -36,6 +36,27 @@ define(['jquery', 'storageHelper', 'messageQueue', 'amplify', 'baseRepository'],
                 success: callback,
             });
         },
+        addGoal: function (data, callback) {
+            return amplify.request({
+                resourceId: "addGoal",
+                data: data,
+                success: callback,
+            });
+        },
+        removeGoal: function (data, callback) {
+            return amplify.request({
+                resourceId: "removeGoal",
+                data: data,
+                success: callback,
+            });
+        },
+        changeToFinished: function (data, callback) {
+            return amplify.request({
+                resourceId: "changeToFinished",
+                data: data,
+                success: callback,
+            });
+        },
         init: function () {
             amplify.request.define("addMatch", "ajax", {
                 url: apiUrl + "add",
@@ -48,6 +69,24 @@ define(['jquery', 'storageHelper', 'messageQueue', 'amplify', 'baseRepository'],
             });
             amplify.request.define("editCreatingMatch", "ajax", {
                 url: apiUrl + "editCreating",
+                dataType: "json",
+                type: "POST",
+                decoder: "globalDecoder",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", storageHelper.readCookie("token"));
+                }
+            });
+            amplify.request.define("addGoal", "ajax", {
+                url: apiUrl + "addGoal",
+                dataType: "json",
+                type: "POST",
+                decoder: "globalDecoder",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", storageHelper.readCookie("token"));
+                }
+            });
+            amplify.request.define("removeGoal", "ajax", {
+                url: apiUrl + "removeGoal",
                 dataType: "json",
                 type: "POST",
                 decoder: "globalDecoder",

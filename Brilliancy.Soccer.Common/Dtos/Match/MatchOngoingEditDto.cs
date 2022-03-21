@@ -9,8 +9,6 @@ namespace Brilliancy.Soccer.Common.Dtos.Match
     {
         public int Id { get; set; }
 
-        public DateTime Date { get; set; }
-
         public GoalDto Goal { get; set; }
     }
 }
