@@ -180,6 +180,9 @@
   <data name="Match_PlayerNotInTournament" xml:space="preserve">
     <value>The indicated player does not take part in this tournament.</value>
   </data>
+  <data name="Tournament_AdminAlreadyAdded" xml:space="preserve">
+    <value>This user is already an admin.</value>
+  </data>
   <data name="Tournament_InvalidAssist" xml:space="preserve">
     <value>Invalid goal assistant.</value>
   </data>

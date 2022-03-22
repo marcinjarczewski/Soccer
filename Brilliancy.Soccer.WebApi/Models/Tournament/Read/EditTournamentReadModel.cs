@@ -29,7 +29,9 @@ namespace Brilliancy.Soccer.WebApi.Models.Read.Tournament
 
         public MatchReadModel NextMatch { get; set; }
 
-        public List<UserReadModel> Admins { get; set; }
+        public List<AdminReadModel> Admins { get; set; }
+
+        public List<UserReadModel> NotAdmins { get; set; }
 
         public List<PlayerReadModel> Players { get; set; }
 
@@ -37,7 +39,7 @@ namespace Brilliancy.Soccer.WebApi.Models.Read.Tournament
 
         public PlayerReadModel EmptyPlayer { get; set; }
 
-        public UserReadModel EmptyUser { get; set; }
+        public AdminReadModel EmptyUser { get; set; }
 
         public NewMatchWriteModel EmptyMatch { get; set; }
     }

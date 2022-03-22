@@ -503,7 +503,6 @@ namespace Brilliancy.Soccer.Core.Tests
             _matchModule.AddGoal(new Common.Dtos.Match.MatchOngoingEditDto
             {
                 Id = 2,
-                Date = DateTime.Now,
                 Goal = new Common.Dtos.Match.GoalDto
                 {
                     AssistId = 3,
@@ -521,7 +520,6 @@ namespace Brilliancy.Soccer.Core.Tests
             _matchModule.RemoveGoal(new Common.Dtos.Match.MatchOngoingEditDto
             {
                 Id = 2,
-                Date = DateTime.Now,
                 Goal = new Common.Dtos.Match.GoalDto
                 {
                     Id = 1
@@ -536,7 +534,6 @@ namespace Brilliancy.Soccer.Core.Tests
             var ex = Assert.Throws<UserDataException>(() => _matchModule.AddGoal(new Common.Dtos.Match.MatchOngoingEditDto
             {
                 Id = 1,
-                Date = DateTime.Now,
                 Goal = new Common.Dtos.Match.GoalDto
                 {
                     AssistId = 3,

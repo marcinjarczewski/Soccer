@@ -8,6 +8,7 @@ using Brilliancy.Soccer.Common.Dtos.Player;
 using Brilliancy.Soccer.Common.Dtos.Tournament;
 using Brilliancy.Soccer.Common.Dtos.User;
 using Brilliancy.Soccer.Common.Enums;
+using Brilliancy.Soccer.WebApi.Models.Authentication.Write;
 using Brilliancy.Soccer.WebApi.Models.Login.Write;
 using Brilliancy.Soccer.WebApi.Models.Match.Read;
 using Brilliancy.Soccer.WebApi.Models.Match.Write;
@@ -43,11 +44,13 @@ namespace Brilliancy.Soccer.WebApi.Setup
             CreateMap<MatchEditDto, MatchReadModel>();
             CreateMap<TournamentDto, EditTournamentReadModel>();
             CreateMap<PlayerDto, PlayerReadModel>();
+            CreateMap<AdminDto, AdminReadModel>();
             CreateMap<PlayerWriteModel, PlayerDto>()
                 .ForMember(dto => dto.Id, m => m.MapFrom(model => model.Id == 0 ? default(int?) : model.Id));
             CreateMap<CreatingMatchWriteModel, MatchCreatingEditDto>();
             CreateMap<NewMatchWriteModel, NewMatchDto>();
             CreateMap<EditTournamentWriteModel, TournamentDto>();
+            CreateMap<AuthenticationWriteModel, AuthenticationDto>(); 
             CreateMap<LoginDto, UserInfo>()
                .ForMember(dto => dto.IsAdmin, m => m.MapFrom(db => (db.Roles ?? new System.Collections.Generic.List<RoleDto>()).Any(r => r.Id == (int)RoleEnum.Admin)));
         }

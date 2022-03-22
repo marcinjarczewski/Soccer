@@ -52,7 +52,8 @@ define({
         minute: "Minute",
         goalsSaved: "Result has been saved",
         goOngoing: "go live",
-        endMatch: "end match"
+        endMatch: "end match",
+        cancelMatch: "cancel match"
     },
     authenticationLostPassword: {
         lostPasswordTitle: "Change password",
@@ -72,7 +73,26 @@ define({
     tournamentEdit: {
         edited: "Changes have been saved.",
         tournamentLogo: "Tournament logo",
-        dropzone: "Drop a file here to upload it"
+        dropzone: "Drop a file here to upload it",
+        title: "Tournament edit",
+        name: "Tournament name",
+        address: "The venue of the tournament",
+        userAdded: "The user has been added",
+        invite: "Invite",
+        remove: "Remove",
+        addPlayer: "Add a player",
+        saveChanges: "Save changes",
+        newMatch: "New match",
+        home: "Home",
+        away: "Away",
+        createMatch: "Create a match",
+        goToMatch: "Go to the match",
+        editTournament: "Tournament edit",
+        cancel: "cancel",
+        inviteAsAdmin: "invite as admin",
+        email: "email",
+        admins: "administrators",
+        add: "add"
     },
     loginIndex: {
         login: "Login",

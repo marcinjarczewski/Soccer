@@ -237,6 +237,27 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
                 return matchRepository.changeToFinished(dataObject, callback);
             };
 
+            vm.goCanceled = function () {
+                let dataObject = {
+                    id: vm.model().id()
+                };
+                vm.isBusy(true);
+                let callback = function (result) {
+                    vm.globalModel.spinner(false);
+                    vm.isBusy(false);
+                    if (!result.isSuccess) {
+                        helpers.log(result.message, 'error');
+                        return false;
+                    }
+                    else {
+                        messageQueue.addMessage(translations.matchEdit.teamsConfirmed, 'success');
+                        $(location).attr('href', '/login/test');
+                    }
+                    return true;
+                };
+                return matchRepository.changeToCanceled(dataObject, callback);
+            };
+
             return vm;
         }
 

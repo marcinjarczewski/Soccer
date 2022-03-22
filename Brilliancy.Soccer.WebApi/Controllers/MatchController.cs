@@ -140,7 +140,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         [HttpPost("ChangeToCanceled")]
         public ActionResult ChangeToCanceled(MatchChangeStateWriteModel model)
         {
-            _matchModule.ChangeMatchStateToOngoing(model?.Id ?? 0, this._CurrentUserInfo.Id);
+            _matchModule.ChangeMatchStateToCanceled(model?.Id ?? 0, this._CurrentUserInfo.Id);
             return new JsonResult(new BaseResultWithDataReadModel
             {
                 IsSuccess = true,
