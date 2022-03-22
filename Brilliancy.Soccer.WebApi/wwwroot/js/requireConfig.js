@@ -29,6 +29,7 @@ requirejs.config({
         baseRepository: '/js/repositories/baseRepository',
         loginRepository: '/js/repositories/loginRepository',
         playerRepository: '/js/repositories/playerRepository',
+        authenticationRepository: '/js/repositories/authenticationRepository',
         tournamentRepository: '/js/repositories/tournamentRepository',
         matchRepository: '/js/repositories/matchRepository',
         fileRepository: '/js/repositories/fileRepository'

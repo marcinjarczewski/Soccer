@@ -186,6 +186,9 @@
   <data name="Match_PlayerNotInTournament" xml:space="preserve">
     <value>Wskazany zawodnik nie bierze udziału w tym turnieju. </value>
   </data>
+  <data name="Tournament_AdminAlreadyAdded" xml:space="preserve">
+    <value>Ten użytkownik jest już administratorem.</value>
+  </data>
   <data name="Tournament_InvalidAssist" xml:space="preserve">
     <value>Nieprawidłowy asystent przy bramce.</value>
   </data>

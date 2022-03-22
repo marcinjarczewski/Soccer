@@ -61,6 +61,15 @@ namespace Brilliancy.Soccer.WebApi.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wysłano zaproszenie..
+        /// </summary>
+        public static string AuthenticationController_InvitePlayer {
+            get {
+                return ResourceManager.GetString("AuthenticationController_InvitePlayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zostałeś administratorem turnieju..
         /// </summary>
         public static string AuthenticationController_ValidKeyInviteAdmin {
@@ -273,6 +282,24 @@ namespace Brilliancy.Soccer.WebApi.Translations {
         public static string PlayerController_Edit {
             get {
                 return ResourceManager.GetString("PlayerController_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Administrator został dodany..
+        /// </summary>
+        public static string TournamentController_AdminAdded {
+            get {
+                return ResourceManager.GetString("TournamentController_AdminAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Administrator został usunięty..
+        /// </summary>
+        public static string TournamentController_AdminRemoved {
+            get {
+                return ResourceManager.GetString("TournamentController_AdminRemoved", resourceCulture);
             }
         }
         

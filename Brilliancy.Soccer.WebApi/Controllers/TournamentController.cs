@@ -5,6 +5,7 @@ using Brilliancy.Soccer.Common.Exceptions;
 using Brilliancy.Soccer.DbModels.Interfaces;
 using Brilliancy.Soccer.WebApi.Models.Read.Tournament;
 using Brilliancy.Soccer.WebApi.Models.Shared;
+using Brilliancy.Soccer.WebApi.Models.User.Write;
 using Brilliancy.Soccer.WebApi.Models.Write.Tournament;
 using Brilliancy.Soccer.WebApi.Translations;
 using Microsoft.AspNetCore.Authorization;
@@ -28,7 +29,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
 
         public ActionResult Index(string returnUrl = null)
         {
-            var t = _tournamentModule.GetTournament(2,1);
+            var t = _tournamentModule.GetTournament(2, 1);
             return View();
         }
 
@@ -45,10 +46,10 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         public ActionResult Edit(int id)
         {
             var dto = _tournamentModule.GetTournament(id, _CurrentUserInfo.Id);
-            var model =  _mapper.Map<EditTournamentReadModel>(dto);
+            var model = _mapper.Map<EditTournamentReadModel>(dto);
             model.EmptyMatch = new Models.Match.Write.NewMatchWriteModel();
             model.EmptyPlayer = new Models.Player.Read.PlayerReadModel();
-            model.EmptyUser = new Models.User.Read.UserReadModel();
+            model.EmptyUser = new Models.User.Read.AdminReadModel();
             return View(model);
         }
 
@@ -99,6 +100,50 @@ namespace Brilliancy.Soccer.WebApi.Controllers
             {
                 throw new InvalidDataException(WebApiTranslations.TournamentController_InvalidTournamentData);
             }
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("AddAdmin")]
+        public IActionResult AddAdmin(AdminWriteModel model)
+        {
+            if (model == null)
+            {
+                return new JsonResult(new BaseResultReadModel
+                {
+                    IsSuccess = false,
+                    Message = WebApiTranslations.BaseController_InvalidData
+                });
+            }
+            this._tournamentModule.AddAdmin(model.TournamentId, model.Id, this._CurrentUserInfo.Id);
+
+            return new JsonResult(new BaseResultReadModel
+            {
+                IsSuccess = true,
+                Message = WebApiTranslations.TournamentController_AdminAdded
+            });
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("RemoveAdmin")]
+        public IActionResult RemoveAdmin(AdminWriteModel model)
+        {
+            if (model == null)
+            {
+                return new JsonResult(new BaseResultReadModel
+                {
+                    IsSuccess = false,
+                    Message = WebApiTranslations.BaseController_InvalidData
+                });
+            }
+            this._tournamentModule.RemoveAdmin(model.TournamentId, model.Id, this._CurrentUserInfo.Id);
+
+            return new JsonResult(new BaseResultReadModel
+            {
+                IsSuccess = true,
+                Message = WebApiTranslations.TournamentController_AdminRemoved
+            });
         }
     }
 }

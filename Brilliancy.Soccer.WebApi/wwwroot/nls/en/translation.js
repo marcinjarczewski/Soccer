@@ -52,7 +52,8 @@ define({
         minute: "Minute",
         goalsSaved: "Result has been saved",
         goOngoing: "go live",
-        endMatch: "end match"
+        endMatch: "end match",
+        cancelMatch: "cancel match"
     },
     authenticationLostPassword: {
         lostPasswordTitle: "Change password",
@@ -72,7 +73,26 @@ define({
     tournamentEdit: {
         edited: "Changes have been saved.",
         tournamentLogo: "Tournament logo",
-        dropzone: "Drop a file here to upload it"
+        dropzone: "Drop a file here to upload it",
+        title: "Tournament edit",
+        name: "Nazwa turnieju",
+        address: "Miejsce rozgrywania turnieju",
+        userAdded: "U¿ytkownik przypisany",
+        invite: "Zaproœ",
+        remove: "Usuñ",
+        addPlayer: "Dodaj gracza",
+        saveChanges: "Zapisz zmiany",
+        newMatch: "Nowy mecz",
+        home: "Gospodarze",
+        away: "Goœcie",
+        createMatch: "Utwórz mecz",
+        goToMatch: "PrzejdŸ do meczu",
+        editTournament: "Edytuj turniej",
+        cancel: "anuluj",
+        inviteAsAdmin: "zaproœ jako administratora",
+        email: "email",
+        admins: "administratorzy",
+        add: "dodaj"
     },
     loginIndex: {
         login: "Login",

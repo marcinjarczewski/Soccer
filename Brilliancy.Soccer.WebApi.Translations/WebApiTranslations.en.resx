@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AuthenticationController_InvitePlayer" xml:space="preserve">
+    <value>The invitation has been sent.</value>
+  </data>
   <data name="AuthenticationController_ValidKeyInviteAdmin" xml:space="preserve">
     <value>You have become the tournament administrator.</value>
   </data>
@@ -188,6 +191,12 @@
   </data>
   <data name="PlayerController_Edit" xml:space="preserve">
     <value>The players data has been saved.</value>
+  </data>
+  <data name="TournamentController_AdminAdded" xml:space="preserve">
+    <value>The administrator has been added.</value>
+  </data>
+  <data name="TournamentController_AdminRemoved" xml:space="preserve">
+    <value>The administrator has been removed.</value>
   </data>
   <data name="TournamentController_Created" xml:space="preserve">
     <value>Turniej został utworzony.</value>

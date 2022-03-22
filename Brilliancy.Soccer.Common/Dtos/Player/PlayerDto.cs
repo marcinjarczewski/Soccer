@@ -15,5 +15,7 @@ namespace Brilliancy.Soccer.Common.Dtos.Player
         public string LastName { get; set; }
 
         public string NickName { get; set; }
+
+        public int? UserId { get; set; }
     }
 }

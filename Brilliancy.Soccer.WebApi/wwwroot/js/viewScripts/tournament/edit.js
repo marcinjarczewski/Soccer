@@ -1,6 +1,6 @@
 define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 'helpers',
-    'tournamentRepository', 'playerRepository', 'matchRepository', "/js/plugins/i18n.js!/nls/translation.js"],
-    function (ko, mappings, messageQueue, globalModel, helpers, tournamentRepository, playerRepository, matchRepository, translations) {
+    'tournamentRepository', 'playerRepository', 'matchRepository', 'authenticationRepository', "/js/plugins/i18n.js!/nls/translation.js"],
+    function (ko, mappings, messageQueue, globalModel, helpers, tournamentRepository, playerRepository, matchRepository, authenticationRepository, translations) {
         var ViewModel = function (options) {
             var mapping = {
                 name: {
@@ -40,8 +40,30 @@ define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 
                 globalModel: globalModel(),
                 isBusy: ko.observable(false),
             };
+            vm.showModal = ko.observable(false);
+            vm.invitedPlayer = ko.observable({
+                id: ko.observable(null),
+                email: ko.validatedObservable('').extend({
+                    required: { message: translations.validation.fieldEmpty }
+                })
+            });
             vm.translations = translations.tournamentEdit;
             vm.model = ko.validatedObservable(mappings.fromJS(options.json, mapping));
+            vm.notAdmins = ko.observableArray();
+            vm.model().players().forEach(function (player) {
+                if (!player.userId() || player.userId() == null) {
+                    return;
+                }
+                for (var i = 0; i < vm.model().admins().length; i++) {
+                    if (vm.model().admins()[i].id() == player.userId()) {
+                        return;
+                    }
+                }
+                vm.notAdmins.push({
+                    id: player.userId(),
+                    name: player.firstName() + " " + player.nickName() + " " + player.lastName()
+                });
+            });
             vm.newMatch = ko.validatedObservable(mappings.fromJS(ko.toJS(vm.model().emptyMatch), matchMapping));
             vm.tournamentLogo = {
                 filesRequestUrl: location.protocol + "//" + location.host + '/file/tournamentLogo',
@@ -67,6 +89,51 @@ define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 
             vm.removePlayer = function (data) {
                 vm.model().players.remove(data);
             };
+            vm.addAdmin = function (data) {
+                let dataObject = {
+                    tournamentId: vm.model().id(),
+                    id: data.id
+                };
+                vm.isBusy(true);
+                let callback = function (result) {
+                    vm.globalModel.spinner(false);
+                    vm.isBusy(false);
+                    if (!result.isSuccess) {
+                        helpers.log(result.message, 'error');
+                        return false;
+                    }
+                    else {
+                        helpers.log(result.message, 'success');
+                        vm.model().admins.push({ id: data.id, name: data.name });
+                        vm.notAdmins.remove(data);
+                    }
+                    return true;
+                };
+                return tournamentRepository.addAdmin(dataObject, callback);
+            };
+            vm.removeAdmin = function (data) {
+                let dataObject = {
+                    tournamentId: vm.model().id(),
+                    id: data.id
+                };
+                vm.isBusy(true);
+                let callback = function (result) {
+                    vm.globalModel.spinner(false);
+                    vm.isBusy(false);
+                    if (!result.isSuccess) {
+                        helpers.log(result.message, 'error');
+                        return false;
+                    }
+                    else {
+                        helpers.log(result.message, 'success');
+                        vm.notAdmins.push({ id: data.id, name: data.name });
+                        vm.model().admins.remove(data);
+                    }
+                    return true;
+                };
+                return tournamentRepository.removeAdmin(dataObject, callback);
+            };
+
             vm.editTournament = function () {
                 if (vm.modelErrors().length > 0) {
                     vm.modelErrors.showAllMessages();
@@ -100,7 +167,6 @@ define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 
                 let dataObject = ko.toJS(vm.newMatch);
                 vm.isBusy(true);
                 let callback = function (result) {
-                    debugger;
                     vm.globalModel.spinner(false);
                     vm.isBusy(false);
                     if (!result.isSuccess) {
@@ -118,28 +184,91 @@ define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 
             };
 
             vm.editPlayers = function () {
-                let validation = ko.validation.group(vm, { deep: true });
-                if (validation().length == 0) {
-                    let dataObject = ko.toJS(vm.model().players);
-                    vm.isBusy(true);
-                    let callback = function (result) {
-                        vm.globalModel.spinner(false);
-                        vm.isBusy(false);
-                        if (!result.isSuccess) {
-                            helpers.log(result.message, 'error');
-                            return false;
-                        }
-                        else {
-                            messageQueue.addMessage(translations.tournamentCreate.created, 'success');
-                            $(location).attr('href', '/login/test');
-                        }
-                        return true;
-                    };
-                    return playerRepository.edit({ players: dataObject, tournamentId: vm.model().id() }, callback);
+                if (vm.modelErrors().length > 0) {
+                    vm.modelErrors.showAllMessages();
+                    return false;
                 }
-                else {
-                    validation.showAllMessages(true);
+
+                let dataObject = ko.toJS(vm.model().players);
+                vm.isBusy(true);
+                let callback = function (result) {
+                    vm.globalModel.spinner(false);
+                    vm.isBusy(false);
+                    if (!result.isSuccess) {
+                        helpers.log(result.message, 'error');
+                        return false;
+                    }
+                    else {
+                        messageQueue.addMessage(translations.tournamentCreate.created, 'success');
+                        $(location).attr('href', '/login/test');
+                    }
+                    return true;
+                };
+                return playerRepository.edit({ players: dataObject, tournamentId: vm.model().id() }, callback);
+            };
+
+            vm.cancelInvite = function () {
+                vm.showModal(false);
+            }
+
+            vm.inviteAsPlayer = function () {
+                if (vm.inviteError().length > 0) {
+                    vm.inviteError.showAllMessages();
+                    return false;
                 }
+
+                let dataObject = {
+                    playerId: vm.invitedPlayer().id(),
+                    email: vm.invitedPlayer().email()
+                };
+                vm.globalModel.isBusy(true);
+                vm.globalModel.spinner(true);
+                let callback = function (result) {
+                    vm.globalModel.spinner(false);
+                    vm.globalModel.isBusy(false);
+                    if (!result.isSuccess) {
+                        helpers.log(result.message, 'error');
+                    }
+                    else {
+                        helpers.log(result.message, 'success');
+                    }
+                    vm.showModal(false);
+                    return true;
+                };
+                return authenticationRepository.invitePlayer(dataObject, callback);
+            };
+
+            vm.inviteAsAdmin = function () {
+                if (vm.inviteError().length > 0) {
+                    vm.inviteError.showAllMessages();
+                    return false;
+                }
+
+                let dataObject = {
+                    playerId: vm.invitedPlayer().id(),
+                    email: vm.invitedPlayer().email()
+                };
+                vm.globalModel.isBusy(true);
+                vm.globalModel.spinner(true);
+                let callback = function (result) {
+                    vm.globalModel.spinner(false);
+                    vm.globalModel.isBusy(false);
+                    if (!result.isSuccess) {
+                        helpers.log(result.message, 'error');
+                    }
+                    else {
+                        helpers.log(result.message, 'success');
+                    }
+                    vm.showModal(false);
+                    return true;
+                };
+                return authenticationRepository.inviteAdmin(dataObject, callback);
+            };
+
+            vm.invitePlayer = function (data) {
+                vm.showModal(true);
+                vm.invitedPlayer().id(data.id());
+                vm.invitedPlayer().email('');
             };
 
             vm.newMatchErrors = ko.validation.group([
@@ -150,6 +279,11 @@ define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 
                 vm.model().name,
                 vm.model().address
             ]);
+
+            vm.inviteError = ko.validation.group([
+                vm.invitedPlayer().email
+            ]);
+
             return vm;
         }
 

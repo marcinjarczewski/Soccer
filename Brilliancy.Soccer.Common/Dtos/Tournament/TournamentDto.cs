@@ -28,7 +28,7 @@ namespace Brilliancy.Soccer.Common.Dtos.Tournament
 
         public TimeSpan? DefaultHour { get; set; }
 
-        public List<UserDto> Admins { get; set; }
+        public List<AdminDto> Admins { get; set; }
 
         public List<PlayerDto> Players { get; set; }
 

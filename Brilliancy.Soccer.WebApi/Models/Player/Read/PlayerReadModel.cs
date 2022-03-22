@@ -14,5 +14,7 @@ namespace Brilliancy.Soccer.WebApi.Models.Player.Read
         public string LastName { get; set; }
 
         public string NickName { get; set; }
+
+        public int? UserId { get; set; }
     }
 }

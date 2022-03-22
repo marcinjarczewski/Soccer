@@ -268,6 +268,15 @@ namespace Brilliancy.Soccer.Core.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ten użytkownik jest już administratorem..
+        /// </summary>
+        public static string Tournament_AdminAlreadyAdded {
+            get {
+                return ResourceManager.GetString("Tournament_AdminAlreadyAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nieprawidłowy asystent przy bramce..
         /// </summary>
         public static string Tournament_InvalidAssist {

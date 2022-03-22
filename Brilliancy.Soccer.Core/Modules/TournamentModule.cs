@@ -36,7 +36,7 @@ namespace Brilliancy.Soccer.Core.Modules
                 throw new UserDataException(CoreTranslations.Tournament_NoAddress);
             }
             var tournament = _mapper.Map<TournamentDbModel>(dto);
-            if(dto.LogoId.HasValue)
+            if (dto.LogoId.HasValue)
             {
                 tournament.Logo = _dbContext.Files.FirstOrDefault(f => f.Id == dto.LogoId);
             }
@@ -106,7 +106,9 @@ namespace Brilliancy.Soccer.Core.Modules
                 .Include(t => t.Logo)
                 .Include(t => t.Players)
                 .Include(t => t.Teams)
-                .Include(t => t.Admins).FirstOrDefault(t => t.Id == id);
+                .Include(t => t.Matches)
+                .Include(t => t.Admins)
+                .ThenInclude(a => a.Players).FirstOrDefault(t => t.Id == id);
             if (tournament == null)
             {
                 throw new UserDataException(CoreTranslations.Tournament_NoTournament);
@@ -121,7 +123,16 @@ namespace Brilliancy.Soccer.Core.Modules
             var dto = _mapper.Map<TournamentDto>(tournament);
             dto.Players = dto.Players.Where(p => p.IsActive).ToList();
             dto.Matches = dto.Matches.Where(p => p.StateId != (int)MatchStateEnum.Canceled).ToList();
-            dto.NextMatch = dto.Matches.FirstOrDefault(p => p.StateId != (int)MatchStateEnum.Canceled);
+            dto.NextMatch = dto.Matches.FirstOrDefault(p => p.StateId != (int)MatchStateEnum.Canceled && p.StateId != (int)MatchStateEnum.Finished);
+            foreach (var admin in dto.Admins)
+            {
+                var player = dto.Players.FirstOrDefault(p => p.UserId == admin.Id);
+                if (player != null)
+                {
+                    admin.Name = $"{player.FirstName} {player.NickName} {player.LastName}";
+                    admin.PlayerId = player.Id;
+                }
+            }
             return dto;
         }
 
@@ -149,7 +160,7 @@ namespace Brilliancy.Soccer.Core.Modules
             return new StaticPagedList<TournamentDto>(tournamentDtos, pageNumber, pageSize, total);
         }
 
-        public void RemoveAdmin(int tournamentId, int adminId, int userId) 
+        public void RemoveAdmin(int tournamentId, int adminId, int userId)
         {
             var tournament = _dbContext.Tournaments.Include(t => t.Admins).FirstOrDefault(t => t.Id == tournamentId);
             if (tournament == null)
@@ -158,11 +169,34 @@ namespace Brilliancy.Soccer.Core.Modules
             }
             CheckPrivilages(tournament, userId);
             var admin = tournament.Admins.FirstOrDefault(a => a.Id == adminId);
-            if(admin == null)
+            if (admin == null)
             {
                 throw new UserDataException(CoreTranslations.Tournament_NoUser);
             }
             tournament.Admins.Remove(admin);
+            _dbContext.Update(tournament);
+            _dbContext.SaveChanges();
+        }
+
+        public void AddAdmin(int tournamentId, int adminId, int userId)
+        {
+            var tournament = _dbContext.Tournaments.Include(t => t.Admins).FirstOrDefault(t => t.Id == tournamentId);
+            if (tournament == null)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoTournament);
+            }
+            CheckPrivilages(tournament, userId);
+            var admin = _dbContext.Users.FirstOrDefault(u => u.Id == adminId);
+            if (admin == null)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoUser);
+            }
+            if (tournament.Admins.Any(a => a.Id == admin.Id))
+            {
+                throw new UserDataException(CoreTranslations.Tournament_AdminAlreadyAdded);
+            }
+
+            tournament.Admins.Add(admin);
             _dbContext.Update(tournament);
             _dbContext.SaveChanges();
         }

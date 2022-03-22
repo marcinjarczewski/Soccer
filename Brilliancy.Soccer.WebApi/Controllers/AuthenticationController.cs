@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using Brilliancy.Soccer.Common.Contracts.Modules;
+using Brilliancy.Soccer.Common.Dtos.Authentication;
 using Brilliancy.Soccer.Common.Exceptions;
 using Brilliancy.Soccer.WebApi.Models.Authentication.Read;
+using Brilliancy.Soccer.WebApi.Models.Authentication.Write;
+using Brilliancy.Soccer.WebApi.Models.Shared;
 using Brilliancy.Soccer.WebApi.Translations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -45,6 +48,32 @@ namespace Brilliancy.Soccer.WebApi.Controllers
 
             model.Message = WebApiTranslations.AuthenticationController_ValidKeyInvitePlayer;
             return View(model);
+        }
+
+        [Route("SendInvitationPlayer")]
+        [Authorize]
+        public IActionResult SendInvitationPlayer(AuthenticationWriteModel model)
+        {
+            var dto = _mapper.Map<AuthenticationDto>(model);
+            _authModule.InvitePlayer(dto, this._CurrentUserInfo.Id);
+            return new JsonResult(new BaseResultReadModel
+            {
+                IsSuccess = true,
+                Message = WebApiTranslations.AuthenticationController_InvitePlayer
+            });
+        }
+
+        [Route("SendInvitationAdmin")]
+        [Authorize]
+        public IActionResult SendInvitationAdmin(AuthenticationWriteModel model)
+        {
+            var dto = _mapper.Map<AuthenticationDto>(model);
+            _authModule.InviteAdmin(dto, this._CurrentUserInfo.Id);
+            return new JsonResult(new BaseResultReadModel
+            {
+                IsSuccess = true,
+                Message = WebApiTranslations.AuthenticationController_InvitePlayer
+            });
         }
 
         [Route("/InviteAdmin/{key}")]

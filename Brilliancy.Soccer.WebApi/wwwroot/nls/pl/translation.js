@@ -58,7 +58,8 @@ define({
         minute: "minuta",
         goalsSaved: "Bramki zostały zapisane",
         goOngoing: "rozpocznij mecz",
-        endMatch: "zakończ mecz"
+        endMatch: "zakończ mecz",
+        cancelMatch: "anuluj mecz"
     },
     tournamentCreate: {
         created: "Turniej został utworzony",
@@ -72,7 +73,26 @@ define({
     tournamentEdit: {
         edited: "Zmiany zostały zapisane",
         tournamentLogo: "Logo turnieju",
-        dropzone: "Upuść tu plik, aby go przesłać."
+        dropzone: "Upuść tu plik, aby go przesłać.",
+        title: "Edycja turnieju",
+        name: "Nazwa turnieju",
+        address: "Miejsce rozgrywania turnieju",
+        userAdded: "Użytkownik przypisany",
+        invite: "Zaproś",
+        remove: "Usuń",
+        addPlayer: "Dodaj gracza",
+        saveChanges: "Zapisz zmiany",
+        newMatch: "Nowy mecz",
+        home: "Gospodarze",
+        away: "Goście",
+        createMatch: "Utwórz mecz",
+        goToMatch: "Przejdź do meczu",
+        editTournament: "Edytuj turniej",
+        cancel: "anuluj",
+        inviteAsAdmin: "zaproś jako administratora",
+        email: "email",
+        admins: "administratorzy",
+        add: "dodaj"     
     },
     loginIndex: {
         login: "Logowanie",
