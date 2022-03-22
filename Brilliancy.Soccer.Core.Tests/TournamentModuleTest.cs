@@ -308,5 +308,41 @@ namespace Brilliancy.Soccer.Core.Tests
             var ex = Assert.Throws<UserDataException>(() => _tournamentModule.RemoveAdmin(4, 3, 1));
             Assert.IsTrue(ex.Message == CoreTranslations.Tournament_NoUser);
         }
+
+        [Test]
+        public void AddAdmin_Success()
+        {
+            var admins = _soccerDbContext.Tournaments.FirstOrDefault(t => t.Id == 4).Admins.Count;
+            _tournamentModule.AddAdmin(4, 3, 1);
+            Assert.AreEqual(admins + 1, _soccerDbContext.Tournaments.FirstOrDefault(t => t.Id == 4).Admins.Count);
+        }
+
+        [Test]
+        public void AddAdmin_AlreadyAdmin()
+        {
+            var ex = Assert.Throws<UserDataException>(() => _tournamentModule.AddAdmin(4, 2, 1));
+            Assert.IsTrue(ex.Message == CoreTranslations.Tournament_AdminAlreadyAdded);
+        }
+
+        [Test]
+        public void AddAdmin_NoPrivilages()
+        {
+            var ex = Assert.Throws<UserDataException>(() => _tournamentModule.AddAdmin(4, 2, 3));
+            Assert.IsTrue(ex.Message == CoreTranslations.Tournament_NoPrivileges);
+        }
+
+        [Test]
+        public void AddAdmin_NoTournament()
+        {
+            var ex = Assert.Throws<UserDataException>(() => _tournamentModule.AddAdmin(114, 2, 1));
+            Assert.IsTrue(ex.Message == CoreTranslations.Tournament_NoTournament);
+        }
+
+        [Test]
+        public void AddAdmin_NoUser()
+        {
+            var ex = Assert.Throws<UserDataException>(() => _tournamentModule.AddAdmin(4, 5, 1));
+            Assert.IsTrue(ex.Message == CoreTranslations.Tournament_NoUser);
+        }
     }
 }

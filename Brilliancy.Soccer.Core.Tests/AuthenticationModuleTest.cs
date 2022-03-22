@@ -152,8 +152,7 @@ namespace Brilliancy.Soccer.Core.Tests
         public void ConfirmEmailReset_Success()
         {
             var auth = _soccerDbContext.Authentications.FirstOrDefault(f => f.Key == "abc");
-            _authenticationModule.ConfirmEmailReset("abc");
-            Assert.IsTrue(auth.ConfirmDate != null);
+            Assert.IsTrue(auth.Id == _authenticationModule.ConfirmEmailReset("abc"));
         }
 
         [Test]
