@@ -173,12 +173,12 @@ namespace Brilliancy.Soccer.Core.Modules.Authentication
                 throw new InvalidDataException(CoreTranslations.Authentication_NoPlayer);
             }
 
-            if (!player.UserId.HasValue)
-            {
-                throw new UserDataException(CoreTranslations.Authentication_NoUserForInvite);
-            }
+            //if (!player.UserId.HasValue)
+            //{
+            //    throw new UserDataException(CoreTranslations.Authentication_NoUserForInvite);
+            //}
 
-            var daysValid = int.Parse(_configurationRepository.GetValue(ConfigurationDictionary.InvitePlayerDaysExpiration));
+            var daysValid = int.Parse(_configurationRepository.GetValue(ConfigurationDictionary.InviteAdminDaysExpiration));
             var auth = new AuthenticationDbModel
             {
                 CreateDate = DateTime.Now,
@@ -189,7 +189,7 @@ namespace Brilliancy.Soccer.Core.Modules.Authentication
                 TypeId = (int)AuthenticationTypeEnum.TournamentAdminInvite
             };
             _dbContext.Authentications.Add(auth);
-            _emailService.AddPlayerInviteEmail(
+            _emailService.AddAdminInviteEmail(
                 dto.Email,
                 $"{player.FirstName} {(string.IsNullOrEmpty(player.NickName) ? string.Empty : (" '" + player.NickName + "' "))} {player.LastName}",
                 player.Tournament.Name,

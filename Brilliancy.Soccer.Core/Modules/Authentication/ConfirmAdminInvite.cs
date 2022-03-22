@@ -15,11 +15,15 @@ namespace Brilliancy.Soccer.Core.Modules.Authentication
         public override void ProccessData(Dictionary<string, string> dataDictionary, int userId)
         {
             var player = GetPlayer(dataDictionary, userId);
-            if(!player.Tournament.Admins.Any(a => a.Id == userId))
+            if (!player.Tournament.Admins.Any(a => a.Id == userId))
             {
-                if(player.User == null)
+                if (player.User == null)
                 {
-                    throw new UserDataException(CoreTranslations.Authentication_NoUser);
+                    player.User = _dbContext.Users.FirstOrDefault(u => u.Id == userId);
+                    if (player.User == null)
+                    {
+                        throw new UserDataException(CoreTranslations.Authentication_NoUser);
+                    }
                 }
                 player.Tournament.Admins.Add(player.User);
             }

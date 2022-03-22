@@ -8,6 +8,8 @@ namespace Brilliancy.Soccer.Common.Contracts.Services
 
         void AddPlayerInviteEmail(string emailAdrress, string name, string tournamentName, string key, string appUrl, LanguageEnum language);
 
+        void AddAdminInviteEmail(string emailAdrress, string name, string tournamentName, string key, string appUrl, LanguageEnum language);
+
         void AddForgottenPasswordEmail(string emailAdrress, string name, string key, string appUrl, LanguageEnum language);
     }
 }
