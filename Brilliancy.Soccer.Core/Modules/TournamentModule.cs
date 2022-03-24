@@ -3,6 +3,7 @@ using Brilliancy.Soccer.Common.Contracts.Modules;
 using Brilliancy.Soccer.Common.Dtos.Tournament;
 using Brilliancy.Soccer.Common.Enums;
 using Brilliancy.Soccer.Common.Exceptions;
+using Brilliancy.Soccer.Common.Helpers.PagedHelper;
 using Brilliancy.Soccer.Core.Translations;
 using Brilliancy.Soccer.DbAccess;
 using Brilliancy.Soccer.DbModels;
@@ -136,7 +137,7 @@ namespace Brilliancy.Soccer.Core.Modules
             return dto;
         }
 
-        public IPagedList<TournamentDto> GetTournaments(string term, int pageNumber, int pageSize)
+        public PagedResult<TournamentDto> GetTournaments(string term, int userId, int pageNumber, int pageSize)
         {
             var tournaments = _dbContext.Tournaments.AsQueryable();
             if (!string.IsNullOrEmpty(term))
@@ -151,13 +152,13 @@ namespace Brilliancy.Soccer.Core.Modules
 
             if (page == null)
             {
-                return new StaticPagedList<TournamentDto>(new List<TournamentDto>(), pageNumber, pageSize, 0);
+                return new PagedResult<TournamentDto>(new List<TournamentDto>(), pageNumber, pageSize, 0);
             }
 
             var total = tournaments.Count();
             var tournamentDtos = _mapper.Map<List<TournamentDto>>(page);
 
-            return new StaticPagedList<TournamentDto>(tournamentDtos, pageNumber, pageSize, total);
+            return new PagedResult<TournamentDto>(tournamentDtos, pageNumber, pageSize, total);
         }
 
         public void RemoveAdmin(int tournamentId, int adminId, int userId)

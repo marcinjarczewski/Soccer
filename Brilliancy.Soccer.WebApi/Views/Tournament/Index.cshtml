@@ -1,0 +1,91 @@
+﻿@using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
+@using Brilliancy.Soccer.WebApi.Translations
+@{
+    ViewData["Title"] = WebApiTranslations.TournamentController_IndexTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="section-title-wrap">
+    <div class="section-title"><h3 class="section-title-h"><span data-bind="text:$root.translations.newTournament"></span></h3></div>
+</div>
+<div class="col-lg-12">
+    <div data-bind="with:tournaments">
+        <div class="overlay" style="display: none;"></div>
+        <div id="tournament-list" style="padding-top:10px;" class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Nazwa / miejscowość</label>
+                        <input data-bind="value: filter().term" type="text" class="form-control input-sm" placeholder="Szukaj...">
+                    </div>
+                    <a href="" data-bind="click: filterChanged.bind(filter.$parent)"
+                       class="btn btn-round btn-round-success">
+                        <i class="fa fa-plus-circle"></i> Wyszukaj
+                    </a>
+                </div>
+            </div>
+            <div data-bind="foreach:entries">
+                <div class="col">
+                    <div class="news-img-wrap">
+                        <h1 data-bind="text:name"></h1>
+                        <a data-bind="attr:{href:'/turnieje/szczegoly/'+id}" class="news-img-link">
+                            <img data-bind="attr: { src: logoUrl }" class="news-img wp-post-image" style="max-height:400px;" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="col">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            Miejsce
+                        </dt>
+                        <dd data-bind="text:address">
+                        </dd>
+
+                        <dt>
+                            Data rozpoczęcia
+                        </dt>
+                        <dd>
+                            <i class="fa fa-calendar-o" aria-hidden="true">
+                            </i> <span data-bind="date: startDate"></span>
+                        </dd>
+                        <dt>
+                            Data zakończenia
+                        </dt>
+                        <dd>
+                            <i class="fa fa-calendar-o" aria-hidden="true">
+                            </i> <span data-bind="date: endDate"></span>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="clearfix" style="width:100%">
+                <ul class="pagination">
+                    <li>
+                        <a data-bind="click: previous, css:{disabled: !previousEnabled()}" class="btn btn-link" href="#">
+                            <span>&laquo;</span>
+                            <span>Poprzednia</span>
+                        </a>
+                    </li>
+                    <li style="float:right;">
+                        <a data-bind="click: next, css:{disabled: !nextEnabled()}" class="btn btn-link" href="#">
+                            <span>Następna</span>
+                            <span>&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        require(['requireConfig'], function () {
+            require(['/js/viewScripts/tournament/index.js', 'knockout'], function (viewModel, ko) {
+                ko.applyBindings(viewModel({}));
+            });
+        });
+    </script>
+}

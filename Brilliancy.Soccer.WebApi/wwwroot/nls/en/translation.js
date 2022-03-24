@@ -61,6 +61,8 @@ define({
         repeatPassword: "RepeatPassword",
         confirm: "Confirm"
     },
+    tournamentIndex: {
+    },
     tournamentCreate: {
         created: "The tournament has been created.",
         newTournament: "New tournament",

@@ -16,6 +16,7 @@ requirejs.config({
         dropzone:'dropzone/min/dropzone.min',
 
         knockoutWithAddons: '/js/helpers/knockoutWithAddons',
+        knockoutPaged: '/systemLib/knockout-paged-list',
         knockoutToWindow: '/js/helpers/knockoutToWindow',
         helpers: '/js/helpers/helpers',
         knockoutPaged: '/js/helpers/knockout-paged-list',
@@ -36,6 +37,9 @@ requirejs.config({
     },
     shim: {
         "knockoutValidation": {
+            deps: ["knockout"]
+        },
+        "knockoutPaged": {
             deps: ["knockout"]
         },
         "knockoutMapping": {

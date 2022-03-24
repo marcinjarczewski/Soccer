@@ -210,6 +210,9 @@
   <data name="TournamentController_EditTitle" xml:space="preserve">
     <value>Edit the tournament</value>
   </data>
+  <data name="TournamentController_IndexTitle" xml:space="preserve">
+    <value>Tournaments</value>
+  </data>
   <data name="TournamentController_InvalidTournamentData" xml:space="preserve">
     <value>The tournament data has not been completed correctly.</value>
   </data>

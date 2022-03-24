@@ -61,6 +61,8 @@ define({
         endMatch: "zakończ mecz",
         cancelMatch: "anuluj mecz"
     },
+    tournamentIndex: {
+    },
     tournamentCreate: {
         created: "Turniej został utworzony",
         newTournament: "Nowy turniej",

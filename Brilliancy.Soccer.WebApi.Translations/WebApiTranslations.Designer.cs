@@ -340,6 +340,15 @@ namespace Brilliancy.Soccer.WebApi.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Turnieje.
+        /// </summary>
+        public static string TournamentController_IndexTitle {
+            get {
+                return ResourceManager.GetString("TournamentController_IndexTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dane turnieju nie zostały uzupełnione poprawnie..
         /// </summary>
         public static string TournamentController_InvalidTournamentData {

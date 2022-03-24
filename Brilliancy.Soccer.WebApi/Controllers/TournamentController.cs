@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Brilliancy.Soccer.Common.Contracts.Modules;
 using Brilliancy.Soccer.Common.Dtos.Tournament;
+using Brilliancy.Soccer.Common.Enums;
 using Brilliancy.Soccer.Common.Exceptions;
+using Brilliancy.Soccer.Common.Helpers.PagedHelper;
 using Brilliancy.Soccer.DbModels.Interfaces;
 using Brilliancy.Soccer.WebApi.Models.Read.Tournament;
 using Brilliancy.Soccer.WebApi.Models.Shared;
@@ -27,10 +29,20 @@ namespace Brilliancy.Soccer.WebApi.Controllers
             _tournamentModule = tournamentModule;
         }
 
-        public ActionResult Index(string returnUrl = null)
+        [Authorize]
+        [Route("/Tournaments")]
+        public ActionResult Index()
         {
-            var t = _tournamentModule.GetTournament(2, 1);
             return View();
+        }
+
+        [Authorize]
+        [Route("GetList")]
+        public PagedResult<TournamentListReadModel> Get([FromQuery] TournamentFilterModel filter, [FromQuery] PagedOptions options)
+        {
+            var pagedDtos = _tournamentModule.GetTournaments(filter.Term, _CurrentUserInfo.Id, options.Page, options.PerPage);
+            var models = _mapper.Map<PagedResult<TournamentListReadModel>>(pagedDtos);
+            return models;
         }
 
         [Authorize]

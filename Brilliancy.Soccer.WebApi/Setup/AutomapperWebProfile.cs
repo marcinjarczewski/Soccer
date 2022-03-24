@@ -8,6 +8,7 @@ using Brilliancy.Soccer.Common.Dtos.Player;
 using Brilliancy.Soccer.Common.Dtos.Tournament;
 using Brilliancy.Soccer.Common.Dtos.User;
 using Brilliancy.Soccer.Common.Enums;
+using Brilliancy.Soccer.Common.Helpers.PagedHelper;
 using Brilliancy.Soccer.WebApi.Models.Authentication.Write;
 using Brilliancy.Soccer.WebApi.Models.Login.Write;
 using Brilliancy.Soccer.WebApi.Models.Match.Read;
@@ -33,6 +34,7 @@ namespace Brilliancy.Soccer.WebApi.Setup
             CreateMap<GoalDto, GoalReadModel>();
             CreateMap<GoalWriteModel, GoalDto>();
             CreateMap<SingleGoalWriteModel, GoalDto>();
+            CreateMap<TournamentDto, TournamentListReadModel>();
             CreateMap<MatchEditDto, MatchDetailsModel>()
                 .ForMember(dto => dto.HomeGoalsList, m => m.MapFrom(db => db.Goals.Where(g => g.IsHomeTeam)))
                 .ForMember(dto => dto.AwayGoalsList, m => m.MapFrom(db => db.Goals.Where(g => !g.IsHomeTeam)));
@@ -53,6 +55,15 @@ namespace Brilliancy.Soccer.WebApi.Setup
             CreateMap<AuthenticationWriteModel, AuthenticationDto>(); 
             CreateMap<LoginDto, UserInfo>()
                .ForMember(dto => dto.IsAdmin, m => m.MapFrom(db => (db.Roles ?? new System.Collections.Generic.List<RoleDto>()).Any(r => r.Id == (int)RoleEnum.Admin)));
+
+            CreateMap<PagedResult<TournamentDto>, PagedResult<TournamentListReadModel>>()
+                .ForMember(dest => dest.Details, opt => opt.Ignore())
+                .ConstructUsing((src, context) =>
+                {
+                    var models = context.Mapper.Map<List<TournamentListReadModel>>(src.Data);
+                    return new PagedResult<TournamentListReadModel>(models, src.Details.PageNo, src.Details.PageSize,
+                        src.Details.TotalEntries);
+                });
         }
     }
 
