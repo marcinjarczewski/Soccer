@@ -54,6 +54,15 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         }
 
         [Authorize]
+        [HttpGet("Details/{id}")]
+        public ActionResult Details(int id)
+        {
+            var dto = _tournamentModule.GetTournament(id, _CurrentUserInfo.Id);
+            var model = _mapper.Map<TournamentDetailsReadModel>(dto);
+            return View(model);
+        }
+
+        [Authorize]
         [HttpGet("Edit/{id}")]
         public ActionResult Edit(int id)
         {

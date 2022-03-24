@@ -35,6 +35,7 @@ namespace Brilliancy.Soccer.WebApi.Setup
             CreateMap<GoalWriteModel, GoalDto>();
             CreateMap<SingleGoalWriteModel, GoalDto>();
             CreateMap<TournamentDto, TournamentListReadModel>();
+            CreateMap<TournamentDto, TournamentDetailsReadModel>();
             CreateMap<MatchEditDto, MatchDetailsModel>()
                 .ForMember(dto => dto.HomeGoalsList, m => m.MapFrom(db => db.Goals.Where(g => g.IsHomeTeam)))
                 .ForMember(dto => dto.AwayGoalsList, m => m.MapFrom(db => db.Goals.Where(g => !g.IsHomeTeam)));

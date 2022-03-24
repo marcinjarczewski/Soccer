@@ -61,6 +61,15 @@ define({
         endMatch: "zakończ mecz",
         cancelMatch: "anuluj mecz"
     },
+    tournamentDetails: {
+        title: "Szczegóły turnieju",
+        name: "Nazwa turnieju",
+        address: "Miejsce rozgrywania turnieju",
+        home: "Gospodarze",
+        away: "Goście",
+        nextMatch: "Następny mecz",
+        previousMatch: "poprzedni mecz"
+    },
     tournamentIndex: {
     },
     tournamentCreate: {

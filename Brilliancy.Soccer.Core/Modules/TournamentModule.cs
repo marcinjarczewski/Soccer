@@ -108,8 +108,8 @@ namespace Brilliancy.Soccer.Core.Modules
                 .Include(t => t.Players)
                 .Include(t => t.Teams)
                 .Include(t => t.Matches)
-                .Include(t => t.Admins)
-                .ThenInclude(a => a.Players).FirstOrDefault(t => t.Id == id);
+                .Include(t => t.Admins).ThenInclude(a => a.Players)
+                .FirstOrDefault(t => t.Id == id);
             if (tournament == null)
             {
                 throw new UserDataException(CoreTranslations.Tournament_NoTournament);
@@ -125,6 +125,7 @@ namespace Brilliancy.Soccer.Core.Modules
             dto.Players = dto.Players.Where(p => p.IsActive).ToList();
             dto.Matches = dto.Matches.Where(p => p.StateId != (int)MatchStateEnum.Canceled).ToList();
             dto.NextMatch = dto.Matches.FirstOrDefault(p => p.StateId != (int)MatchStateEnum.Canceled && p.StateId != (int)MatchStateEnum.Finished);
+            dto.PrevoiusMatch = dto.Matches.OrderByDescending(m => m.StartDate).FirstOrDefault(p => p.StateId == (int)MatchStateEnum.Finished);
             foreach (var admin in dto.Admins)
             {
                 var player = dto.Players.FirstOrDefault(p => p.UserId == admin.Id);
