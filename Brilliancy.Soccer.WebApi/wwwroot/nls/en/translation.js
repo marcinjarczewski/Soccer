@@ -61,6 +61,17 @@ define({
         repeatPassword: "RepeatPassword",
         confirm: "Confirm"
     },
+    tournamentDetails: {
+        title: "Tournament details",
+        name: "Name",
+        address: "The venue of the tournament",
+        home: "Home",
+        away: "Away",
+        nextMatch: "Next match",
+        previousMatch: "Previous match"
+    },
+    tournamentIndex: {
+    },
     tournamentCreate: {
         created: "The tournament has been created.",
         newTournament: "New tournament",

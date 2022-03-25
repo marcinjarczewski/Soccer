@@ -322,6 +322,15 @@ namespace Brilliancy.Soccer.WebApi.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Szczegóły turnieju.
+        /// </summary>
+        public static string TournamentController_DetailsTitle {
+            get {
+                return ResourceManager.GetString("TournamentController_DetailsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zmiany zostały zapisane..
         /// </summary>
         public static string TournamentController_Edited {
@@ -336,6 +345,15 @@ namespace Brilliancy.Soccer.WebApi.Translations {
         public static string TournamentController_EditTitle {
             get {
                 return ResourceManager.GetString("TournamentController_EditTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turnieje.
+        /// </summary>
+        public static string TournamentController_IndexTitle {
+            get {
+                return ResourceManager.GetString("TournamentController_IndexTitle", resourceCulture);
             }
         }
         

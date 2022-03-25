@@ -1,6 +1,5 @@
 ﻿using Brilliancy.Soccer.Common.Dtos.Tournament;
-using Brilliancy.Soccer.Common.Dtos.User;
-using PagedList;
+using Brilliancy.Soccer.Common.Helpers.PagedHelper;
 
 namespace Brilliancy.Soccer.Common.Contracts.Modules
 {
@@ -8,7 +7,7 @@ namespace Brilliancy.Soccer.Common.Contracts.Modules
     {
         TournamentDto GetTournament(int id, int userId);
 
-        IPagedList<TournamentDto> GetTournaments(string term, int pageNumber, int pageSize);
+        PagedResult<TournamentDto> GetTournaments(string term, int userId, int pageNumber, int pageSize);
 
         int AddTournament(NewTournamentDto dto);
 

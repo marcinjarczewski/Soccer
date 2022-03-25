@@ -204,11 +204,17 @@
   <data name="TournamentController_CreateTitle" xml:space="preserve">
     <value>Utwórz turniej</value>
   </data>
+  <data name="TournamentController_DetailsTitle" xml:space="preserve">
+    <value>Szczegóły turnieju</value>
+  </data>
   <data name="TournamentController_Edited" xml:space="preserve">
     <value>Zmiany zostały zapisane.</value>
   </data>
   <data name="TournamentController_EditTitle" xml:space="preserve">
     <value>Edytuj turniej</value>
+  </data>
+  <data name="TournamentController_IndexTitle" xml:space="preserve">
+    <value>Turnieje</value>
   </data>
   <data name="TournamentController_InvalidTournamentData" xml:space="preserve">
     <value>Dane turnieju nie zostały uzupełnione poprawnie.</value>

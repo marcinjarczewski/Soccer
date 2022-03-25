@@ -1,4 +1,4 @@
-﻿define(['jquery', 'knockout', 'moment', 'pikaday', 'dropzone', "/js/plugins/i18n.js!/nls/translation.js"], function ($,ko, moment, pikaday, dropzone, translations) {
+﻿define(['jquery', 'knockout', 'moment', 'pikaday', 'dropzone', "/js/plugins/i18n.js!/nls/translation.js"], function ($, ko, moment, pikaday, dropzone, translations) {
     ko.bindingHandlers.spinner = {
         init: function (element, valueAccessor, allBindings) {
             var deferred = $.Deferred();
@@ -61,7 +61,7 @@
                 showTime = ko.unwrap(allBindings.get('showTime') || false),
                 inputFormats = ko.unwrap(allBindings.get('inputFormats'));
             element.pikaday = new pikaday({
-                field:element,
+                field: element,
                 use24hour: true,
                 timeLabel: translations.pikaday.hour,
                 format: format,
@@ -81,12 +81,72 @@
                     }
                 },
                 firstDay: 1,
-                i18n:translations.pikaday
+                i18n: translations.pikaday
             });
         },
         update: function (element, valueAccessor, allBindings) {
             var date = ko.unwrap(valueAccessor());
             element.pikaday.setDate(moment(date).format());
+        }
+    };
+
+    ko.bindingHandlers.date = {
+        init: function (element, valueAccessor, allBindingsAccessor) {
+            let value = valueAccessor;
+            if (typeof (value) === "function") {
+                value = value();
+            }
+            if (typeof (value) === "function") {
+                value = value();
+            }
+
+            var interceptor = ko.computed({
+                read: function () {
+                    return formatTime(value, ':');
+                },
+                write: function (newValue) {
+                    return reverseFormat(newValue, ':');
+                }
+            });
+
+            if (element.tagName == 'INPUT')
+                ko.applyBindingsToNode(element, {
+                    value: interceptor
+                });
+            else
+                ko.applyBindingsToNode(element, {
+                    text: interceptor
+                });
+
+            function formatTime(x, seperator) {
+                if (x == null) {
+                    return "";
+                }
+                return moment(x).format("YYYY.MM.DD HH:mm")
+            }
+
+            function reverseFormat(x, seperator) {
+                if (x == null) {
+                    return "";
+                }
+
+                return moment(x);
+            }
+        },
+        update: function (element, valueAccessor) {
+            let x = valueAccessor;
+            if (typeof (x) === "function") {
+                x = x();
+            }
+            if (typeof (x) === "function") {
+                x = x();
+            }
+            if (x == null || x == "" || x.startsWith('00')) {
+                $(element).text("");
+                return true;
+            }
+            $(element).text(moment(x).format("YYYY.MM.DD HH:mm"));
+            return true;
         }
     };
 

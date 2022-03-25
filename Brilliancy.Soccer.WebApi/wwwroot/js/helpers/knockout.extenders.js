@@ -1,24 +1,4 @@
 ﻿define(['knockout', 'knockoutValidation', "/js/plugins/i18n.js!/nls/translation.js"], function (ko, koVal, translations) {
-    ko.extenders.localStore = function (target, options, translations) {
-        var store = amplify.store.localStorage;
-        var value = store(options.key);
-
-        if (value !== null && value !== undefined) {
-            value = $.parseJSON(value);
-            target(value);
-        }
-
-        if (options.extendFunc !== undefined) {
-            options.extendFunc(target);
-        }
-
-        ko.watch(target, function () {
-            store(options.key, ko.toJSON(target));
-        });
-
-        return target;
-    };
-
     ko.bindingHandlers.timer = {
         init: function (element, valueAccessor, allBindingsAccessor) {
             var observable = valueAccessor();
