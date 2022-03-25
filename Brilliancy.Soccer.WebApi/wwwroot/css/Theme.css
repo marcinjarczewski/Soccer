@@ -6,9 +6,64 @@
     min-height: calc(100vh - 56px);
 }
 
-.navbar{
-    font-weight:700;
-    color:white;
+.navbar {
+    font-weight: 700;
+    color: white;
+}
+
+#loading-header {
+    background-color: rgba(var(--bs-light-rgb),1);
+    width: 100%;
+    height: 56px;
+    z-index: 5;
+    position: fixed;
+    animation-name: loading-header-animation;
+    animation-duration: 1.5s;
+}
+
+#loading-body {
+    background-color: rgba(255,255,255,1);
+    width: 100%;
+    height: calc(100vh - 56px);
+    z-index: 5;
+    position: fixed;
+    animation-name: loading-body-animation;
+    animation-duration: 1.5s;
+    margin-top:56px;
+}
+
+@keyframes loading-body-animation {
+    from {
+        background-color: rgba(255,255,255,1);
+    }
+
+    to {
+        background-color: rgba(255,255,255,0);
+    }
+}
+
+@keyframes loading-header-animation {
+    from {
+        background-color: rgba(var(--bs-light-rgb),1);
+    }
+
+    to {
+        background-color: rgba(var(--bs-light-rgb),0);
+    }
+}
+
+.btn-success {
+    background-color: #146011;
+    border-color: #146011;
+}
+
+.btn-round-success {
+    background-color: #146011;
+    border-color: #146011;
+    color: white;
+    margin-top: 10px;
+    border-radius: 20px;
+    margin-bottom: 5px;
 }
 
 .navbar-light .navbar-brand {
@@ -19,8 +74,8 @@
     color: rgb(255,255,255);
 }
 
-.container-fluid{
-    max-width:1350px;
+.container-fluid {
+    max-width: 1350px;
 }
 
 .btn-link {
@@ -36,7 +91,7 @@
     --bs-red: #dc3545;
     --bs-orange: #fd7e14;
     --bs-yellow: #ffc107;
-    --bs-green: #198754;
+    --bs-green: #146011;
     --bs-teal: #20c997;
     --bs-cyan: #0dcaf0;
     --bs-white: #fff;
@@ -53,11 +108,11 @@
     --bs-gray-900: #212529;
     --bs-primary: #0d6efd;
     --bs-secondary: #6c757d;
-    --bs-success: #198754;
+    --bs-success: #146011;
     --bs-info: #0dcaf0;
     --bs-warning: #ffc107;
     --bs-danger: #dc3545;
-    --bs-light: #f8f9fa;
+    --bs-light: #146011;
     --bs-dark: #212529;
     --bs-primary-rgb: 13,110,253;
     --bs-secondary-rgb: 108,117,125;
@@ -65,13 +120,13 @@
     --bs-info-rgb: 13,202,240;
     --bs-warning-rgb: 255,193,7;
     --bs-danger-rgb: 220,53,69;
-    --bs-light-rgb: 25, 135, 84;
+    --bs-light-rgb: 20, 96, 17;
     --bs-dark-rgb: 33,37,41;
     --bs-white-rgb: 255,255,255;
     --bs-black-rgb: 0,0,0;
     --bs-body-color-rgb: 33,37,41;
     --bs-body-bg-rgb: 255,255,255;
-    --bs-font-sans-serif:  system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    --bs-font-sans-serif: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     --bs-font-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
     --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
     --bs-body-font-family: var(--bs-font-sans-serif);
@@ -81,4 +136,3 @@
     --bs-body-color: #212529;
     --bs-body-bg: #fff;
 }
-

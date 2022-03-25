@@ -17,11 +17,13 @@
 
 </head>
 <body>
+    <div id="loading-body"></div>
+    <div id="loading-header"></div>
     <!-- ko if: $data.globalModel -->
     <div data-bind="with: globalModel">
         <div data-bind="with:loginModel">
             <div data-bind="if:isLoggedIn">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-light">
                     <div class="container-fluid">
                         <a class="navbar-brand" href="/">Soccer</a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

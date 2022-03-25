@@ -31,4 +31,6 @@ define(['jquery', 'storageHelper', 'toastr', "/js/plugins/i18n.js!/nls/translati
             $('#cookies-id').addClass("d-none");
             $(".body-content").css("heigth", window.innerHeight - $('#cookies-id').height() - $(".navbar").parent().height());
         });
+        $('#loading-body').hide();
+        $('#loading-header').hide();
     });
