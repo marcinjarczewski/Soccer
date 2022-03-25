@@ -35,8 +35,8 @@
                         <a href="/login/lostPassword"><span data-bind="text:$root.translations.lostPassword"></span></a>
                     </div>
                 </div>
-                <div class="py2">
-                    <a data-bind="click: login, disable: $root.isBusy()" class="btn btn-success" tabindex="3">
+                <div>
+                    <a data-bind="click: login, disable: $root.isBusy()" class="btn width100 btn-round-success" tabindex="3">
                         <span data-bind="text:$root.translations.loginButton"></span>
                     </a>
                 </div>
@@ -49,7 +49,7 @@
                     <div data-bind="with: $root.account" action="">
                         <div class="col-lg-12 col-xs-12">
                             <div data-bind="validationElement: login" class="form-group">
-                                <input data-bind="value: login, attr:{placeholder:$root.translations.login + '*'}" id="register-login" class="form-control white">
+                                <input data-bind="value: login, attr:{placeholder:$root.translations.userName + '*'}" id="register-login" class="form-control white">
                             </div>
                             <div data-bind="validationElement: email" class="form-group">
                                 <input data-bind="value: email, attr:{placeholder:$root.translations.email + '*'}" type="email" id="register-email" class="form-control white">

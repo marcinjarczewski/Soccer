@@ -24,12 +24,12 @@
 #loading-body {
     background-color: rgba(255,255,255,1);
     width: 100%;
-    height: calc(100vh - 56px);
+    height: calc(100vh - 70px);
     z-index: 5;
     position: fixed;
     animation-name: loading-body-animation;
     animation-duration: 1.5s;
-    margin-top:56px;
+    margin-top:70px;
 }
 
 @keyframes loading-body-animation {
@@ -50,6 +50,14 @@
     to {
         background-color: rgba(var(--bs-light-rgb),0);
     }
+}
+
+.navbar-brand {
+    font-family: 'BubbleBobble';
+    font-size: 47px;
+    font-weight: 200;
+    max-height: 40px;
+    margin-top: -42px;
 }
 
 .btn-success {
