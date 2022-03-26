@@ -82,6 +82,13 @@ define({
         dropzone: "Drop a file here to upload it"
     },
     tournamentEdit: {
+        info: "Information",
+        players: "Players",
+        nextMatch: "Next match",
+        basicInfo: "Basic information",
+        userManagement: "Players management",
+        adminsManagement: "Manage tournament administrators",
+        playerInvite: "Invite a player",
         edited: "Changes have been saved.",
         tournamentLogo: "Tournament logo",
         dropzone: "Drop a file here to upload it",

@@ -82,6 +82,13 @@ define({
         dropzone: "Upuść tu plik, aby go przesłać."
     },
     tournamentEdit: {
+        info: "Informacje",
+        players: "Zawodnicy",
+        nextMatch: "Następny mecz",
+        basicInfo: "Dane podstawowe",
+        userManagement: "Zarządzaj graczami",
+        adminsManagement: "Zarządzaj administratorami turnieju",
+        playerInvite: "Zaproś gracza",
         edited: "Zmiany zostały zapisane",
         tournamentLogo: "Logo turnieju",
         dropzone: "Upuść tu plik, aby go przesłać.",

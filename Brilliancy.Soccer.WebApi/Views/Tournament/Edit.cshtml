@@ -8,181 +8,206 @@
 }
 
 <div class="section-title-wrap">
-    <div class="section-title" data-bind="with:model"><h3 class="section-title-h"><span data-bind="text:$root.translations.title"></span></h3></div>
+    <div class="section-title" data-bind="with:model"><h3 class="section-title-h"><span data-bind="text:$root.translations.title">&nbsp;</span></h3></div>
 </div>
-<div data-bind="ifnot:showModal" class="col-lg-12">
+<div data-bind="mainBody:showModal" class="col-lg-12 visible">
     <div data-bind="with:model">
         <div class="overlay" style="display: none;"></div>
         <div id="tournament-create" style="padding-top:10px;" class="row">
-            <div class="col-lg-12 row box">
-                <div class="col-md-6 col-sm-12">
-                    <div data-bind="validationElement: name" class="form-group">
-                        <label><span data-bind="text:$root.translations.name"></span></label>
-                        <input class="form-control" data-bind="value:name">
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <div data-bind="validationElement: address" class="form-group">
-                        <label><span data-bind="text:$root.translations.address"></span></label>
-                        <input class="form-control" type="text" data-bind="value:address">
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-12 row box">
-                <div class="col-md-6 col-sm-12">
-                    <div data-bind="validationElement: logoId" class="form-group">
-                        <label><span data-bind="text:$root.translations.tournamentLogo"></span></label>
-                        <div data-bind="with: $root.tournamentLogo">
-                            <div class="form-control" data-bind="dropzone: { init: initFunc, url: filesRequestUrl, maxFilesize: 4294967295, dictDefaultMessage: $root.translations.dropzone }, object: dropzone" id="file-avatar"></div>
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true">
+                        <span data-bind="text:$root.translations.info">&nbsp;</span>
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#players" type="button" role="tab" aria-controls="players" aria-selected="false">
+                        <span data-bind="text:$root.translations.players">&nbsp;</span>
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#nextMatch" type="button" role="tab" aria-controls="nextMatch" aria-selected="false">
+                        <span data-bind="text:$root.translations.nextMatch">&nbsp;</span>
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#admins" type="button" role="tab" aria-controls="admins" aria-selected="false">
+                        <span data-bind="text:$root.translations.admins">&nbsp;</span>
+                    </button>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" role="tabpanel" id="info">
+                    <h5 class="sub-h"><span data-bind="text:$root.translations.basicInfo">&nbsp;</span></h5>
+                    <div class="col-lg-12 row">
+                        <div class="col-md-6 col-sm-12">
+                            <div data-bind="validationElement: name" class="form-group">
+                                <label><span data-bind="text:$root.translations.name"></span></label>
+                                <input class="form-control" data-bind="value:name">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div data-bind="validationElement: address" class="form-group">
+                                <label><span data-bind="text:$root.translations.address"></span></label>
+                                <input class="form-control" type="text" data-bind="value:address">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <div class="form-group">
-                        <label></label>
-                        <div class="form-control image-preview dropzone">
-                            <img class="img-preview" data-bind="attr:{src:logoUrl}" />
+                    <div class="col-lg-12 row">
+                        <div class="col-md-6 col-sm-12">
+                            <div data-bind="validationElement: logoId" class="form-group">
+                                <label><span data-bind="text:$root.translations.tournamentLogo"></span></label>
+                                <div data-bind="with: $root.tournamentLogo">
+                                    <div class="form-control" data-bind="dropzone: { init: initFunc, url: filesRequestUrl, maxFilesize: 4294967295, dictDefaultMessage: $root.translations.dropzone }, object: dropzone" id="file-avatar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label></label>
+                                <div class="form-control image-preview dropzone">
+                                    <img class="img-preview" data-bind="attr:{src:logoUrl}" />
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            @*<div class="col-md-12 col-sm-12">
-                    <div data-bind="validationElement: photoId" class="form-group">
-                        <label>Plakat turnieju</label>
-                        <div data-bind="with: $root.tournamentPhoto">
-                            <div class="form-control" data-bind="dropzone: { init: initFunc, url: filesRequestUrl, maxFilesize: 4294967295, dictDefaultMessage: 'Upuść tu plik, aby go przesłać.' }, object: dropzone" id="file-avatar"></div>
-                        </div>
+                    <div class="col-lg-12 row">
+                        <a href="" class="btn btn-round-success" data-bind="click:$root.editTournament">
+                            <span data-bind="text:$root.translations.editTournament"></span>
+                        </a>
                     </div>
-                </div>*@
-            <div class="col-lg-12 row box">
-                <h5>Zawodnicy</h5>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <tbody data-bind="foreach: players">
-                            <tr data-bind="" class="clickable-row">
-                                <td><input class="form-control" data-bind="value:firstName"></td>
-                                <td><input class="form-control" data-bind="value:nickName"></td>
-                                <td><input class="form-control" data-bind="value:lastName"></td>
-                                <td data-bind="if:id() > 0">
-                                    <div data-bind="if:userId">
-                                        <p><span data-bind="text:$root.translations.userAdded"></span></p>
-                                    </div>
-                                    <div data-bind="ifnot:userId">
-                                        <a href="" data-bind="click:$root.invitePlayer"
-                                           class="btn btn-round btn-round-danger">
-                                            <i class="fa fa-remove"></i> <span data-bind="text:$root.translations.invite"></span>
-                                        </a>
-                                    </div>
-                                </td>
-                                <td class="last-column">
-                                    <a href="" data-bind="click:$root.removePlayer"
-                                       class="btn btn-round btn-round-danger">
-                                        <i class="fa fa-remove"></i><span data-bind="text:$root.translations.remove"></span>
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
-                <a href="" class="btn btn-info" data-bind="click:$root.addPlayer">
-                    <i class="fa fa-plus-circle"></i> <span data-bind="text:$root.translations.addPlayer"></span>
-                </a>
-                <a href="" class="btn btn-info" data-bind="click:$root.editPlayers">
-                    <i class="fa fa-plus-circle"></i> <span data-bind="text:$root.translations.saveChanges"></span>
-                </a>
-            </div>
-            <div data-bind="ifnot:nextMatch">
-                <div data-bind="with:$parent.newMatch" class="col-lg-12 row">
-                    <h5><span data-bind="text:$root.translations.newMatch"></span></h5>
-                    <div class="col-md-6 col-sm-12">
-                        <div data-bind="validationElement: homeTeamName" class="form-group">
-                            <label><span data-bind="text:$root.translations.home"></span></label>
-                            <input class="form-control" data-bind="value:homeTeamName">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <div data-bind="validationElement: awayTeamName" class="form-group">
-                            <label><span data-bind="text:$root.translations.away"></span></label>
-                            <input class="form-control" type="text" data-bind="value:awayTeamName">
-                        </div>
-                    </div>
-                    <a href="" class="btn btn-info" data-bind="click:$root.addMatch">
-                        <i class="fa fa-plus-circle"></i><span data-bind="text:$root.translations.createMatch"></span>
-                    </a>
-                </div>
-            </div>
-            <div data-bind="if:nextMatch">
-                <div data-bind="with:nextMatch" class="col-lg-12 row">
-                    <a href="" class="btn btn-info" data-bind="attr:{href:'/match/edit/' + id() }">
-                        <i class="fa fa-plus-circle"></i> <span data-bind="text:$root.translations.goToMatch"></span>
-                    </a>
-                </div>
-            </div>
-            <div data-bind="with:$root" class="col row box">
-                <h5><span data-bind="text:$root.translations.admins"></span></h5>
-                <div class="col">
+                <div class="col-lg-12 row tab-pane" role="tabpanel" id="players">
+                    <h5 class="sub-h"><span data-bind="text:$root.translations.userManagement">&nbsp;</span></h5>
                     <div class="table-responsive">
                         <table class="table table-striped">
-                            <tbody data-bind="foreach: notAdmins">
+                            <tbody data-bind="foreach: players">
                                 <tr data-bind="" class="clickable-row">
-                                    <td><p data-bind="text:name"></p></td>
+                                    <td><input class="form-control" data-bind="value:firstName"></td>
+                                    <td><input class="form-control" data-bind="value:nickName"></td>
+                                    <td><input class="form-control" data-bind="value:lastName"></td>
+                                    <td data-bind="if:id() > 0">
+                                        <div data-bind="if:userId">
+                                            <span class="margin-badge width100 badge bg-success" data-bind="text:$root.translations.userAdded"></span>
+                                        </div>
+                                        <div data-bind="ifnot:userId">
+                                            <a href="" data-bind="click:$root.invitePlayer"
+                                               class="btn btn-round-primary">
+                                                <i class="fa fa-plus-circle"></i> <span data-bind="text:$root.translations.invite"></span>
+                                            </a>
+                                        </div>
+                                    </td>
                                     <td class="last-column">
-                                        <a href="" data-bind="click:$root.addAdmin"
-                                           class="btn btn-round btn-round-danger">
-                                            <i class="fa fa-remove"></i><span data-bind="text:$root.translations.add"></span>
+                                        <a href="" data-bind="click:$root.removePlayer" class="btn btn-round btn-round-danger">
+                                            <span data-bind="text:$root.translations.remove"></span>
                                         </a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
-                <div data-bind="with:model" class="col">
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <tbody data-bind="foreach: admins">
-                                <tr data-bind="" class="clickable-row">
-                                    <td><p data-bind="text:name"></p></td>
-                                    <td class="last-column">
-                                        <a href="" data-bind="click:$root.removeAdmin"
-                                           class="btn btn-round btn-round-danger">
-                                            <i class="fa fa-remove"></i><span data-bind="text:$root.translations.remove"></span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="col-lg-12 row no-margin">
+                        <a href="" class="btn btn-round-primary" data-bind="click:$root.addPlayer">
+                            <i class="fa fa-plus-circle"></i> <span data-bind="text:$root.translations.addPlayer"></span>
+                        </a>
+                        <a href="" class="btn btn-round-success" data-bind="click:$root.editPlayers">
+                            <span data-bind="text:$root.translations.saveChanges"></span>
+                        </a>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-12 row">
-                <a href="" class="btn btn-success" data-bind="click:$root.editTournament">
-                    <i class="fa fa-plus-circle"></i> <span data-bind="text:$root.translations.editTournament"></span>
-                </a>
+                <div class="tab-pane" role="tabpanel" id="nextMatch">
+                    <div data-bind="ifnot:nextMatch">
+                        <div data-bind="with:$parent.newMatch" class="col-lg-12 row">
+                            <h5 class="sub-h"><span data-bind="text:$root.translations.newMatch"></span></h5>
+                            <div class="col-md-6 col-sm-12">
+                                <div data-bind="validationElement: homeTeamName" class="form-group">
+                                    <label><span data-bind="text:$root.translations.home"></span></label>
+                                    <input class="form-control" data-bind="value:homeTeamName">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div data-bind="validationElement: awayTeamName" class="form-group">
+                                    <label><span data-bind="text:$root.translations.away"></span></label>
+                                    <input class="form-control" type="text" data-bind="value:awayTeamName">
+                                </div>
+                            </div>
+                            <a href="" class="btn btn-round-success" data-bind="click:$root.addMatch">
+                                <i class="fa fa-plus-circle"></i> <span data-bind="text:$root.translations.createMatch"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div data-bind="if:nextMatch">
+                        <div data-bind="with:nextMatch" class="col-lg-12 row">
+                            <a href="" class="btn btn-round-success" data-bind="attr:{href:'/match/edit/' + id() }">
+                                <span data-bind="text:$root.translations.goToMatch"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" role="tabpanel" id="admins">
+                    <div data-bind="with:$root" class="col row box">
+                        <h5 class="sub-h"><span data-bind="text:$root.translations.adminsManaegment">&nbsp;</span></h5>
+                        <div class="col">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <tbody data-bind="foreach: notAdmins">
+                                        <tr data-bind="" class="clickable-row">
+                                            <td><p data-bind="text:name"></p></td>
+                                            <td class="last-column">
+                                                <a href="" data-bind="click:$root.addAdmin" class="btn btn-round btn-round-primary">
+                                                    <i class="fa fa-plus-circle"></i> <span data-bind="text:$root.translations.add"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div data-bind="with:model" class="col">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <tbody data-bind="foreach: admins">
+                                        <tr data-bind="" class="clickable-row">
+                                            <td><p data-bind="text:name"></p></td>
+                                            <td class="last-column">
+                                                <a href="" data-bind="click:$root.removeAdmin" class="btn btn-round btn-round-danger">
+                                                    <span data-bind="text:$root.translations.remove"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <div>
-    <div data-bind="if:$root.showModal" tabindex="-1" aria-hidden="true">
-        <div class="align-content-center">
-            <div class="custom-modal">
-                <div data-bind="with:invitedPlayer">
-                    <div data-bind="validationElement: email" class="form-group">
-                        <label><span data-bind="text:$root.translations.email"></span></label>
-                        <input data-bind="value:email" class="form-control" />
-                    </div>
-                    <div class="col-lg-12 row no-margin">
-                        <a href="" class="btn" data-bind="click:$root.cancelInvite">
-                            <i class="fa fa-plus-circle"></i> <span data-bind="text:$root.translations.cancel"></span>
-                        </a>
-                        <a href="" class="btn btn-primary" data-bind="click:$root.inviteAsPlayer">
-                            <i class="fa fa-plus-circle"></i> <span data-bind="text:$root.translations.invite"></span>
-                        </a>
-                        <a href="" class="btn btn-success" data-bind="click:$root.inviteAsAdmin">
-                            <i class="fa fa-plus-circle"></i> <span data-bind="text:$root.translations.inviteAsAdmin"></span>
-                        </a>
+    <div data-bind="modalBody:$root.showModal" class="hidden" tabindex="-1" aria-hidden="true">
+        <div class="shadow card login-body">
+            <div class="align-content-center">
+                <div class="custom-modal">
+                    <div data-bind="with:invitedPlayer">
+                        <h5 class="sub-h"><span data-bind="text:$root.translations.playerInvite"></span></h5>
+                        <div data-bind="validationElement: email" class="form-group">
+                            <label><span data-bind="text:$root.translations.email"></span></label>
+                            <input data-bind="value:email" class="form-control" />
+                        </div>
+                        <div class="col-lg-12 row no-margin">
+                            <a href="" class="btn btn-round-cancel" data-bind="click:$root.cancelInvite">
+                                 <span data-bind="text:$root.translations.cancel"></span>
+                            </a>
+                            <a href="" class="btn btn-round-primary" data-bind="click:$root.inviteAsPlayer">
+                                <i class="fa fa-plus-circle"></i> <span data-bind="text:$root.translations.invite"></span>
+                            </a>
+                            <a href="" class="btn btn-round-success" data-bind="click:$root.inviteAsAdmin">
+                                <i class="fa fa-plus-circle"></i> <span data-bind="text:$root.translations.inviteAsAdmin"></span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
