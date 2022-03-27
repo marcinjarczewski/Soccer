@@ -44,7 +44,7 @@ define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 
             vm.invitedPlayer = ko.observable({
                 id: ko.observable(null),
                 email: ko.validatedObservable('').extend({
-                    required: { message: translations.validation.fieldEmpty }
+                     required: { message: translations.validation.fieldEmpty }, email: { message: translations.validation.email }
                 })
             });
             vm.translations = translations.tournamentEdit;
@@ -84,7 +84,7 @@ define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 
                 }
             };
             vm.addPlayer = function () {
-                vm.model().players.push(ko.toJS(vm.model().emptyPlayer));
+                vm.model().players.push((mappings.fromJS(ko.toJS(vm.model().emptyPlayer))));
             };
             vm.removePlayer = function (data) {
                 vm.model().players.remove(data);

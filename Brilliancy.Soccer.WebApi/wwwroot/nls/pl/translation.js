@@ -71,6 +71,14 @@ define({
         previousMatch: "poprzedni mecz"
     },
     tournamentIndex: {
+        title: "Lista turniejów",
+        nameOrAddress: "Nazwa / miejsce",
+        search:"Szukaj",
+        address: "Miejsce",
+        nextMatch: "Następny mecz",
+        previousMatch: "poprzedni mecz",
+        previousPage: "Poprzednia strona",
+        nextPage: "Następna strona"
     },
     tournamentCreate: {
         created: "Turniej został utworzony",
@@ -82,6 +90,13 @@ define({
         dropzone: "Upuść tu plik, aby go przesłać."
     },
     tournamentEdit: {
+        info: "Informacje",
+        players: "Zawodnicy",
+        nextMatch: "Następny mecz",
+        basicInfo: "Dane podstawowe",
+        userManagement: "Zarządzaj graczami",
+        adminsManagement: "Zarządzaj administratorami turnieju",
+        playerInvite: "Zaproś gracza",
         edited: "Zmiany zostały zapisane",
         tournamentLogo: "Logo turnieju",
         dropzone: "Upuść tu plik, aby go przesłać.",
@@ -127,6 +142,7 @@ define({
     loginLostPassword: {
         lostPasswordTitle: "Zmiana hasła",
         lostPassword: "Wpisz email, na który założone zostało konto",
-        sendEmail: "Wyślij email"
+        sendEmail: "Wyślij email",
+        goBack:"Cofnij"
     }
 });

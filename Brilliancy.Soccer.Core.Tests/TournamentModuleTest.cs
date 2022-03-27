@@ -258,16 +258,16 @@ namespace Brilliancy.Soccer.Core.Tests
         public void GetTournaments_PagingMaxCap()
         {
            int perPage = 2;
-           var paged =  _tournamentModule.GetTournaments("", 2, perPage);
-           Assert.AreEqual(_soccerDbContext.Tournaments.Count(), paged.TotalItemCount);
+           var paged =  _tournamentModule.GetTournaments("", 1,  2,  perPage);
+           Assert.AreEqual(2, paged.Details.PageCount);
         }
 
         [Test]
         public void GetTournaments_FilterName()
         {
             int perPage = 5;
-            var paged = _tournamentModule.GetTournaments("My tourn", 2, perPage);
-            Assert.AreEqual(2, paged.TotalItemCount);
+            var paged = _tournamentModule.GetTournaments("My tourn",1, 2, perPage);
+            Assert.AreEqual(2, paged.Details.TotalEntries);
         }
 
         [Test]
@@ -275,8 +275,8 @@ namespace Brilliancy.Soccer.Core.Tests
         {
             int perPage = 5;
             int totalPages = 1;
-            var paged = _tournamentModule.GetTournaments("OTHER", 1, perPage);
-            Assert.AreEqual(totalPages, paged.Count);
+            var paged = _tournamentModule.GetTournaments("OTHER",1, 1, perPage);
+            Assert.AreEqual(totalPages, paged.Details.PageCount);
         }
 
 

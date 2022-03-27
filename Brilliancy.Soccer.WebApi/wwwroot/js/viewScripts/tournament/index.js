@@ -24,7 +24,7 @@ define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 
             };
             var pagedModel = new pagedViewModel({
                 url: "/tournament/getList",
-                entriesPerPage: 2,
+                entriesPerPage: 5,
                 queryOnLoad: true,
                 clearLoadedDataOnError: true
             });

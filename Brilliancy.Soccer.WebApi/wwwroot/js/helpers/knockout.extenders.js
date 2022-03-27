@@ -12,7 +12,6 @@
                     return formatTime(value, ':');
                 },
                 write: function (newValue) {
-                    debugger;
                     return reverseFormat(newValue, ':');
                 }
             });
@@ -56,21 +55,68 @@
         }
     };
 
+    ko.bindingHandlers.mainBody = {
+        init: function (element, valueAccessor, allBindingsAccessor) {
+            return true;
+        },
+        update: function (element, valueAccessor) {
+            let value = valueAccessor();
+            if (typeof (value) === "function") {
+                value = value();
+            }
+            if (value) {
+                $(element).removeClass("visible");
+                $(element).addClass("my-hidden");
+                setTimeout(function () { $(element).addClass("hidden");}, 450);
+            }
+            else {
+                $(element).removeClass("my-hidden");
+                $(element).addClass("visible");
+                setTimeout(function () {
+                    $(element).removeClass("hidden");
+                }, 450);
+            }
+            return true;
+        }
+    };
+
+    ko.bindingHandlers.modalBody = {
+        init: function (element, valueAccessor, allBindingsAccessor) {
+            return true;
+        },
+        update: function (element, valueAccessor) {
+            let value = valueAccessor();
+            if (typeof (value) === "function") {
+                value = value();
+            }
+            if (value) {
+                $(element).removeClass("my-hidden");
+                $(element).addClass("visible");
+                setTimeout(function () { $(element).removeClass("hidden"); }, 450);
+            }
+            else {
+                $(element).removeClass("visible");
+                $(element).addClass("my-hidden");
+                setTimeout(function () { $(element).addClass("hidden"); }, 450);
+            }
+            return true;
+        }
+    };
+
     ko.bindingHandlers.decimal = {
         init: function (element, valueAccessor, allBindingsAccessor) {
             var observable = valueAccessor();
             var value = observable;
-            if (typeof(value) === "function")
-            {
+            if (typeof (value) === "function") {
                 value = observable();
             }
 
             var interceptor = ko.computed({
                 read: function () {
-                    return formatWithComma(value,2);
+                    return formatWithComma(value, 2);
                 },
                 write: function (newValue) {
-                    return reverseFormat(newValue,2);
+                    return reverseFormat(newValue, 2);
                 }
             });
 

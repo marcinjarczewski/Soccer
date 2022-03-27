@@ -26,7 +26,7 @@ namespace Brilliancy.Soccer.Common.Dtos.Tournament
 
         public MatchEditDto NextMatch { get; set; }
 
-        public MatchEditDto PrevoiusMatch { get; set; }
+        public MatchEditDto LastMatch { get; set; }
 
         public TimeSpan? DefaultHour { get; set; }
 

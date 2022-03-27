@@ -5,7 +5,7 @@ define(['jquery', 'storageHelper', 'toastr', "/js/plugins/i18n.js!/nls/translati
             "debug": false,
             "newestOnTop": false,
             "progressBar": false,
-            "positionClass": "toast-top-full-width",
+            "positionClass": "toast-bottom-full-width",
             "preventDuplicates": false,
             "onclick": null,
             "showDuration": "0",
@@ -31,4 +31,5 @@ define(['jquery', 'storageHelper', 'toastr', "/js/plugins/i18n.js!/nls/translati
             $('#cookies-id').addClass("d-none");
             $(".body-content").css("heigth", window.innerHeight - $('#cookies-id').height() - $(".navbar").parent().height());
         });
+        setInterval(function () { $('#loading-body').hide(); $('#loading-header').hide();}, 600);
     });

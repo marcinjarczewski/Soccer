@@ -125,7 +125,7 @@ namespace Brilliancy.Soccer.Core.Modules
             dto.Players = dto.Players.Where(p => p.IsActive).ToList();
             dto.Matches = dto.Matches.Where(p => p.StateId != (int)MatchStateEnum.Canceled).ToList();
             dto.NextMatch = dto.Matches.FirstOrDefault(p => p.StateId != (int)MatchStateEnum.Canceled && p.StateId != (int)MatchStateEnum.Finished);
-            dto.PrevoiusMatch = dto.Matches.OrderByDescending(m => m.StartDate).FirstOrDefault(p => p.StateId == (int)MatchStateEnum.Finished);
+            dto.LastMatch = dto.Matches.OrderByDescending(m => m.StartDate).FirstOrDefault(p => p.StateId == (int)MatchStateEnum.Finished);
             foreach (var admin in dto.Admins)
             {
                 var player = dto.Players.FirstOrDefault(p => p.UserId == admin.Id);
@@ -140,7 +140,13 @@ namespace Brilliancy.Soccer.Core.Modules
 
         public PagedResult<TournamentDto> GetTournaments(string term, int userId, int pageNumber, int pageSize)
         {
-            var tournaments = _dbContext.Tournaments.AsQueryable();
+            var tournaments = _dbContext.Tournaments
+                .Include(t => t.Logo)
+                .Include(t => t.Matches)
+                .ThenInclude(t => t.HomeTeam)
+                .Include(t => t.Matches)
+                .ThenInclude(t => t.AwayTeam)
+                .AsQueryable();
             if (!string.IsNullOrEmpty(term))
             {
                 var lowerTerm = term.ToLower();
@@ -158,7 +164,15 @@ namespace Brilliancy.Soccer.Core.Modules
 
             var total = tournaments.Count();
             var tournamentDtos = _mapper.Map<List<TournamentDto>>(page);
-
+            foreach (var tournamentDto in tournamentDtos)
+            {
+                tournamentDto.NextMatch = tournamentDto.Matches.FirstOrDefault(p => p.StateId != (int)MatchStateEnum.Canceled && p.StateId != (int)MatchStateEnum.Finished);
+                tournamentDto.LastMatch = tournamentDto.Matches.OrderByDescending(m => m.StartDate).FirstOrDefault(p => p.StateId == (int)MatchStateEnum.Finished);
+                if(string.IsNullOrEmpty(tournamentDto.LogoUrl))
+                {
+                    tournamentDto.LogoUrl = DefaultValuesDictionary.Logo;
+                }
+            }
             return new PagedResult<TournamentDto>(tournamentDtos, pageNumber, pageSize, total);
         }
 

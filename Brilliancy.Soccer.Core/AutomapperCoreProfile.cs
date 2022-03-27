@@ -32,6 +32,8 @@ namespace Brilliancy.Soccer.Core
                 .ForMember(dto => dto.AssistPlayerName, m => m.MapFrom(db => db.Assist != null ? (db.Assist.FirstName + " " + db.Assist.NickName + " " + db.Assist.LastName) : ""));
             CreateMap<PlayerDbModel, PlayerDto>();
             CreateMap<MatchDbModel, MatchEditDto>()
+                .ForMember(dto => dto.HomeTeamName, m => m.MapFrom(db => db.HomeTeam.Name))
+                .ForMember(dto => dto.AwayTeamName, m => m.MapFrom(db => db.AwayTeam.Name))
                 .ForMember(dto => dto.HomePlayers, m => m.MapFrom(db => db.HomeTeam.Players))
                 .ForMember(dto => dto.AwayPlayers, m => m.MapFrom(db => db.AwayTeam.Players))
                 .ForMember(dto => dto.StateName, m => m.MapFrom(db => ((MatchStateEnum)db.StateId).ToTranslatedString()));
