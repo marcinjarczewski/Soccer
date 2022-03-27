@@ -17,9 +17,9 @@ namespace Brilliancy.Soccer.WebApi.Models.Match.Read
 
         public int AwayGoals { get; set; }
 
-        public int HalfHomeGoals { get; set; }
+        public int StateId { get; set; }
 
-        public int HalfAwayGoals { get; set; }
+        public string StateName { get; set; }
 
         public DateTime? Date { get; set; }
 

@@ -17,6 +17,27 @@
     color: white;
 }
 
+.match-div{
+    margin-top:4px;
+    margin-bottom:7px;
+    /*font-family:'BubbleBobble';*/
+    font-size:25px;
+}
+.a-match-div {
+    color: darkslategray;
+    text-decoration: darkslategray underline dotted;
+    transition: 1s;
+}
+
+.a-match-div:hover {
+    color: gold;
+}
+
+.score-font {
+    font-size: 35px;
+    font-family: 'BubbleBobble';
+}
+
 .a-tournament-name {
     text-decoration: underline dotted;
     transition: 1s;
@@ -69,6 +90,11 @@
 .bg-success {
     padding: 10px;
     background-image: linear-gradient(to right,#146011, #4d9f1a);
+}
+
+.bg-warning {
+    padding: 10px;
+    background-image: linear-gradient(to right,#e3cd48, #4d9f1a);
 }
 
 #loading-header {

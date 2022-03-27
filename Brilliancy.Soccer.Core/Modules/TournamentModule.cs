@@ -123,7 +123,7 @@ namespace Brilliancy.Soccer.Core.Modules
             }
             var dto = _mapper.Map<TournamentDto>(tournament);
             dto.Players = dto.Players.Where(p => p.IsActive).ToList();
-            dto.Matches = dto.Matches.Where(p => p.StateId != (int)MatchStateEnum.Canceled).ToList();
+            dto.Matches = dto.Matches.Where(p => p.StateId != (int)MatchStateEnum.Canceled).OrderByDescending(d => d.Date).ToList();
             dto.NextMatch = dto.Matches.FirstOrDefault(p => p.StateId != (int)MatchStateEnum.Canceled && p.StateId != (int)MatchStateEnum.Finished);
             dto.LastMatch = dto.Matches.OrderByDescending(m => m.StartDate).FirstOrDefault(p => p.StateId == (int)MatchStateEnum.Finished);
             foreach (var admin in dto.Admins)

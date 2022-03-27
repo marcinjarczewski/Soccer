@@ -109,6 +109,8 @@ define({
         addPlayer: "Add a player",
         saveChanges: "Save changes",
         newMatch: "New match",
+        matches: "Matches",
+        matchesList:"Match list",
         home: "Home",
         away: "Away",
         createMatch: "Create a match",

@@ -109,6 +109,8 @@ define({
         addPlayer: "Dodaj gracza",
         saveChanges: "Zapisz zmiany",
         newMatch: "Nowy mecz",
+        matches: "Mecze",
+        matchesList: "Lista meczy",
         home: "Gospodarze",
         away: "Goście",
         createMatch: "Utwórz mecz",
