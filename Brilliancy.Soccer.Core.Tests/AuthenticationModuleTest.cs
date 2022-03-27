@@ -257,16 +257,17 @@ namespace Brilliancy.Soccer.Core.Tests
             Assert.IsTrue(ex.Message == CoreTranslations.Tournament_NoPrivileges);
         }
 
-        [Test]
-        public void InviteAdmin_NoUserForInvite()
-        {
-            var ex = Assert.Throws<Common.Exceptions.UserDataException>(() => _authenticationModule.InviteAdmin(new Common.Dtos.Authentication.AuthenticationDto
-            {
-                Email = "test@tt.com",
-                PlayerId = 3,
-            }, 1));
-            Assert.IsTrue(ex.Message == CoreTranslations.Authentication_NoUserForInvite);
-        }
+        //Allow a user to become an administrator without being a player
+        //[Test]
+        //public void InviteAdmin_NoUserForInvite()
+        //{
+        //    var ex = Assert.Throws<Common.Exceptions.UserDataException>(() => _authenticationModule.InviteAdmin(new Common.Dtos.Authentication.AuthenticationDto
+        //    {
+        //        Email = "test@tt.com",
+        //        PlayerId = 3,
+        //    }, 1));
+        //    Assert.IsTrue(ex.Message == CoreTranslations.Authentication_NoUserForInvite);
+        //}
 
         [Test]
         public void InviteAdmin_PlayerNotFromTournament()

@@ -13,10 +13,6 @@ namespace Brilliancy.Soccer.WebApi.Models.Read.Tournament
 
         public string LogoUrl { get; set; }
 
-        public DateTime StartDate { get; set; }
-
-        public DateTime? EndDate { get; set; }
-
         public MatchReadModel NextMatch { get; set; }
 
         public MatchReadModel LastMatch { get; set; }

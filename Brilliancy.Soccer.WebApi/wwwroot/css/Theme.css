@@ -6,9 +6,24 @@
     min-height: calc(100vh - 56px);
 }
 
+.btn-outline-secondary {
+    background-color: rgb(var(--bs-success-rgb));
+    border-color: rgb(var(--bs-success-rgb));
+    color: white;
+}
+
 .navbar {
     font-weight: 700;
     color: white;
+}
+
+.a-tournament-name {
+    text-decoration: underline dotted;
+    transition: 1s;
+}
+
+.a-tournament-name:hover {
+    color: gold;
 }
 
 .section-title-h {
@@ -21,6 +36,11 @@
     font-family: 'BubbleBobble';
     font-size: 24px;
     color: green;
+}
+
+.btn-navigate{
+    margin-left:3px;
+    margin-right:3px;
 }
 
 .nav-tabs {

@@ -71,6 +71,14 @@ define({
         previousMatch: "poprzedni mecz"
     },
     tournamentIndex: {
+        title: "Lista turniejów",
+        nameOrAddress: "Nazwa / miejsce",
+        search:"Szukaj",
+        address: "Miejsce",
+        nextMatch: "Następny mecz",
+        previousMatch: "poprzedni mecz",
+        previousPage: "Poprzednia strona",
+        nextPage: "Następna strona"
     },
     tournamentCreate: {
         created: "Turniej został utworzony",
@@ -134,6 +142,7 @@ define({
     loginLostPassword: {
         lostPasswordTitle: "Zmiana hasła",
         lostPassword: "Wpisz email, na który założone zostało konto",
-        sendEmail: "Wyślij email"
+        sendEmail: "Wyślij email",
+        goBack:"Cofnij"
     }
 });

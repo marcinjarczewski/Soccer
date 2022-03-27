@@ -7,7 +7,7 @@
 }
 
 <div class="section-title-wrap">
-    <div class="section-title"><h3 class="section-title-h"><span data-bind="text:$root.translations.tournamentList"></span></h3></div>
+    <div class="section-title"><h3 class="section-title-h"><span data-bind="text:$root.translations.title">&nbsp;</span></h3></div>
 </div>
 <div class="col-lg-12">
     <div data-bind="with:tournaments">
@@ -16,60 +16,69 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="form-group">
-                        <label>Nazwa / miejscowość</label>
-                        <input data-bind="value: filter().term" type="text" class="form-control input-sm" placeholder="Szukaj...">
+                        <label><span data-bind="text:$root.translations.nameOrAddress">&nbsp;</span></label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control"  data-bind="value: filter().term" aria-describedby="button-addon2">
+                            <button data-bind="click: filterChanged.bind(filter.$parent)" class="btn btn-outline-secondary" type="button" id="button-addon2">
+                                <i class="fa-solid fa-magnifying-glass"></i> <span data-bind="text:$root.translations.search">&nbsp;</span></button>
+                        </div>
                     </div>
-                    <a href="" data-bind="click: filterChanged.bind(filter.$parent)"
-                       class="btn btn-round btn-round-success">
-                        <i class="fa fa-plus-circle"></i> Wyszukaj
-                    </a>
                 </div>
             </div>
             <div data-bind="foreach:entries">
-                <div class="col">
-                    <div class="news-img-wrap">
-                        <h1 data-bind="text:name"></h1>
-                        <a data-bind="attr:{href:'/turnieje/szczegoly/'+id}" class="news-img-link">
-                            <img data-bind="attr: { src: logoUrl }" class="news-img wp-post-image" style="max-height:400px;" alt="">
+                <div class="col-lg-12 row no-margin shadow" style="margin-bottom:20px;">
+                    <div class="col">
+                        <div>
+                            <a class="section-title-h a-tournament-name" data-bind="attr:{href:'/tournament/details/'+id}"><h1 data-bind="text:name"></h1></a>
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    <span data-bind="text:$root.translations.address">&nbsp;</span>
+                                </dt>
+                                <dd data-bind="text:address">
+                                </dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    <span data-bind="text:$root.translations.previousMatch">&nbsp;</span>
+                                </dt>
+                                <dd data-bind="with:lastMatch">
+                                    <a data-bind="attr:{href:'/match/details/'+id}">
+                                        <span disabled data-bind=" date: date" type="text"></span>
+                                        <span data-bind="text:homeTeamName"></span> <span data-bind="text:homeGoals"></span>:<span data-bind="text:awayGoals"></span> <span data-bind="text:awayTeamName"></span>
+                                    </a>
+                                </dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    <span data-bind="text:$root.translations.nextMatch">&nbsp;</span>
+                                </dt>
+                                <dd data-bind="with:nextMatch">
+                                    <a data-bind="attr:{href:'/match/details/'+id}">
+                                        <span disabled data-bind=" date: date" type="text"></span>
+                                        <span data-bind="text:homeTeamName"></span> - <span data-bind="text:awayTeamName"></span>
+                                    </a>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <a data-bind="attr:{href:'/tournament/details/'+id}">
+                            <img data-bind="attr: { src: logoUrl }" style="max-height:400px;max-width:100%;" alt="">
                         </a>
                     </div>
-                </div>
-                <div class="col">
-                    <dl class="dl-horizontal">
-                        <dt>
-                            Miejsce
-                        </dt>
-                        <dd data-bind="text:address">
-                        </dd>
-
-                        <dt>
-                            Data rozpoczęcia
-                        </dt>
-                        <dd>
-                            <i class="fa fa-calendar-o" aria-hidden="true">
-                            </i> <span data-bind="date: startDate"></span>
-                        </dd>
-                        <dt>
-                            Data zakończenia
-                        </dt>
-                        <dd>
-                            <i class="fa fa-calendar-o" aria-hidden="true">
-                            </i> <span data-bind="date: endDate"></span>
-                        </dd>
-                    </dl>
                 </div>
             </div>
             <div class="clearfix" style="width:100%">
                 <ul class="pagination">
                     <li>
-                        <a data-bind="click: previous, css:{disabled: !previousEnabled()}" class="btn btn-link" href="#">
+                        <a data-bind="click: previous, css:{disabled: !previousEnabled()}" class="btn btn-success btn-navigate" href="#">
                             <span>&laquo;</span>
-                            <span>Poprzednia</span>
+                            <span data-bind="text:$root.translations.previousPage">&nbsp;</span>
                         </a>
                     </li>
                     <li style="float:right;">
-                        <a data-bind="click: next, css:{disabled: !nextEnabled()}" class="btn btn-link" href="#">
-                            <span>Następna</span>
+                        <a data-bind="click: next, css:{disabled: !nextEnabled()}" class="btn btn-success btn-navigate" href="#">
+                            <span data-bind="text:$root.translations.nextPage">&nbsp;</span>
                             <span>&raquo;</span>
                         </a>
                     </li>

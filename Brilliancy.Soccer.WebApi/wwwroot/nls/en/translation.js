@@ -71,6 +71,14 @@ define({
         previousMatch: "Previous match"
     },
     tournamentIndex: {
+        title: "Tournament list",
+        nameOrAddress: "Name / venue",
+        search: "Search",
+        address: "Venue",
+        nextMatch: "Next match",
+        previousMatch: "Previous match",
+        previousPage: "Previous page",
+        nextPage: "Next page"
     },
     tournamentCreate: {
         created: "The tournament has been created.",
@@ -134,6 +142,7 @@ define({
     loginLostPassword: {
         lostPasswordTitle: "Lost password",
         lostPassword: "Enter the email address for which the account has been created",
-        sendEmail: "Send"
+        sendEmail: "Send",
+        goBack: "Cancel"
     }
 });
