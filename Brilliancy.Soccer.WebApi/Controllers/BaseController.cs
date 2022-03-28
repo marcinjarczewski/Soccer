@@ -4,6 +4,7 @@ using Brilliancy.Soccer.Common.Contracts.Modules;
 using Brilliancy.Soccer.Common.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Brilliancy.Soccer.WebApi.Controllers
 {
@@ -38,19 +39,5 @@ namespace Brilliancy.Soccer.WebApi.Controllers
                 return _userInfo;
             }
         }
-
-        //protected ActionResult JsonCamelCase(dynamic data)
-        //{
-        //    return new JsonResult(data);
-        //}
-
-        //public string SerializeCamelCase(dynamic data)
-        //{
-        //    var jsonSerializerSettings = new JsonSerializerSettings
-        //    {
-        //        ContractResolver = new CamelCasePropertyNamesContractResolver()
-        //    };
-        //    return JsonConvert.SerializeObject(data, jsonSerializerSettings);
-        //}
     }
 }

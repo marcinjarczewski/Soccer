@@ -122,7 +122,7 @@
                 if (x == null) {
                     return "";
                 }
-                return moment(x).format("YYYY.MM.DD HH:mm")
+                return moment(x).format("HH:mm DD.MM.YYYY")
             }
 
             function reverseFormat(x, seperator) {
@@ -145,7 +145,7 @@
                 $(element).text("");
                 return true;
             }
-            $(element).text(moment(x).format("YYYY.MM.DD HH:mm"));
+            $(element).text(moment(x).format("HH:mm DD.MM.YYYY"));
             return true;
         }
     };

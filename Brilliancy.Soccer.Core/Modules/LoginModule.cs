@@ -33,13 +33,18 @@ namespace Brilliancy.Soccer.Core.Modules
                 throw new InvalidDataException(CoreTranslations.Login_EmptyLogin);
             }
 
-            var user = _dbContext.Users.FirstOrDefault(u => u.Login.ToLower() == login.ToLower());
+            var user = _dbContext.Users
+                .Include(u=> u.TournamentAdmins)
+                .Include(u => u.OwnedTournaments).FirstOrDefault(u => u.Login.ToLower() == login.ToLower());
             if (user == null || !user.IsActive)
             {
                 throw new UserDataException(CoreTranslations.Login_NoUser);
             }
 
-            return _mapper.Map<UserDto>(user);
+            var result = _mapper.Map<UserDto>(user);
+            result.TournamentAdmins = user.TournamentAdmins.Select(t => t.Id).ToList();
+            result.TournamentAdmins.Union(user.OwnedTournaments.Select(o => o.Id));
+            return result;
         }
 
         public void RegisterUser(RegisterUserDto dto)

@@ -68,7 +68,10 @@ define({
         home: "Home",
         away: "Away",
         nextMatch: "Next match",
-        previousMatch: "Previous match"
+        previousMatch: "Previous match",
+        matches: "Matches",
+        players: "Players",
+        manage: "Manage"
     },
     tournamentIndex: {
         title: "Tournament list",
@@ -109,6 +112,8 @@ define({
         addPlayer: "Add a player",
         saveChanges: "Save changes",
         newMatch: "New match",
+        matches: "Matches",
+        matchesList:"Match list",
         home: "Home",
         away: "Away",
         createMatch: "Create a match",

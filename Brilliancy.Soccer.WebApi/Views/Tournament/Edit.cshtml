@@ -21,17 +21,22 @@
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#players" type="button" role="tab" aria-controls="players" aria-selected="false">
+                    <button class="nav-link" id="players-tab" data-bs-toggle="tab" data-bs-target="#players" type="button" role="tab" aria-controls="players" aria-selected="false">
                         <span data-bind="text:$root.translations.players">&nbsp;</span>
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#nextMatch" type="button" role="tab" aria-controls="nextMatch" aria-selected="false">
+                    <button class="nav-link" id="nextMatch-tab" data-bs-toggle="tab" data-bs-target="#nextMatch" type="button" role="tab" aria-controls="nextMatch" aria-selected="false">
                         <span data-bind="text:$root.translations.nextMatch">&nbsp;</span>
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#admins" type="button" role="tab" aria-controls="admins" aria-selected="false">
+                    <button class="nav-link" id="matches-tab" data-bs-toggle="tab" data-bs-target="#matches" type="button" role="tab" aria-controls="matches" aria-selected="false">
+                        <span data-bind="text:$root.translations.nextMatch">&nbsp;</span>
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="admins-tab" data-bs-toggle="tab" data-bs-target="#admins" type="button" role="tab" aria-controls="admins" aria-selected="false">
                         <span data-bind="text:$root.translations.admins">&nbsp;</span>
                     </button>
                 </li>
@@ -144,6 +149,24 @@
                         </div>
                     </div>
                 </div>
+                <div class="tab-pane" role="tabpanel" id="matches">
+                    <h5 class="sub-h"><span data-bind="text:$root.translations.newMatch"></span></h5>
+                    <div data-bind="foreach:matches" class="col-lg-12 row">
+                        <div class="col-lg-12">
+                            <div class="card shadow text-center match-div">
+                                <a class="a-match-div" data-bind="attr:{href:'/match/edit/'+id()}">
+                                    <span class="badge bg-success" data-bind="css:{ 'bg-success' : stateId() == 3, 'bg-warning' : stateId() != 3}, text: stateName" type="text"></span><br />
+                                    <span data-bind=" date: date" type="text"></span><br />                              
+                                    <span data-bind="text:homeTeamName"></span> <span class="score-font" data-bind="if:stateId() == 2 || stateId() == 3"><span data-bind="text:homeGoals"></span>:<span data-bind="text:awayGoals"></span></span>
+                                    <span data-bind="if:stateId() != 2 && stateId() != 3">
+                                        -
+                                    </span>
+                                    <span data-bind="text:awayTeamName"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="tab-pane" role="tabpanel" id="admins">
                     <div data-bind="with:$root" class="col row box">
                         <h5 class="sub-h"><span data-bind="text:$root.translations.adminsManagement">&nbsp;</span></h5>
@@ -199,7 +222,7 @@
                         </div>
                         <div class="col-lg-12 row no-margin">
                             <a href="" class="btn btn-round-cancel" data-bind="click:$root.cancelInvite">
-                                 <span data-bind="text:$root.translations.cancel"></span>
+                                <span data-bind="text:$root.translations.cancel"></span>
                             </a>
                             <a href="" class="btn btn-round-primary" data-bind="click:$root.inviteAsPlayer">
                                 <i class="fa fa-plus-circle"></i> <span data-bind="text:$root.translations.invite"></span>

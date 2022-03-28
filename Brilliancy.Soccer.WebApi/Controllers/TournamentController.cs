@@ -5,6 +5,7 @@ using Brilliancy.Soccer.Common.Enums;
 using Brilliancy.Soccer.Common.Exceptions;
 using Brilliancy.Soccer.Common.Helpers.PagedHelper;
 using Brilliancy.Soccer.DbModels.Interfaces;
+using Brilliancy.Soccer.WebApi.Helpers;
 using Brilliancy.Soccer.WebApi.Models.Read.Tournament;
 using Brilliancy.Soccer.WebApi.Models.Shared;
 using Brilliancy.Soccer.WebApi.Models.User.Write;
@@ -58,8 +59,8 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         public ActionResult Details(int id)
         {
             var dto = _tournamentModule.GetTournament(id, _CurrentUserInfo.Id);
-            var model = _mapper.Map<TournamentDetailsReadModel>(dto);
-            return View(model);
+            var model = _mapper.Map<TournamentDetailsReadModel>(dto);     
+            return AuthorizedResultHelper.AuthorizedResult(View(model), _CurrentUserInfo.TournamentAdmins.Contains(id));
         }
 
         [Authorize]
@@ -71,7 +72,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
             model.EmptyMatch = new Models.Match.Write.NewMatchWriteModel();
             model.EmptyPlayer = new Models.Player.Read.PlayerReadModel();
             model.EmptyUser = new Models.User.Read.AdminReadModel();
-            return View(model);
+            return AuthorizedResultHelper.AuthorizedResult(View(model), _CurrentUserInfo.TournamentAdmins.Contains(id));
         }
 
 

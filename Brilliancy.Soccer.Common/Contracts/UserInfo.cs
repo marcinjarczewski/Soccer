@@ -1,4 +1,6 @@
-﻿namespace Brilliancy.Soccer.Common.Contracts
+﻿using System.Collections.Generic;
+
+namespace Brilliancy.Soccer.Common.Contracts
 {
     public class UserInfo
     {
@@ -7,5 +9,7 @@
         public int Id { get; set; }
 
         public bool IsAdmin { get; set; }
+
+        public List<int> TournamentAdmins { get; set; }
     }
 }

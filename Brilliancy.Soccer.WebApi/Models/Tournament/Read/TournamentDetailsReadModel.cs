@@ -19,7 +19,7 @@ namespace Brilliancy.Soccer.WebApi.Models.Read.Tournament
 
         public MatchReadModel NextMatch { get; set; }
 
-        public MatchReadModel PreviousMatch { get; set; }
+        public MatchReadModel LastMatch { get; set; }
 
         public List<PlayerReadModel> Players { get; set; }
 
