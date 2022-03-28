@@ -70,7 +70,8 @@ define({
         nextMatch: "Następny mecz",
         previousMatch: "Poprzedni mecz",
         matches: "Lista meczy",
-        players: "Zawodnicy"
+        players: "Zawodnicy",
+        manage: "Zarządzaj"
     },
     tournamentIndex: {
         title: "Lista turniejów",

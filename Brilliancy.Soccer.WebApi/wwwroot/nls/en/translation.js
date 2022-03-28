@@ -70,7 +70,8 @@ define({
         nextMatch: "Next match",
         previousMatch: "Previous match",
         matches: "Matches",
-        players: "Players"
+        players: "Players",
+        manage: "Manage"
     },
     tournamentIndex: {
         title: "Tournament list",

@@ -24,7 +24,8 @@ namespace Brilliancy.Soccer.Core
             CreateMap<UserDbModel, LoginDto>()
                 .ForMember(dto => dto.Roles, m => m.MapFrom(db => db.UserRoles.Select(u => new RoleDto { Id = u.RoleId, Name = ((RoleEnum)u.RoleId).ToString() }).ToList()));
             CreateMap<RoleDbModel, RoleDto>();
-            CreateMap<UserDbModel, UserDto>();
+            CreateMap<UserDbModel, UserDto>()
+                .ForMember(u => u.TournamentAdmins, opt => opt.Ignore());
             CreateMap<FileDbModel, FileDto>();
             CreateMap<EmailDbModel, EmailDto>();
             CreateMap<GoalDbModel, GoalDto>()

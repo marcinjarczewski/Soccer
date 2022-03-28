@@ -3,7 +3,8 @@ define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 
         var ViewModel = function (options) {
             var vm = {
                 globalModel: globalModel(),
-                isBusy: ko.observable(false)         
+                isBusy: ko.observable(false),
+                isTournamentAdmin: options.isTournamentAdmin
             };
             vm.showModal = ko.observable(false);    
             vm.translations = translations.tournamentDetails;

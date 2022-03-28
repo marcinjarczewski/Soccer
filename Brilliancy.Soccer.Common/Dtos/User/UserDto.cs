@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Brilliancy.Soccer.Common.Dtos.User
 {
@@ -15,5 +13,7 @@ namespace Brilliancy.Soccer.Common.Dtos.User
         public string LastName { get; set; }
 
         public string Email { get; set; }
+
+        public List<int> TournamentAdmins { get; set; }
     }
 }
