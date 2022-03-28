@@ -15,7 +15,7 @@
         <div class="overlay" style="display: none;"></div>
         <div id="tournament-create" style="padding-top:10px;" class="row">
             <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item" role="presentation">
+                <li class="nav-item active" role="presentation">
                     <button class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true">
                         <span data-bind="text:$root.translations.info">&nbsp;</span>
                     </button>
@@ -30,7 +30,7 @@
                         <span data-bind="text:$root.translations.nextMatch">&nbsp;</span>
                     </button>
                 </li>
-                <li class="nav-item active" role="presentation">
+                <li class="nav-item" role="presentation">
                     <button class="nav-link" id="matches-tab" data-bs-toggle="tab" data-bs-target="#matches" type="button" role="tab" aria-controls="matches" aria-selected="false">
                         <span data-bind="text:$root.translations.nextMatch">&nbsp;</span>
                     </button>
@@ -42,7 +42,7 @@
                 </li>
             </ul>
             <div class="tab-content">
-                <div class="tab-pane" role="tabpanel" id="info">
+                <div class="tab-pane active" role="tabpanel" id="info">
                     <h5 class="sub-h"><span data-bind="text:$root.translations.basicInfo">&nbsp;</span></h5>
                     <div class="col-lg-12 row">
                         <div class="col-md-6 col-sm-12">
@@ -149,7 +149,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane active" role="tabpanel" id="matches">
+                <div class="tab-pane" role="tabpanel" id="matches">
                     <h5 class="sub-h"><span data-bind="text:$root.translations.newMatch"></span></h5>
                     <div data-bind="foreach:matches" class="col-lg-12 row">
                         <div class="col-lg-12">

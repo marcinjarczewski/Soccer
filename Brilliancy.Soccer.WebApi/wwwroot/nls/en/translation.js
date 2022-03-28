@@ -68,7 +68,9 @@ define({
         home: "Home",
         away: "Away",
         nextMatch: "Next match",
-        previousMatch: "Previous match"
+        previousMatch: "Previous match",
+        matches: "Matches",
+        players: "Players"
     },
     tournamentIndex: {
         title: "Tournament list",

@@ -68,7 +68,9 @@ define({
         home: "Gospodarze",
         away: "Goście",
         nextMatch: "Następny mecz",
-        previousMatch: "poprzedni mecz"
+        previousMatch: "Poprzedni mecz",
+        matches: "Lista meczy",
+        players: "Zawodnicy"
     },
     tournamentIndex: {
         title: "Lista turniejów",
@@ -76,7 +78,7 @@ define({
         search:"Szukaj",
         address: "Miejsce",
         nextMatch: "Następny mecz",
-        previousMatch: "poprzedni mecz",
+        previousMatch: "Poprzedni mecz",
         previousPage: "Poprzednia strona",
         nextPage: "Następna strona"
     },

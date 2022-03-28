@@ -6,25 +6,95 @@
     ViewData["Title"] = WebApiTranslations.TournamentController_DetailsTitle;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="section-title-wrap">
-    <div class="section-title"><h3 class="section-title-h"><span data-bind="text:$root.translations.title"></span></h3></div>
+    <div class="section-title"><h3 class="section-title-h"><span data-bind="text:$root.translations.title">&nbsp;</span></h3></div>
 </div>
 <div class="col-lg-12">
     <div data-bind="with:model">
         <div class="overlay" style="display: none;"></div>
-        <div id="tournament-details" style="padding-top:10px;" class="row">
-            <div class="col-lg-12 row box">
-                <div class="col-md-6 col-sm-12">
-                    <div class="form-group">
-                        <label><span data-bind="text:$root.translations.name"></span></label>
-                        <p data-bind="text:name"></p>
+        <div id="tournament-details" class="row">
+            <div class="col-lg-12 row no-margin">
+                <div class="col">
+                    <div>
+                       <h1 data-bind="text:name"></h1>
+                        <dl class="dl-horizontal">
+                            <dt>
+                                <span data-bind="text:$root.translations.address">&nbsp;</span>
+                            </dt>
+                            <dd data-bind="text:address">
+                            </dd>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <dt>
+                                <span data-bind="text:$root.translations.previousMatch">&nbsp;</span>
+                            </dt>
+                            <dd data-bind="with:lastMatch">
+                                <a class="match-quick-show badge bg-success" data-bind="attr:{href:'/match/details/'+id()}">
+                                    <span data-bind=" date: date" type="text"></span><br />
+                                    <span data-bind="text:homeTeamName"></span> <span class="score-font" data-bind="if:stateId() == 2 || stateId() == 3"><span data-bind="text:homeGoals"></span>:<span data-bind="text:awayGoals"></span></span>
+                                    <span data-bind="if:stateId() != 2 && stateId() != 3">
+                                        -
+                                    </span>
+                                    <span data-bind="text:awayTeamName"></span>
+                                </a>
+                            </dd>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <dt>
+                                <span data-bind="text:$root.translations.nextMatch">&nbsp;</span>
+                            </dt>
+                            <dd data-bind="with:nextMatch">
+                                <a class="match-quick-show  badge bg-warning" data-bind="attr:{href:'/match/details/'+id()}">
+                                    <span data-bind=" date: date" type="text"></span><br />
+                                    <span data-bind="text:homeTeamName"></span> <span class="score-font" data-bind="if:stateId() == 2 || stateId() == 3"><span data-bind="text:homeGoals"></span>:<span data-bind="text:awayGoals"></span></span>
+                                    <span data-bind="if:stateId() != 2 && stateId() != 3">
+                                        -
+                                    </span>
+                                    <span data-bind="text:awayTeamName"></span>
+                                </a>
+                            </dd>
+                        </dl>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12">
-                    <div data-bind="validationElement: address" class="form-group">
-                        <label><span data-bind="text:$root.translations.address"></span></label>
-                        <p type="text" data-bind="text:address"></p>
+                <div class="col">
+                        <img data-bind="attr: { src: logoUrl }" style="max-height:400px;max-width:100%;" alt="">
+                </div>
+            </div>
+            <div class="col-lg-12 row no-margin top-distance">
+                <a class="btn btn-round-primary" data-bs-toggle="collapse" href="#collapseMatches" role="button" aria-expanded="false" aria-controls="collapseMatches">
+                    <span data-bind="text:$root.translations.matches">&nbsp;</span> <i class="fa-solid fa-circle-down"></i>
+                </a>
+                <div class="collapse" id="collapseMatches">
+                    <div class="card card-body">
+                        <div data-bind="foreach:matches" class="col-lg-12 row">
+                            <div class="col-lg-12">
+                                <div class="card shadow text-center match-div">
+                                    <a class="a-match-div" data-bind="attr:{href:'/match/details/'+id()}">
+                                        <span class="badge bg-success" data-bind="css:{ 'bg-success' : stateId() == 3, 'bg-warning' : stateId() != 3}, text: stateName" type="text"></span><br />
+                                        <span data-bind=" date: date" type="text"></span><br />
+                                        <span data-bind="text:homeTeamName"></span> <span class="score-font" data-bind="if:stateId() == 2 || stateId() == 3"><span data-bind="text:homeGoals"></span>:<span data-bind="text:awayGoals"></span></span>
+                                        <span data-bind="if:stateId() != 2 && stateId() != 3">
+                                            -
+                                        </span>
+                                        <span data-bind="text:awayTeamName"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 row no-margin top-distance">
+                <a class="btn btn-round-primary" data-bs-toggle="collapse" href="#collapsePlayers" role="button" aria-expanded="false" aria-controls="collapsePlayers">
+                    <span data-bind="text:$root.translations.players">&nbsp;</span> <i class="fa-solid fa-circle-down"></i>
+                </a>
+                <div class="collapse" id="collapsePlayers">
+                    <div class="card card-body">
+                        <table data-bind="foreach:players" style="width:100%">
+                            <tr>
+                                <td><i data-bind="class:randClass" class="tournament-player"></i> <span data-bind="text: (firstName() ?? '') +' ' + nickName() + ' ' + (lastName() ?? '')"></span></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>

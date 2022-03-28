@@ -17,10 +17,22 @@
     color: white;
 }
 
+.match-quick-show {
+    margin-top: 4px;
+    margin-bottom: 7px;
+    font-size: 25px;
+    color: white;
+    transition: 1s;
+    text-decoration:none;
+}
+
+.match-quick-show:hover {
+    color: gold;
+}
+
 .match-div{
     margin-top:4px;
     margin-bottom:7px;
-    /*font-family:'BubbleBobble';*/
     font-size:25px;
 }
 .a-match-div {
@@ -36,6 +48,19 @@
 .score-font {
     font-size: 35px;
     font-family: 'BubbleBobble';
+}
+
+.top-distance{
+    margin-top:10px;
+}
+
+.tournament-player {
+    font-size: 38px;
+    float: left;
+    color: green;
+    margin-bottom: 8px;
+    margin-top: -5px;
+    margin-right: 4px;
 }
 
 .a-tournament-name {
