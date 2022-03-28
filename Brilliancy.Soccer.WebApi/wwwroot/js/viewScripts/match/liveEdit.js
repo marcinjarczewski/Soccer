@@ -49,13 +49,13 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
             vm.newGoalStep = ko.observable(1);
             vm.selectScorer = function (data) {
                 vm.newGoal().scorerId(data.id());
-                vm.newGoal().scorerPlayerName(data.firstName() + " " + data.nickName() + " " + data.lastName());
+                vm.newGoal().scorerPlayerName((data.firstName() ?? '') + " " + (data.nickName() ?? '') + " " + (data.lastName() ?? ''));
                 vm.newGoalStep(2);
             }
 
             vm.selectAssist = function (data) {
                 vm.newGoal().assistId(data.id());
-                vm.newGoal().assistPlayerName(data.firstName() + " " + data.nickName() + " " + data.lastName());
+                vm.newGoal().assistPlayerName((data.firstName() ?? '') + " " + (data.nickName() ?? '') + " " + (data.lastName() ?? ''));
                 vm.newGoalStep(3);
             }
 
@@ -137,18 +137,17 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
                     id: vm.model().id(),
                     goal: {
                         assistId: vm.newGoal().assistId(),
-                        isOwnGoal: vm.newGoal().isOwnGoal(),
+                        isOwnGoal: vm.isOwngoal(),
                         scorerId: vm.newGoal().scorerId(),
                         time: vm.newGoal().time()
                     }
                 };
+                dataObject.goal.isHomeTeam = vm.showHomeTeam();
                 if ((vm.showHomeTeam() && !vm.isOwngoal()) || (!vm.showHomeTeam() && vm.isOwngoal())) {
                     vm.model().homeGoalsList.push(vm.newGoal());
-                    dataObject.goal.isHomeTeam = true;
                 }
                 else {
                     vm.model().awayGoalsList.push(vm.newGoal());
-                    dataObject.goal.isHomeTeam = false;
                 }
 
            
@@ -184,7 +183,11 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
                 vm.showModal(true);
             }
 
-            vm.timer = ko.observable(600);
+            let start = 0;
+            if (vm.model().startDate()) {
+                start = parseInt((moment() - moment(vm.model().startDate())) / 1000)
+            }
+            vm.timer = ko.observable(start);
 
             function setTimer() {
                 vm.timer(vm.timer() + 1);
@@ -197,37 +200,6 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
                 vm.isOwngoal(false);
                 vm.showModal(true);
             }
-
-            vm.editCreating = function () {
-                if (vm.matchErrors().length > 0) {
-                    vm.matchErrors.showAllMessages();
-                    return false;
-                }
-
-                let dataObject = {
-                    homePlayers: ko.toJS(vm.model().homePlayers()),
-                    awayPlayers: ko.toJS(vm.model().awayPlayers()),
-                    id: vm.model().id(),
-                    homeTeamName: vm.model().homeTeamName(),
-                    awayTeamname: vm.model().awayTeamName(),
-                    date: moment(vm.model().date()).format('YYYY.MM.DDThh:mm:ss')
-                };
-                vm.isBusy(true);
-                let callback = function (result) {
-                    vm.globalModel.spinner(false);
-                    vm.isBusy(false);
-                    if (!result.isSuccess) {
-                        helpers.log(result.message, 'error');
-                        return false;
-                    }
-                    else {
-                        messageQueue.addMessage(translations.matchEdit.teamsSaved, 'success');
-                        $(location).attr('href', '/login/test');
-                    }
-                    return true;
-                };
-                return matchRepository.editCreating(dataObject, callback);
-            };
 
             vm.editPending = function () {
                 let dataObject = {
@@ -246,37 +218,11 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
                     }
                     else {
                         messageQueue.addMessage(translations.matchEdit.goalsSaved, 'success');
-                        $(location).attr('href', '/login/test');
+                        window.location.reload();
                     }
                     return true;
                 };
                 return matchRepository.editPending(dataObject, callback);
-            };
-
-            vm.changeState = function () {
-                if (vm.matchErrors().length > 0) {
-                    vm.matchErrors.showAllMessages();
-                    return false;
-                }
-
-                let dataObject = {
-                    id: vm.model().id()
-                };
-                vm.isBusy(true);
-                let callback = function (result) {
-                    vm.globalModel.spinner(false);
-                    vm.isBusy(false);
-                    if (!result.isSuccess) {
-                        helpers.log(result.message, 'error');
-                        return false;
-                    }
-                    else {
-                        messageQueue.addMessage(translations.matchEdit.teamsConfirmed, 'success');
-                        $(location).attr('href', '/login/test');
-                    }
-                    return true;
-                };
-                return matchRepository.changeToPending(dataObject, callback);
             };
 
             vm.goLive = function () {
@@ -293,7 +239,7 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
                     }
                     else {
                         messageQueue.addMessage(translations.matchEdit.matchLive, 'success');
-                        $(location).attr('href', '/login/test');
+                        window.location.reload();
                     }
                     return true;
                 };
@@ -313,8 +259,8 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
                         return false;
                     }
                     else {
-                        messageQueue.addMessage(translations.matchEdit.teamsConfirmed, 'success');
-                        $(location).attr('href', '/login/test');
+                        messageQueue.addMessage(translations.matchEdit.finished, 'success');
+                        window.location.reload();
                     }
                     return true;
                 };

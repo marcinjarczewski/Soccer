@@ -67,7 +67,7 @@
                 format: format,
                 inputFormats: inputFormats,
                 defaultDate: moment(defaultDate).toDate(),
-                yearRange: [1920, 2020],
+                yearRange: [1920, 2080],
                 clearInvalidInput: true,
                 showTime: showTime,
                 minDate: minDate.isValid() ? minDate.toDate() : undefined,

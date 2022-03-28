@@ -1,0 +1,197 @@
+﻿@using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
+@using Brilliancy.Soccer.WebApi.Translations
+@model Brilliancy.Soccer.WebApi.Models.Match.Read.MatchDetailsModel
+@{
+    ViewData["Title"] = WebApiTranslations.MatchController_EditTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-lg-12">
+    <div data-bind="with:model">
+        <div class="overlay" style="display: none;"></div>
+        <div data-bind="ifnot: $root.showModal" id="tournament-create" class="row top-distance">
+            <div data-bind="if:stateId() == 5">
+                <div class="col-lg-12 row box">
+                    <div class="text-center">
+                        <input class="match-time" disabled data-bind=" pikaday: date, format: 'DD.MM.YYYY HH:mm', showTime: true" />
+                    </div>
+                </div>
+                <div class="col-lg-12 row box">
+                    <div class="col no-padding text-center"><h3 data-bind="text:homeTeamName"></h3></div>
+                    <div class="col no-padding text-center"><h3 data-bind="text:awayTeamName"></h3></div>
+                </div>
+                <div class="col-xs-12 row box">
+                    <div class="col">
+                        <!-- ko foreach: homePlayers -->
+                        <div class="row no-margin">
+                            <div class="shadow card list-margin">
+                                <div>
+                                    <table style="width:100%">
+                                        <thead>
+                                        </thead>
+                                        <tr>
+                                            <td><span data-bind="text: (firstName() ?? '') + ' ' +  (nickName() ?? '') + ' ' + (lastName() ?? '')"></span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: homePlayers().length == 0 -->
+                        <div class="form-group">
+                            <div class="alert alert-info" role="alert">
+                                <span data-bind="text:$root.translations.noPlayers"></span>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                    <div class="col">
+                        <!-- ko foreach: awayPlayers -->
+                        <div class="row no-margin">
+                            <div class="shadow card list-margin">
+                                <div>
+                                    <table style="width:100%">
+                                        <thead>
+                                        </thead>
+                                        <tr>
+                                            <td><span data-bind="text: (firstName() ?? '') + ' ' +  (nickName() ?? '') + ' ' + (lastName() ?? '')"></span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: awayPlayers().length == 0 -->
+                        <div class="form-group">
+                            <div class="alert alert-info" role="alert">
+                                <span data-bind="text:$root.translations.noPlayers"></span>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                </div>
+            </div>
+            <div data-bind="if:stateId() == 3">
+                <div class="col-lg-12 row box">
+                    <div class="col no-padding"><h3 style="text-align:right" data-bind="text:homeTeamName"></h3></div>
+                    <div class="col-auto"><h3> <span data-bind="text:homeGoals"></span>:<span data-bind="text:awayGoals"></span></h3> </div>
+                    <div class="col no-padding"><h3 data-bind="text:awayTeamName"></h3></div>
+                </div>
+                <div class="col-lg-12 row">
+                    <div class="col no-padding text-center">
+                        <!-- ko foreach: homeGoalsList -->
+                        <div class="row no-margin text-start">
+                            <div data-bind="css:{'owngoal': isOwnGoal}" class="shadow card list-margin">
+                                <div>
+                                    <table style="width:100%">
+                                        <thead>
+                                        </thead>
+                                        <tr>
+                                            <td>
+                                                <span data-bind="text: time() + '\' ' + scorerPlayerName()"></span>
+                                                <span data-bind="if:assistId"><small data-bind="text:' (' + assistPlayerName() + ')'"></small></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                    <div class="col no-padding text-center">
+                        <!-- ko foreach: awayGoalsList -->
+                        <div class="row no-margin text-start">
+                            <div data-bind="css:{'owngoal': isOwnGoal}" class="shadow card list-margin">
+                                <div>
+                                    <table style="width:100%">
+                                        <thead>
+                                        </thead>
+                                        <tr>
+                                            <td>
+                                                <span data-bind="text: time() + '\' ' + scorerPlayerName()"></span>
+                                                <span data-bind="if:assistId"><small data-bind="text:' (' + assistPlayerName() + ')'"></small></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                </div>
+            </div>
+            <div data-bind="if:stateId() == 2">
+                <div class="col-lg-12 row box">
+                    <div class="text-center">
+                        <h3 class="match-time" data-bind="timer:$root.timer" />
+                    </div>
+                </div>
+                <div class="col-lg-12 row box">
+                    <div class="col no-padding"><h3 style="text-align:right" data-bind="text:homeTeamName"></h3></div>
+                    <div class="col-auto"><h3> <span data-bind="text:homeGoals"></span>:<span data-bind="text:awayGoals"></span></h3> </div>
+                    <div class="col no-padding"><h3 data-bind="text:awayTeamName"></h3></div>
+                </div>
+                <div class="col-lg-12 row">
+                    <div class="col no-padding text-center">
+                        <!-- ko foreach: homeGoalsList -->
+                        <div class="row no-margin text-start">
+                            <div data-bind="css:{'owngoal': isOwnGoal}" class="shadow card list-margin">
+                                <div>
+                                    <table style="width:100%">
+                                        <thead>
+                                        </thead>
+                                        <tr>
+                                            <td>
+                                                <span data-bind="text: time() + '\' ' + scorerPlayerName()"></span>
+                                                <span data-bind="if:assistId"><small data-bind="text:' (' + assistPlayerName() + ')'"></small></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                    <div class="col no-padding text-center">
+                        <!-- ko foreach: awayGoalsList -->
+                        <div class="row no-margin text-start">
+                            <div data-bind="css:{'owngoal': isOwnGoal}" class="shadow card list-margin">
+                                <div>
+                                    <table style="width:100%">
+                                        <thead>
+                                        </thead>
+                                        <tr>
+                                            <td>
+                                                <span data-bind="text: time() + '\' ' + scorerPlayerName()"></span>
+                                                <span data-bind="if:assistId"><small data-bind="text:' (' + assistPlayerName() + ')'"></small></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        require(['requireConfig'], function () {
+            require(['/js/viewScripts/match/details.js', 'knockout'], function (viewModel, ko) {
+                @{var json = JsonConvert.SerializeObject(
+                    Model,
+                    Formatting.None,
+                    new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+                }
+                ko.applyBindings(viewModel({
+                json: @Html.Raw(json)
+            }));
+            });
+        });
+    </script>
+}

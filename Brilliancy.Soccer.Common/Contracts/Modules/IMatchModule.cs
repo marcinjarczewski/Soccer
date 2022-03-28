@@ -22,6 +22,8 @@ namespace Brilliancy.Soccer.Common.Contracts.Modules
 
         void ChangeMatchStateToFinished(int matchId, int userId);
 
+        void ChangeMatchStateToCreating(int matchId, int userId);
+
         int EditCreatingMatch(MatchCreatingEditDto dto, int userId);
 
         void AddGoal(MatchOngoingEditDto dto, int userId);

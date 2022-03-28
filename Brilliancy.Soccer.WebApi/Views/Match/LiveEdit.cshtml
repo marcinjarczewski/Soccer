@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-lg-12 row box">
                     <div class="col no-padding"><h3 style="text-align:right" data-bind="text:homeTeamName"></h3></div>
-                    <div class="col-auto"><a href="" class="btn btn-primary" data-bind="click:$root.goLive"> <span data-bind="text:$root.translations.goOngoing" /></a></div>
+                    <div class="col-auto"><a href="" class="btn btn-round-success" data-bind="click:$root.goLive"> <span data-bind="text:$root.translations.goOngoing" /></a></div>
                     <div class="col no-padding"><h3 data-bind="text:awayTeamName"></h3></div>
                 </div>
                 <div class="col-xs-12 row box">
@@ -32,7 +32,7 @@
                                         <thead>
                                         </thead>
                                         <tr>
-                                            <td><span data-bind="text: firstName() +' ' + nickName() + ' ' + lastName()"></span></td>
+                                            <td><span data-bind="text: (firstName() ?? '') + ' ' +  (nickName() ?? '') + ' ' + (lastName() ?? '')"></span></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -56,7 +56,7 @@
                                         <thead>
                                         </thead>
                                         <tr>
-                                            <td><span data-bind="text: firstName() +' ' + nickName() + ' ' + lastName()"></span></td>
+                                            <td><span data-bind="text: (firstName() ?? '') + ' ' +  (nickName() ?? '') + ' ' + (lastName() ?? '')"></span></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -73,10 +73,59 @@
                     </div>
                 </div>
             </div>
+            <div data-bind="if:stateId() == 3">
+                <div class="col-lg-12 row box">
+                    <div class="col no-padding"><h3 style="text-align:right" data-bind="text:homeTeamName"></h3></div>
+                    <div class="col-auto"><h3> <span data-bind="text:homeGoals"></span>:<span data-bind="text:awayGoals"></span></h3> </div>
+                    <div class="col no-padding"><h3 data-bind="text:awayTeamName"></h3></div>
+                </div>
+                <div class="col-lg-12 row">
+                    <div class="col no-padding text-center">
+                        <!-- ko foreach: homeGoalsList -->
+                        <div class="row no-margin text-start">
+                            <div data-bind="css:{'owngoal': isOwnGoal}" class="shadow card list-margin">
+                                <div>
+                                    <table style="width:100%">
+                                        <thead>
+                                        </thead>
+                                        <tr>
+                                            <td>
+                                                <span data-bind="text: time() + '\' ' + scorerPlayerName()"></span>
+                                                <span data-bind="if:assistId"><small data-bind="text:' (' + assistPlayerName() + ')'"></small></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                    <div class="col no-padding text-center">
+                        <!-- ko foreach: awayGoalsList -->
+                        <div class="row no-margin text-start">
+                            <div data-bind="css:{'owngoal': isOwnGoal}" class="shadow card list-margin">
+                                <div>
+                                    <table style="width:100%">
+                                        <thead>
+                                        </thead>
+                                        <tr>
+                                            <td>
+                                                <span data-bind="text: time() + '\' ' + scorerPlayerName()"></span>
+                                                <span data-bind="if:assistId"><small data-bind="text:' (' + assistPlayerName() + ')'"></small></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                </div>
+            </div>
             <div data-bind="if:stateId() == 2">
                 <div class="col-lg-12 row box">
                     <div class="text-center">
-                        <h3 class="match-time" data-bind="timer:$root.timer"/>
+                        <h3 class="match-time" data-bind="timer:$root.timer" />
                     </div>
                 </div>
                 <div class="col-lg-12 row box">
@@ -84,14 +133,14 @@
                     <div class="col-auto"><h3> <span data-bind="text:homeGoals"></span>:<span data-bind="text:awayGoals"></span></h3> </div>
                     <div class="col no-padding"><h3 data-bind="text:awayTeamName"></h3></div>
                 </div>
-                <div class="col-lg-12 row box">
-                    <div class="col no-padding">
+                <div class="col-lg-12 row">
+                    <div class="col no-padding text-center">
                         <a href="" class="btn btn-success" data-bind="click:$root.addHomeGoal">
                             <span data-bind="text:$root.translations.addHomeGoal" />
                         </a>
                         <!-- ko foreach: homeGoalsList -->
-                        <div class="row no-margin">
-                            <div class="shadow card list-margin">
+                        <div class="row no-margin text-start">
+                            <div data-bind="css:{'owngoal': isOwnGoal}" class="shadow card list-margin">
                                 <div>
                                     <table style="width:100%">
                                         <thead>
@@ -113,13 +162,13 @@
                         </div>
                         <!-- /ko -->
                     </div>
-                    <div class="col no-padding">
+                    <div class="col no-padding text-center">
                         <a href="" class="btn btn-success" data-bind="click:$root.addAwayGoal">
                             <span data-bind="text:$root.translations.addAwayGoal" />
                         </a>
                         <!-- ko foreach: awayGoalsList -->
-                        <div class="col-lg-12 col-md-12 row no-margin">
-                            <div class="shadow card list-margin">
+                        <div class="row no-margin text-start">
+                            <div data-bind="css:{'owngoal': isOwnGoal}" class="shadow card list-margin">
                                 <div>
                                     <table style="width:100%">
                                         <thead>
@@ -150,9 +199,9 @@
 
                     </div>
                 </div>
-                <div>
-                    <a href="" class="btn btn-primary" data-bind="click:$root.goFinished">
-                        <span data-bind="text:$root.translations.endMatch" />
+                <div class="col-lg-12 row no-margin">
+                    <a href="" class="btn btn-round-primary top-distance" data-bind="click:$root.goFinished">
+                        <i class="fa-solid fa-flag-checkered"></i> <span data-bind="text:$root.translations.endMatch" />
                     </a>
                 </div>
             </div>
@@ -189,16 +238,16 @@
                         <div data-bind="if:$root.showHomeTeam">
                             <!-- ko foreach: $root.model().homePlayers -->
                             <div class="col-lg-12 col-md-12 row no-margin">
-                                <div class="shadow card list-margin">
+                                <div data-bind="css:{'owngoal': $root.isOwngoal()}" class="shadow card list-margin">
                                     <div>
                                         <table style="width:100%">
                                             <thead>
                                             </thead>
                                             <tr>
-                                                <td><span data-bind="text: firstName() +' ' + nickName() + ' ' + lastName()"></span></td>
+                                                <td><span data-bind="text: (firstName() ?? '') + ' ' +  (nickName() ?? '') + ' ' + (lastName() ?? '')"></span></td>
                                                 <td align="right">
-                                                    <a href="" data-bind="click:$root.selectScorer" class="btn btn-primary small-margin">
-                                                        <span data-bind="text:$root.translations.goal"></span>
+                                                    <a href="" data-bind="click:$root.selectScorer" class="btn btn-round-primary small-margin">
+                                                        <i class="fa-solid fa-trophy"></i> <span data-bind="text:$root.translations.goal"></span>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -211,16 +260,16 @@
                         <div data-bind="ifnot:$root.showHomeTeam">
                             <!-- ko foreach: $root.model().awayPlayers -->
                             <div class="col-lg-12 col-md-12 row no-margin">
-                                <div class="shadow card list-margin">
+                                <div data-bind="css:{'owngoal': $root.isOwngoal()}" class="shadow card list-margin">
                                     <div>
                                         <table style="width:100%">
                                             <thead>
                                             </thead>
                                             <tr>
-                                                <td><span data-bind="text: firstName() +' ' + nickName() + ' ' + lastName()"></span></td>
+                                                <td><span data-bind="text: (firstName() ?? '') + ' ' +  (nickName() ?? '') + ' ' + (lastName() ?? '')"></span></td>
                                                 <td align="right">
-                                                    <a href="" data-bind="click:$root.selectScorer" class="btn btn-primary small-margin">
-                                                        <span data-bind="text:$root.translations.goal"></span>
+                                                    <a href="" data-bind="click:$root.selectScorer" class="btn btn-round-primary small-margin">
+                                                        <i class="fa-solid fa-trophy"></i> <span data-bind="text:$root.translations.goal"></span>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -241,10 +290,10 @@
                                             <thead>
                                             </thead>
                                             <tr>
-                                                <td><span data-bind="text: firstName() +' ' + nickName() + ' ' + lastName()"></span></td>
+                                                <td><span data-bind="text: (firstName() ?? '') + ' ' +  (nickName() ?? '') + ' ' + (lastName() ?? '')"></span></td>
                                                 <td align="right">
-                                                    <a href="" data-bind="click:$root.selectAssist" class="btn btn-primary small-margin">
-                                                        <span data-bind="text:$root.translations.assist"></span>
+                                                    <a href="" data-bind="click:$root.selectAssist" class="btn btn-round-primary small-margin">
+                                                        <i class="fa-solid fa-handshake-angle"></i> <span data-bind="text:$root.translations.assist"></span>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -263,10 +312,10 @@
                                             <thead>
                                             </thead>
                                             <tr>
-                                                <td><span data-bind="text: firstName() +' ' + nickName() + ' ' + lastName()"></span></td>
+                                                <td><span data-bind="text: (firstName() ?? '') + ' ' +  (nickName() ?? '') + ' ' + (lastName() ?? '')"></span></td>
                                                 <td align="right">
-                                                    <a href="" data-bind="click:$root.selectAssist" class="btn btn-primary small-margin">
-                                                        <span data-bind="text:$root.translations.assist"></span>
+                                                    <a href="" data-bind="click:$root.selectAssist" class="btn btn-round-primary small-margin">
+                                                        <i class="fa-solid fa-handshake-angle"></i> <span data-bind="text:$root.translations.assist"></span>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -290,18 +339,18 @@
                 </div>
                 <div class="col-lg-12 row">
                     <div data-bind="if:newGoalStep() == 1">
-                        <button type="button" data-bind="click: cancelNewGoal" class="btn btn-secondary">cancel</button>
-                        <button type="button" data-bind="click: ownGoal" class="btn btn-primary">Own goal</button>
+                        <button type="button" data-bind="click: cancelNewGoal" class="btn btn-round-cancel">cancel</button>
+                        <button type="button" data-bind="click: ownGoal" class="btn btn-round-danger">Own goal</button>
                     </div>
                     <div class="col align-self-end" data-bind="if:newGoalStep() == 2">
-                        <button type="button" data-bind="click: cancelNewGoal" class="btn btn-secondary">cancel</button>
-                        <button type="button" data-bind="click: stepBack" class="btn btn-secondary">go back</button>
-                        <button type="button" data-bind="click: noAssist" class="btn btn-primary">No assist</button>
+                        <button type="button" data-bind="click: cancelNewGoal" class="btn btn-round-cancel">cancel</button>
+                        <button type="button" data-bind="click: stepBack" class="btn btn-round-cancel">go back</button>
+                        <button type="button" data-bind="click: noAssist" class="btn btn-round-primary">No assist</button>
                     </div>
                     <div data-bind="if:newGoalStep() == 3">
-                        <button type="button" data-bind="click: cancelNewGoal" class="btn btn-secondary">cancel</button>
-                        <button type="button" data-bind="click: stepBack" class="btn btn-secondary">go back</button>
-                        <button type="button" data-bind="click: saveGoal" class="btn btn-primary">Save changes</button>
+                        <button type="button" data-bind="click: cancelNewGoal" class="btn btn-round-cancel">cancel</button>
+                        <button type="button" data-bind="click: stepBack" class="btn btn-round-cancel">go back</button>
+                        <button type="button" data-bind="click: saveGoal" class="btn btn-round-success">Save changes</button>
                     </div>
                 </div>
             </div>
