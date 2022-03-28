@@ -17,6 +17,10 @@
     color: white;
 }
 
+.owngoal {
+    background-color: #ffcece;
+}
+
 .match-quick-show {
     margin-top: 4px;
     margin-bottom: 7px;
@@ -217,7 +221,6 @@
     background-color: rgb(var(--bs-success-rgb));
     border-color: rgb(var(--bs-success-rgb));
     color: white;
-    margin-top: 10px;
     border-radius: 20px;
     margin-bottom: 5px;
 }
@@ -234,9 +237,8 @@
     background-color: rgb(var(--bs-secondary-rgb));
     border-color: rgb(var(--bs-secondary-rgb));
     color: white;
-    margin-top: 10px;
     border-radius: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .btn-round-primary {

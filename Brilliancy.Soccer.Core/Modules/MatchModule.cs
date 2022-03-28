@@ -162,6 +162,22 @@ namespace Brilliancy.Soccer.Core.Modules
             this._dbContext.SaveChanges();
         }
 
+        public void ChangeMatchStateToCreating(int matchId, int userId)
+        {
+            var match = _dbContext.Matches
+                .Include(t => t.HomeTeam.Players)
+                .Include(t => t.AwayTeam.Players)
+                .Include(t => t.Tournament.Admins).FirstOrDefault(t => t.Id == matchId);
+            if (match == null || !match.IsActive)
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoMatch);
+            }
+            CheckPrivilages(match.Tournament, userId);
+            match.StateId = (int)MatchStateEnum.Creating;
+            this._dbContext.Matches.Update(match);
+            this._dbContext.SaveChanges();
+        }
+
         public void ChangeMatchStateToCanceled(int matchId, int userId)
         {
             var match = _dbContext.Matches
@@ -263,6 +279,7 @@ namespace Brilliancy.Soccer.Core.Modules
                 throw new UserDataException(CoreTranslations.Tournament_NoMatch);
             }
             CheckPrivilages(match.Tournament, userId);
+            match.Date = dto.Date;
             match.HomeGoals = dto.HomeGoals;
             match.AwayGoals = dto.AwayGoals;
 

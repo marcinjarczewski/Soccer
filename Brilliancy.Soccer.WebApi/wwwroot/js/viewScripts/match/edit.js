@@ -47,15 +47,22 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
             vm.isOwngoal = ko.observable(false);
             vm.newGoal = ko.observable(mappings.fromJS(ko.toJS(vm.model().emptyGoal)));
             vm.newGoalStep = ko.observable(1);
+
+            vm.ownGoal = function () {
+                vm.newGoalStep(1);
+                vm.isOwngoal(!vm.isOwngoal());
+                vm.showHomeTeam(!vm.showHomeTeam());
+            }
+
             vm.selectScorer = function (data) {
                 vm.newGoal().scorerId(data.id());
-                vm.newGoal().scorerPlayerName(data.firstName() + " " + data.nickName() + " " + data.lastName());
+                vm.newGoal().scorerPlayerName((data.firstName() ?? '') + " " + (data.nickName() ?? '') + " " + (data.lastName() ?? ''));
                 vm.newGoalStep(2);
             }
 
             vm.selectAssist = function (data) {
                 vm.newGoal().assistId(data.id());
-                vm.newGoal().assistPlayerName(data.firstName() + " " + data.nickName() + " " + data.lastName());
+                vm.newGoal().assistPlayerName((data.firstName() ?? '') + " " + (data.nickName() ?? '') + " " + (data.lastName() ?? ''));
                 vm.newGoalStep(3);
             }
 
@@ -84,15 +91,19 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
             }
 
             vm.saveGoal = function () {
+                if ((vm.showHomeTeam() && !vm.isOwngoal()) || (!vm.showHomeTeam() && vm.isOwngoal())) {
+                    let goal = vm.newGoal();
+                    goal.isOwnGoal = vm.isOwngoal();
+                    vm.model().homeGoalsList.push(goal);
+                }
+                else {
+                    let goal = vm.newGoal();
+                    goal.isOwnGoal = vm.isOwngoal();
+                    vm.model().awayGoalsList.push(vm.newGoal());
+                }
                 vm.newGoalStep(1);
                 vm.showModal(false);
                 vm.isOwngoal(false);
-                if ((vm.showHomeTeam() && !vm.isOwngoal()) || (!vm.showHomeTeam() && vm.isOwngoal())) {
-                    vm.model().homeGoalsList.push(vm.newGoal());
-                }
-                else {
-                    vm.model().awayGoalsList.push(vm.newGoal());
-                }
                 vm.newGoal(mappings.fromJS(ko.toJS(vm.model().emptyGoal)));
                 vm.model().homeGoals(vm.model().homeGoalsList().length);
                 vm.model().awayGoals(vm.model().awayGoalsList().length);
@@ -126,7 +137,7 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
                     id: vm.model().id(),
                     homeTeamName: vm.model().homeTeamName(),
                     awayTeamname: vm.model().awayTeamName(),
-                    date: moment(vm.model().date()).format('YYYY.MM.DDThh:mm:ss')
+                    date: moment(vm.model().date()).format('YYYY.MM.DDTHH:mm:ss')
                 };
                 vm.isBusy(true);
                 let callback = function (result) {
@@ -138,7 +149,7 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
                     }
                     else {
                         messageQueue.addMessage(translations.matchEdit.teamsSaved, 'success');
-                        $(location).attr('href', '/login/test');
+                        window.location.reload();
                     }
                     return true;
                 };
@@ -150,7 +161,9 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
                     homeGoalsList: ko.toJS(vm.model().homeGoalsList()),
                     awayGoalsList: ko.toJS(vm.model().awayGoalsList()),
                     id: vm.model().id(),
-                    date: moment(vm.model().date()).format('YYYY.MM.DDThh:mm:ss')
+                    homeGoals: vm.model().homeGoals(),
+                    awayGoals: vm.model().awayGoals(),
+                    date: moment(vm.model().date()).format('YYYY.MM.DDTHH:mm:ss')
                 };
                 vm.isBusy(true);
                 let callback = function (result) {
@@ -162,7 +175,7 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
                     }
                     else {
                         messageQueue.addMessage(translations.matchEdit.goalsSaved, 'success');
-                        $(location).attr('href', '/login/test');
+                        window.location.reload();
                     }
                     return true;
                 };
@@ -188,7 +201,7 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
                     }
                     else {
                         messageQueue.addMessage(translations.matchEdit.teamsConfirmed, 'success');
-                        $(location).attr('href', '/login/test');
+                        window.location.reload();
                     }
                     return true;
                 };
@@ -209,11 +222,33 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
                     }
                     else {
                         messageQueue.addMessage(translations.matchEdit.matchLive, 'success');
-                        $(location).attr('href', '/login/test');
+                        window.location.reload();
                     }
                     return true;
                 };
                 return matchRepository.changeToOngoing(dataObject, callback);
+            };
+
+
+            vm.goCreating = function () {
+                let dataObject = {
+                    id: vm.model().id()
+                };
+                vm.isBusy(true);
+                let callback = function (result) {
+                    vm.globalModel.spinner(false);
+                    vm.isBusy(false);
+                    if (!result.isSuccess) {
+                        helpers.log(result.message, 'error');
+                        return false;
+                    }
+                    else {
+                        messageQueue.addMessage(translations.matchEdit.creating, 'success');
+                        window.location.reload();
+                    }
+                    return true;
+                };
+                return matchRepository.changeToCreating(dataObject, callback);
             };
 
             vm.goFinished = function () {
@@ -229,8 +264,8 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
                         return false;
                     }
                     else {
-                        messageQueue.addMessage(translations.matchEdit.teamsConfirmed, 'success');
-                        $(location).attr('href', '/login/test');
+                        messageQueue.addMessage(translations.matchEdit.finished, 'success');
+                        window.location.reload();
                     }
                     return true;
                 };
@@ -250,8 +285,8 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
                         return false;
                     }
                     else {
-                        messageQueue.addMessage(translations.matchEdit.teamsConfirmed, 'success');
-                        $(location).attr('href', '/login/test');
+                        messageQueue.addMessage(translations.matchEdit.canceled, 'success');
+                        window.location.reload();
                     }
                     return true;
                 };

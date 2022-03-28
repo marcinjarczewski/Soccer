@@ -36,6 +36,13 @@ define(['jquery', 'storageHelper', 'messageQueue', 'amplify', 'baseRepository'],
                 success: callback,
             });
         },
+        changeToCreating: function (data, callback) {
+            return amplify.request({
+                resourceId: "changeToCreating",
+                data: data,
+                success: callback,
+            });
+        },
         changeToCanceled: function (data, callback) {
             return amplify.request({
                 resourceId: "changeToCanceled",
@@ -112,6 +119,15 @@ define(['jquery', 'storageHelper', 'messageQueue', 'amplify', 'baseRepository'],
             });
             amplify.request.define("changeToPending", "ajax", {
                 url: apiUrl + "changeToPending",
+                dataType: "json",
+                type: "POST",
+                decoder: "globalDecoder",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", storageHelper.readCookie("token"));
+                }
+            });
+            amplify.request.define("changeToCreating", "ajax", {
+                url: apiUrl + "changeToCreating",
                 dataType: "json",
                 type: "POST",
                 decoder: "globalDecoder",

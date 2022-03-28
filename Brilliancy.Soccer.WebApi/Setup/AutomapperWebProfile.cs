@@ -37,8 +37,8 @@ namespace Brilliancy.Soccer.WebApi.Setup
             CreateMap<TournamentDto, TournamentListReadModel>();
             CreateMap<TournamentDto, TournamentDetailsReadModel>();
             CreateMap<MatchEditDto, MatchDetailsModel>()
-                .ForMember(dto => dto.HomeGoalsList, m => m.MapFrom(db => db.Goals.Where(g => g.IsHomeTeam)))
-                .ForMember(dto => dto.AwayGoalsList, m => m.MapFrom(db => db.Goals.Where(g => !g.IsHomeTeam)));
+                .ForMember(dto => dto.HomeGoalsList, m => m.MapFrom(db => db.Goals.Where(g => (g.IsHomeTeam && !g.IsOwnGoal) || (!g.IsHomeTeam && g.IsOwnGoal))))
+                .ForMember(dto => dto.AwayGoalsList, m => m.MapFrom(db => db.Goals.Where(g => (g.IsHomeTeam && g.IsOwnGoal) || (!g.IsHomeTeam && !g.IsOwnGoal))));
             CreateMap<PendingMatchWriteModel, MatchPendingEditDto>()
                 .ForMember(dto => dto.Goals, m => m.MapFrom<GoalFormatter>());
             CreateMap<PendingMatchWriteModel, MatchPendingEditDto>()
@@ -86,7 +86,7 @@ namespace Brilliancy.Soccer.WebApi.Setup
                 IsOwnGoal = model.IsOwnGoal,
                 ScorerId = model.ScorerId,
                 Time = model.Time,
-                IsHomeTeam = isHomeTeam
+                IsHomeTeam = model.IsOwnGoal? !isHomeTeam : isHomeTeam
             };
         }
 

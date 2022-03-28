@@ -32,7 +32,7 @@
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="matches-tab" data-bs-toggle="tab" data-bs-target="#matches" type="button" role="tab" aria-controls="matches" aria-selected="false">
-                        <span data-bind="text:$root.translations.nextMatch">&nbsp;</span>
+                        <span data-bind="text:$root.translations.matches">&nbsp;</span>
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -76,7 +76,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-12 row">
+                    <div class="col-lg-12 row top-distance">
                         <a href="" class="btn btn-round-success" data-bind="click:$root.editTournament">
                             <span data-bind="text:$root.translations.editTournament"></span>
                         </a>
@@ -136,7 +136,7 @@
                                     <input class="form-control" type="text" data-bind="value:awayTeamName">
                                 </div>
                             </div>
-                            <a href="" class="btn btn-round-success" data-bind="click:$root.addMatch">
+                            <a href="" class="btn btn-round-success top-distance" data-bind="click:$root.addMatch">
                                 <i class="fa fa-plus-circle"></i> <span data-bind="text:$root.translations.createMatch"></span>
                             </a>
                         </div>
