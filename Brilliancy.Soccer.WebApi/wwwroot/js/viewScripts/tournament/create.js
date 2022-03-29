@@ -1,4 +1,4 @@
-define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 'helpers', 'tournamentRepository',  "/js/plugins/i18n.js!/nls/translation.js"],
+define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 'helpers', 'tournamentRepository', "/js/plugins/i18n.js!/nls/translation.js"],
     function (ko, mappings, messageQueue, globalModel, helpers, tournamentRepository, translations) {
         var ViewModel = function (options) {
 
@@ -7,6 +7,13 @@ define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 
                     create: function (options) {
                         return ko.validatedObservable().extend({
                             required: { message: translations.validation.fieldEmpty }
+                        });
+                    }
+                },
+                defaultHour: {
+                    create: function (options) {
+                        return ko.validatedObservable().extend({
+                            hour: { message: translations.validation.hour }
                         });
                     }
                 },
@@ -21,7 +28,37 @@ define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 
 
             var vm = {
                 globalModel: globalModel(),
-                isBusy: ko.observable(false),
+                translations: translations.tournamentCreate,
+                days: [
+                    {
+                        name: translations.days.monday,
+                        value: 1
+                    },
+                    {
+                        name: translations.days.tuesday,
+                        value: 2
+                    },
+                    {
+                        name: translations.days.wednesday,
+                        value: 3
+                    },
+                    {
+                        name: translations.days.thursday,
+                        value: 4
+                    },
+                    {
+                        name: translations.days.friday,
+                        value: 5
+                    },
+                    {
+                        name: translations.days.saturday,
+                        value: 6
+                    },
+                    {
+                        name: translations.days.sunday,
+                        value: 7
+                    }
+                ]
             };
             vm.tournamentLogo = {
                 filesRequestUrl: location.protocol + "//" + location.host + '/file/tournamentLogo',
@@ -41,16 +78,17 @@ define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 
                     });
                 }
             };
-            vm.translations = translations.tournamentCreate;
+            vm.selectedDay = ko.observable(vm.days[0]);
             vm.model = ko.validatedObservable(mappings.fromJS(options.json, mapping));
             vm.addTournament = function () {
                 var validation = ko.validation.group(vm, { deep: true });
                 if (validation().length == 0) {
                     var dataObject = ko.toJS(vm.model);
-                    vm.isBusy(true);
+                    dataObject.defaultDayOfTheWeek = vm.selectedDay()?.value;
+                    vm.globalModel.isBusy(true);
                     var callback = function (result) {
                         vm.globalModel.spinner(false);
-                        vm.isBusy(false);
+                        vm.globalModel.isBusy(false);
                         if (!result.isSuccess) {
                             helpers.log(result.message, 'error');
                             return false;

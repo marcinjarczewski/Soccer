@@ -7,6 +7,7 @@ using Brilliancy.Soccer.Common.Dtos.Tournament;
 using Brilliancy.Soccer.Common.Dtos.User;
 using Brilliancy.Soccer.Common.Enums;
 using Brilliancy.Soccer.Common.Exceptions;
+using Brilliancy.Soccer.Common.Helpers;
 using Brilliancy.Soccer.Core.Translations;
 using Brilliancy.Soccer.DbAccess;
 using Brilliancy.Soccer.DbModels;
@@ -92,6 +93,7 @@ namespace Brilliancy.Soccer.Core.Modules
                 Name = dto.AwayTeamName,
                 TournamentId = dto.TournamentId
             };
+            match.Date = NextMatchHelper.GetMatchDate(DateTime.Now, tournament.DefaultDayOfTheWeek, tournament.DefaultHour);
             match.IsActive = true;
             match.State = state;
             tournament.Matches.Add(match);

@@ -39,7 +39,37 @@ define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 
             var vm = {
                 globalModel: globalModel(),
                 isBusy: ko.observable(false),
+                days: [
+                    {
+                        name: translations.days.monday,
+                        value: 1
+                    },
+                    {
+                        name: translations.days.tuesday,
+                        value: 2
+                    },
+                    {
+                        name: translations.days.wednesday,
+                        value: 3
+                    },
+                    {
+                        name: translations.days.thursday,
+                        value: 4
+                    },
+                    {
+                        name: translations.days.friday,
+                        value: 5
+                    },
+                    {
+                        name: translations.days.saturday,
+                        value: 6
+                    },
+                    {
+                        name: translations.days.sunday,
+                        value: 7
+                    }]
             };
+          
             vm.showModal = ko.observable(false);
             vm.invitedPlayer = ko.observable({
                 id: ko.observable(null),
@@ -48,7 +78,8 @@ define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 
                 })
             });
             vm.translations = translations.tournamentEdit;
-            vm.model = ko.validatedObservable(mappings.fromJS(options.json, mapping));
+            vm.model = ko.validatedObservable(mappings.fromJS(options.json, mapping));         
+            vm.selectedDay = ko.observable(vm.days.find(el => el.value == vm.model().defaultDayOfTheWeek()));
             vm.notAdmins = ko.observableArray();
             vm.model().players().forEach(function (player) {
                 if (!player.userId() || player.userId() == null) {
@@ -141,17 +172,18 @@ define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 
                 }
 
                 let dataObject = ko.toJS(vm.model);
-                vm.isBusy(true);
+                dataObject.defaultDayOfTheWeek = vm.selectedDay()?.value;
+                vm.globalModel.isBusy(true);
                 let callback = function (result) {
                     vm.globalModel.spinner(false);
-                    vm.isBusy(false);
+                    vm.globalModel.isBusy(false);
                     if (!result.isSuccess) {
                         helpers.log(result.message, 'error');
                         return false;
                     }
                     else {
-                        messageQueue.addMessage(translations.tournamentCreate.created, 'success');
-                        $(location).attr('href', '/login/test');
+                        messageQueue.addMessage(translations.tournamentEdit.edited, 'success');
+                        window.location.reload();
                     }
                     return true;
                 };

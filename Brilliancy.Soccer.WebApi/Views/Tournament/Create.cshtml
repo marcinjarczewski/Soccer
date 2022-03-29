@@ -30,6 +30,23 @@
             </div>
             <div class="col-lg-12 row box">
                 <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label><span data-bind="text:$root.translations.defaultDay"></span></label>
+                        <select class="form-control" data-bind="options: $root.days,
+                           optionsText: 'name',
+                           value: $root.selectedDay,
+                           optionsCaption: $root.translations.choose"></select>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div data-bind="validationElement: defaultHour" class="form-group">
+                        <label><span data-bind="text:$root.translations.defaultHour"></span></label>
+                        <input class="form-control" type="text" data-bind="value:defaultHour">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 row box">
+                <div class="col-md-6 col-sm-12">
                     <div data-bind="validationElement: logoId" class="form-group">
                         <label><span data-bind="text:$root.translations.tournamentLogo"></span></label>
                         <div data-bind="with: $root.tournamentLogo">
@@ -46,11 +63,10 @@
                     </div>
                 </div>
             </div>
-                <div class="col-lg-12 row">
-                    <a href="" class="btn btn-round btn-round-success" data-toggle="modal" data-bind="click:$root.addTournament">
-                        <i class="fa fa-plus-circle"></i> <span data-bind="text:$root.translations.tournamentCreate"></span>
-                    </a>
-                </div>
+            <div class="col-lg-12 row top-distance">
+                <a href="" class="btn btn-round btn-round-success" data-toggle="modal" data-bind="click:$root.addTournament">
+                    <i class="fa fa-plus-circle"></i> <span data-bind="text:$root.translations.tournamentCreate"></span>
+                </a>
             </div>
         </div>
     </div>
