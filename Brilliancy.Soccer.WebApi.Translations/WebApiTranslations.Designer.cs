@@ -277,6 +277,15 @@ namespace Brilliancy.Soccer.WebApi.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Regulamin.
+        /// </summary>
+        public static string PageController_TermsTitle {
+            get {
+                return ResourceManager.GetString("PageController_TermsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dane o zawodnikach zostały zapisane..
         /// </summary>
         public static string PlayerController_Edit {

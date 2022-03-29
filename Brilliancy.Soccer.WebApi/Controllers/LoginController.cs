@@ -33,13 +33,6 @@ namespace Brilliancy.Soccer.WebApi.Controllers
             return View();
         }
 
-        [Authorize]
-        [Route("Test")]
-        public ActionResult Test()
-        {
-            return View();
-        }
-
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login(LoginWriteModel credentials)

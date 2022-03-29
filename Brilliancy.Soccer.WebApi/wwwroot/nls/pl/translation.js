@@ -160,5 +160,12 @@ define({
         lostPassword: "Wpisz email, na który założone zostało konto",
         sendEmail: "Wyślij email",
         goBack:"Cofnij"
+    },
+    pageTerms: {
+        title: "Regulamin",
+        termsDescription: "Korzystając z portalu zgadzasz się na poniższe zasady:",
+        terms1: "Nie będę marudził, że coś nie działa.",
+        terms2: "Podczas meczu nie będe robił wślizgów głową.",
+        terms3: "Przynajmniej raz na mecz należy podać piłkę do sąsiada."
     }
 });

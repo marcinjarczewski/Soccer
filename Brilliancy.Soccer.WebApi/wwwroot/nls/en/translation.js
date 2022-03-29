@@ -159,5 +159,12 @@ define({
         lostPassword: "Enter the email address for which the account has been created",
         sendEmail: "Send",
         goBack: "Cancel"
+    },
+    pageTerms: {
+        title: "Terms",
+        termsDescription: "By using the portal, you agree to the following rules:",
+        terms1: "I will not complain that something is not working.",
+        terms2: "During the match, I will not be doing head tackles",
+        terms3: "Perform 2 forward rolls after each missed penalty."
     }
 });
