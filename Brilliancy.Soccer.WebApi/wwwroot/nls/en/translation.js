@@ -173,5 +173,15 @@ define({
         title: "Privace policy",
         policyDescription1: "Everybody loves cookies.",
         policyDescription2: "Your personal data will be sold on black market.",
+    },
+    inviteAdmin: {
+        title: "An invitation as an administrator",
+        statusValid: "You have become the tournament administrator",
+        statusInvalid: "A problem occured"
+    },
+    invitePlayer: {
+        title: "An invitation as a player",
+        statusValid: "You have become the tournament participant",
+        statusInvalid: "A problem occured"
     }
 });

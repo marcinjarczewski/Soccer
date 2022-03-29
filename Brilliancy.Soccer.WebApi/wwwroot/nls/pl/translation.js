@@ -174,5 +174,15 @@ define({
         title: "Polityka prywatności",
         policyDescription1: "Wszyscy kochają ciasteczka.",
         policyDescription2: "Twoje dane osobowe są bezpieczne dopóki nie pojawi się ciekawa oferta.",
+    },
+    inviteAdmin: {
+        title: "Zaproszenie jako administrator",
+        statusValid: "Zostałeś administratorem turnieju",
+        statusInvalid: "Wystąpił problem"
+    },
+    invitePlayer: {
+        title: "Zaproszenie jako gracz",
+        statusValid: "Zostałeś uczestnikiem turnieju",
+        statusInvalid: "Wystąpił problem"
     }
 });

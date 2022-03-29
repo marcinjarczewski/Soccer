@@ -189,6 +189,9 @@
   <data name="MatchController_EditTitle" xml:space="preserve">
     <value>Edycja meczu</value>
   </data>
+  <data name="PageController_InviteTitle" xml:space="preserve">
+    <value>Zaproszenie</value>
+  </data>
   <data name="PageController_PolicyTitle" xml:space="preserve">
     <value>Polityka prywatności</value>
   </data>

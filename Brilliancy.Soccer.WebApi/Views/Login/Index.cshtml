@@ -20,71 +20,75 @@
         </ul>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="login">
-                <div>
-                    <p>
-                        <span data-bind="text:$root.translations.loginDescription"></span>
-                    </p>
-                </div>
-                <div data-bind="validationElement: userName" class="form-group">
-                    <input data-bind="value: userName, disable: $root.isBusy(), attr:{placeholder:$root.translations.userName}"
-                           id="username-email" type="text" class="form-control white" tabindex="1" />
-                </div>
-                <div data-bind="validationElement: password" class="form-group">
-                    <input data-bind="value: password, disable: $root.isBusy(), attr:{placeholder:$root.translations.password}" type="password" id="password" class="form-control white" tabindex="2" />
-                    <div style="margin-top:5px">
-                        <a href="/login/lostPassword"><span data-bind="text:$root.translations.lostPassword"></span></a>
+                <form>
+                    <div>
+                        <p>
+                            <span data-bind="text:$root.translations.loginDescription"></span>
+                        </p>
                     </div>
-                </div>
-                <div>
-                    <a data-bind="click: login, disable: $root.isBusy()" class="btn width100 btn-round-success" tabindex="3">
-                        <span data-bind="text:$root.translations.loginButton"></span>
-                    </a>
-                </div>
+                    <div data-bind="validationElement: userName" class="form-group">
+                        <input data-bind="value: userName, disable: $root.globalModel.isBusy(), attr:{placeholder:$root.translations.userName}"
+                               id="username-email" type="text" class="form-control white" tabindex="1" />
+                    </div>
+                    <div data-bind="validationElement: password" class="form-group">
+                        <input data-bind="value: password, disable: $root.globalModel.isBusy(), attr:{placeholder:$root.translations.password}" type="password" id="password" class="form-control white" tabindex="2" />
+                        <div style="margin-top:5px">
+                            <a href="/login/lostPassword"><span data-bind="text:$root.translations.lostPassword"></span></a>
+                        </div>
+                    </div>
+                    <div>
+                        <a data-bind="click: login, disable: $root.globalModel.isBusy()" class="btn width100 btn-round-success" tabindex="3">
+                            <span data-bind="text:$root.translations.loginButton"></span>
+                        </a>
+                    </div>
+                </form>
             </div>
             <div role="tabpanel" class="tab-pane" id="register">
-                <p>
-                    <span data-bind="text:$root.translations.registerDescription"></span>
-                </p>
-                <div class="clearfix">
-                    <div data-bind="with: $root.account" action="">
-                        <div class="col-lg-12 col-xs-12">
-                            <div data-bind="validationElement: login" class="form-group">
-                                <input data-bind="value: login, attr:{placeholder:$root.translations.userName + '*'}" id="register-login" class="form-control white">
-                            </div>
-                            <div data-bind="validationElement: email" class="form-group">
-                                <input data-bind="value: email, attr:{placeholder:$root.translations.email + '*'}" type="email" id="register-email" class="form-control white">
-                            </div>
-                            <div data-bind="validationElement: password" class="form-group">
-                                <input data-bind="value: password, attr:{placeholder:$root.translations.password + '*'}" type="password" id="register-password" class="form-control white">
-                            </div>
-                            <div data-bind="validationElement: confirmPassword" class="form-group">
-                                <input data-bind="value: confirmPassword, attr:{placeholder:$root.translations.confirmPassword + '*'}" type="password" id="register-confirmPassword" class="form-control white">
-                            </div>
-                            <div data-bind="validationElement: firstName" class="form-group">
-                                <input data-bind="value: firstName, attr:{placeholder:$root.translations.firstName + '*'}" type="text" placeholder="Imię*" id="register-firstname" class="form-control white">
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-xs-12">
-                            <div class="rules">
-                                <div data-bind="validationElement: isRulesAccepted" title="Zaakceptuj regulamin" data-orig-title="">
-                                    <input type="checkbox" data-bind="checked: isRulesAccepted"><span class="text-danger animated fadeInDown" style="display: none;"></span>
-                                    <span data-i18n="app:register.localization.acceptRules">
-                                        <span data-bind="text:$root.translations.acceptRules"></span>
-                                        <a href="/regulamin" target="_blank"><span data-bind="text:$root.translations.rules"></span></a>*
-                                    </span>
+                <form>
+                    <p>
+                        <span data-bind="text:$root.translations.registerDescription"></span>
+                    </p>
+                    <div class="clearfix">
+                        <div data-bind="with: $root.account" action="">
+                            <div class="col-lg-12 col-xs-12">
+                                <div data-bind="validationElement: login" class="form-group">
+                                    <input data-bind="value: login, attr:{placeholder:$root.translations.userName + '*'}" id="register-login" class="form-control white">
                                 </div>
-                                <div>
-                                    <span>* -  <span data-bind="text:$root.translations.fieldRequired"></span></span>
+                                <div data-bind="validationElement: email" class="form-group">
+                                    <input data-bind="value: email, attr:{placeholder:$root.translations.email + '*'}" type="email" id="register-email" class="form-control white">
+                                </div>
+                                <div data-bind="validationElement: password" class="form-group">
+                                    <input data-bind="value: password, attr:{placeholder:$root.translations.password + '*'}" type="password" id="register-password" class="form-control white">
+                                </div>
+                                <div data-bind="validationElement: confirmPassword" class="form-group">
+                                    <input data-bind="value: confirmPassword, attr:{placeholder:$root.translations.confirmPassword + '*'}" type="password" id="register-confirmPassword" class="form-control white">
+                                </div>
+                                <div data-bind="validationElement: firstName" class="form-group">
+                                    <input data-bind="value: firstName, attr:{placeholder:$root.translations.firstName + '*'}" type="text" placeholder="Imię*" id="register-firstname" class="form-control white">
                                 </div>
                             </div>
-                        </div>
-                        <div class="col">
-                            <a data-bind="click: $root.register, disable: $root.isBusy()" class="width100 btn btn-round-success">
-                                <span data-bind="text:$root.translations.registerButton"></span>
-                            </a>
+                            <div class="col-lg-6 col-xs-12">
+                                <div class="rules">
+                                    <div data-bind="validationElement: isRulesAccepted" title="Zaakceptuj regulamin" data-orig-title="">
+                                        <input type="checkbox" data-bind="checked: isRulesAccepted"><span class="text-danger animated fadeInDown" style="display: none;"></span>
+                                        <span data-i18n="app:register.localization.acceptRules">
+                                            <span data-bind="text:$root.translations.acceptRules"></span>
+                                            <a href="/terms" target="_blank"><span data-bind="text:$root.translations.rules"></span></a>*
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span>* -  <span data-bind="text:$root.translations.fieldRequired"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <a data-bind="click: $root.register, disable: $root.globalModel.isBusy()" class="width100 btn btn-round-success">
+                                    <span data-bind="text:$root.translations.registerButton"></span>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

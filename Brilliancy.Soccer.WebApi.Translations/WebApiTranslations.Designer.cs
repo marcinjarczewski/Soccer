@@ -277,6 +277,15 @@ namespace Brilliancy.Soccer.WebApi.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zaproszenie.
+        /// </summary>
+        public static string PageController_InviteTitle {
+            get {
+                return ResourceManager.GetString("PageController_InviteTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Polityka prywatności.
         /// </summary>
         public static string PageController_PolicyTitle {

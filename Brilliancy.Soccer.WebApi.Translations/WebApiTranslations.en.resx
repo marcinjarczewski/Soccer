@@ -189,6 +189,9 @@
   <data name="MatchController_EditTitle" xml:space="preserve">
     <value>Match edit</value>
   </data>
+  <data name="PageController_InviteTitle" xml:space="preserve">
+    <value>Invitation</value>
+  </data>
   <data name="PageController_PolicyTitle" xml:space="preserve">
     <value>Privacy policy</value>
   </data>

@@ -6,17 +6,17 @@ define(['knockoutWithAddons', 'messageQueue', 'globalModel', 'helpers', 'loginRe
                     vm.validationErrors.showAllMessages();
                     return false;
                 }
-                if (vm.isBusy()) {
+                if (vm.globalModel.isBusy()) {
                     return false;
                 }
                 vm.globalModel.spinner(true);
-                vm.isBusy(true);
+                vm.globalModel.isBusy(true);
                 var data = {
                     email: vm.email()
                 };
                 var callback = function (result) {
                     vm.globalModel.spinner(false);
-                    vm.isBusy(false);
+                    vm.globalModel.isBusy(false);
                     if (!result.isSuccess) {
                         helpers.log(result.message, 'error');
                         return false;
@@ -30,7 +30,6 @@ define(['knockoutWithAddons', 'messageQueue', 'globalModel', 'helpers', 'loginRe
             }
             var vm = {
                 globalModel: globalModel(),
-                isBusy: ko.observable(false),
                 email: ko.observable().extend({ required: { message: translations.validation.fieldEmpty }, email: { message: translations.validation.email } }),
                 translations: translations.loginLostPassword,
                 send: send

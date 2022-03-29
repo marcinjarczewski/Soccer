@@ -39,6 +39,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
                 {
                     model.IsKeyValid = false;
                     model.Message = ex.Message;
+                    return View(model);
                 }
                 else
                 {
