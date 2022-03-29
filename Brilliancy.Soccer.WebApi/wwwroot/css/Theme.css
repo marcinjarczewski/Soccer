@@ -6,15 +6,57 @@
     min-height: calc(100vh - 56px);
 }
 
-.btn-outline-secondary {
-    background-color: rgb(var(--bs-success-rgb));
-    border-color: rgb(var(--bs-success-rgb));
+
+footer {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    text-decoration:none;
+}
+
+footer a {
     color: white;
+    text-decoration: none;
+    padding-left: 20px;
+}
+
+footer a:hover {
+    color: white;
+    text-decoration: none;
 }
 
 .navbar {
     font-weight: 700;
     color: white;
+}
+
+.navbar-light .navbar-brand {
+    color: white;
+}
+
+.navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show > .nav-link {
+    color: rgb(255,255,255);
+}
+
+.btn-navigate {
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.nav-tabs {
+    font-family: 'BubbleBobble';
+    font-size: 25px;
+    color: green;
+    margin-bottom: 10px;
+}
+
+    .nav-tabs .nav-link.active {
+        color: #5ca565;
+    }
+
+.nav-link {
+    color: #8d8a8a;
 }
 
 .owngoal {
@@ -86,26 +128,6 @@
     font-family: 'BubbleBobble';
     font-size: 24px;
     color: green;
-}
-
-.btn-navigate{
-    margin-left:3px;
-    margin-right:3px;
-}
-
-.nav-tabs {
-    font-family: 'BubbleBobble';
-    font-size: 25px;
-    color: green;
-    margin-bottom: 10px;
-}
-
-.nav-tabs .nav-link.active {
-    color: #5ca565;
-}
-
-.nav-link {
-    color: #8d8a8a;
 }
 
 .margin-badge {
@@ -250,17 +272,6 @@
 }
 
 
-.navbar-light .navbar-brand {
-    color: white;
-}
-
-.navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show > .nav-link {
-    color: rgb(255,255,255);
-}
-
-.container-fluid {
-    max-width: 1350px;
-}
 
 .btn-link {
     padding-left: 3px;

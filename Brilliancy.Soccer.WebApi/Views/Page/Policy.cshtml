@@ -1,0 +1,24 @@
+﻿@using Brilliancy.Soccer.WebApi.Translations
+@{
+    ViewData["Title"] = WebApiTranslations.PageController_PolicyTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="section-title-wrap">
+    <div class="section-title"><h3 class="section-title-h"><span data-bind="text:$root.translations.title">&nbsp;</span></h3></div>
+</div>
+<div class="shadow card">
+    <div class="p-2">
+        <p data-bind="text:$root.translations.policyDescription1"></p>
+        <p data-bind="text:$root.translations.policyDescription2"></p>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        require(['requireConfig'], function () {
+            require(['/js/viewScripts/page/policy.js', 'knockout'], function (viewModel, ko) {
+                ko.applyBindings(viewModel({
+                }));
+            });
+        });
+    </script>
+}

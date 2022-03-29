@@ -30,7 +30,7 @@
         <div data-bind="with:loginModel">
             <div data-bind="if:isLoggedIn">
                 <nav class="navbar navbar-expand-lg navbar-dark bg-light">
-                    <div class="container-fluid">
+                    <div class="container-xxl">
                         <a class="navbar-brand" href="/">Soccer</a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
@@ -59,9 +59,12 @@
                 </nav>
             </div>
             <div style="display:none;" data-bind="style: { display: isLoggedIn() ? 'none' : 'block' }">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container-fluid">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-light">
+                    <div class="container-xxl">
                         <a class="navbar-brand" href="/">Soccer</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             </ul>
@@ -92,15 +95,26 @@
     <!-- /ko -->
     <div class="container body-content">
         @RenderBody()
-        <div id="cookies-id" class="d-none">
-            <h4 style="margin-top:10px;width:100%;color:white;text-align:center">
-                <span id="cookie-line1"></span>
-                <a style="color:#00a7ef;text-decoration-line:underline;" href="/polityka-prywatnosci">  <span id="cookie-line2"></span></a>
-                <span id="cookie-line3"></span>
-                <a id="cookiesOk" style="margin-bottom: 6px;background: white;" class="btn btn-round btn-round-success"><span id="cookie-line4"></span></a>
+        <div data-bind="with:globalModel" id="cookies-id" class="d-none">
+            <h4 class="text-center">
+                <span data-bind="text:cookiesTranslations.line1"></span>
+                <a  href="/policy">  <span data-bind="text:cookiesTranslations.line2"></span></a>
+                <span data-bind="text:cookiesTranslations.line3"></span>
+                <a id="cookiesOk"  class="btn btn-round-success"><span data-bind="text:cookiesTranslations.line4"></span></a>
             </h4>
         </div>
     </div>
+    <footer data-bind="with:globalModel" class="bg-light navbar container-fluid">
+        <p>
+            &copy; @DateTime.Now.Year — Marcin J
+            <a href="/terms">
+                <span data-bind="text: translations.terms"></span>
+            </a>
+            <a href="/policy">
+                <span data-bind="text: translations.policy"></span>
+            </a>
+        </p>
+    </footer>
     <script type='module' src='~/lib/spin.js/spin.js'></script>
     <script type="module" src="~/js/helpers/spinnerWrapper.js" asp-append-version="true"></script>
     <script data-main="/js/requireConfig" src="~/lib/require.js/require.min.js" asp-append-version="true"></script>

@@ -277,6 +277,15 @@ namespace Brilliancy.Soccer.WebApi.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Polityka prywatności.
+        /// </summary>
+        public static string PageController_PolicyTitle {
+            get {
+                return ResourceManager.GetString("PageController_PolicyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Regulamin.
         /// </summary>
         public static string PageController_TermsTitle {

@@ -8,7 +8,9 @@ define({
     layout: {
         login: "Login",
         logout: "Logout",
-        home: "Home"
+        home: "Home",
+        terms: "Terms",
+        policy: "Privacy policy"
     },
     cookies: {
         line1: "This website uses cookies. Read",
@@ -166,5 +168,10 @@ define({
         terms1: "I will not complain that something is not working.",
         terms2: "During the match, I will not be doing head tackles",
         terms3: "Perform 2 forward rolls after each missed penalty."
+    },
+    pagePolicy: {
+        title: "Privace policy",
+        policyDescription1: "Everybody loves cookies.",
+        policyDescription2: "Your personal data will be sold on black market.",
     }
 });

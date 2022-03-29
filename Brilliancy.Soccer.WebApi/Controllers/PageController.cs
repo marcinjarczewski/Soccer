@@ -31,5 +31,11 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         {
             return View();
         }
+
+        [Route("/Policy")]
+        public ActionResult Policy()
+        {
+            return View();
+        }
     }
 }

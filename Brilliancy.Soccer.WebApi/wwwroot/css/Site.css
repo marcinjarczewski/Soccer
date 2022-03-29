@@ -77,11 +77,16 @@
 }
 
 #cookies-id {
+    bottom: 0;
     width: 100%;
-    background: #b12525;
+    background: #136f9b;
     position: absolute;
-    top: 0;
     left: 0;
+    color:white;
+}
+
+#cookies-id a {
+    color:white;
 }
 
 #custom-spinner {
