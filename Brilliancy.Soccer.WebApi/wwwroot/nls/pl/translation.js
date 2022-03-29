@@ -8,7 +8,9 @@ define({
     layout: {
         login: "Logowanie",
         logout: "Wyloguj",
-        home: "Główna"
+        home: "Główna",
+        terms: "Regulamin",
+        policy: "Polityka prywatności"
     },
     cookies: {
         line1: "Ta strona korzysta z plików cookies. Przeczytaj naszą",
@@ -160,5 +162,27 @@ define({
         lostPassword: "Wpisz email, na który założone zostało konto",
         sendEmail: "Wyślij email",
         goBack:"Cofnij"
+    },
+    pageTerms: {
+        title: "Regulamin",
+        termsDescription: "Korzystając z portalu zgadzasz się na poniższe zasady:",
+        terms1: "Nie będę marudził, że coś nie działa.",
+        terms2: "Podczas meczu nie będe robił wślizgów głową.",
+        terms3: "Przynajmniej raz na mecz należy podać piłkę do sąsiada."
+    },
+    pagePolicy: {
+        title: "Polityka prywatności",
+        policyDescription1: "Wszyscy kochają ciasteczka.",
+        policyDescription2: "Twoje dane osobowe są bezpieczne dopóki nie pojawi się ciekawa oferta.",
+    },
+    inviteAdmin: {
+        title: "Zaproszenie jako administrator",
+        statusValid: "Zostałeś administratorem turnieju",
+        statusInvalid: "Wystąpił problem"
+    },
+    invitePlayer: {
+        title: "Zaproszenie jako gracz",
+        statusValid: "Zostałeś uczestnikiem turnieju",
+        statusInvalid: "Wystąpił problem"
     }
 });

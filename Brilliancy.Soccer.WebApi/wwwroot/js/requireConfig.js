@@ -11,8 +11,7 @@ requirejs.config({
         amplify: 'amplifyjs/amplify.min',
         moment: 'moment.js/moment.min',
         bootstrap: 'bootstrap/js/bootstrap.bundle',
-        floatLabel: 'floatlabels.js/floatlabels.min',
-        bootbox: 'bootbox.js/bootbox.min',     
+        floatLabel: 'floatlabels.js/floatlabels.min', 
         dropzone:'dropzone/min/dropzone.min',
 
         knockoutWithAddons: '/js/helpers/knockoutWithAddons',

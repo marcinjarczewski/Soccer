@@ -6,21 +6,22 @@ define(['knockoutWithAddons', 'messageQueue', 'globalModel', 'helpers', 'loginRe
                 vm.registerValidationErrors.showAllMessages();
                 return false;
             }
-            if (vm.isBusy()) {
+            if (vm.globalModel.isBusy()) {
                 return false;
             }
             vm.globalModel.spinner(true);
-            vm.isBusy(true);
+            vm.globalModel.isBusy(true);
             var data = ko.toJS(account);
             var callback = function (result) {
                 vm.globalModel.spinner(false);
-                vm.isBusy(false);
+                vm.globalModel.isBusy(false);
                 if (!result.isSuccess) {
                     helpers.log(result.message, 'error');
                     return false;
                 }
                 else {
-                    helpers.messageBox(translations.loginIndex.registerCompleted, translations.loginIndex.registerCompletedDescription);
+                    messageQueue.addMessage(translations.loginIndex.registerCompletedDescription, 'success');
+                    window.location.reload();
                 }
                 return true;
             };
@@ -45,7 +46,6 @@ define(['knockoutWithAddons', 'messageQueue', 'globalModel', 'helpers', 'loginRe
         });
         var vm = {
             globalModel: globalModel(),
-            isBusy: ko.observable(false),
             userName: ko.observable("").extend({ required: { message:translations.validation.fieldEmpty } }),
             password: ko.observable("").extend({ required: { message:translations.validation.fieldEmpty } }),
             rememberMe: ko.observable(false),

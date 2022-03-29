@@ -40,10 +40,6 @@
       "destination": "wwwroot/lib/knockout-validation/"
     },
     {
-      "library": "bootbox.js@5.5.2",
-      "destination": "wwwroot/lib/bootbox.js/"
-    },
-    {
       "library": "require.js@2.3.6",
       "destination": "wwwroot/lib/require.js/"
     },

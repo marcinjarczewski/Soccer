@@ -1,0 +1,37 @@
+﻿@using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
+@using Brilliancy.Soccer.WebApi.Translations
+@model Brilliancy.Soccer.WebApi.Models.Authentication.Read.AuthenticationModel
+@{
+    ViewData["Title"] = WebApiTranslations.PageController_InviteTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="section-title-wrap">
+    <div class="section-title"><h3 class="section-title-h"><span data-bind="text:$root.translations.title">&nbsp;</span></h3></div>
+</div>
+<div data-bind="with:model" class="shadow card">
+    <div class="p-2">
+        <span class="badge" data-bind="class:$root.badgeClass">
+            <span data-bind="if:isKeyValid"><span data-bind="text:$root.translations.statusValid">&nbsp;</span></span>
+            <span data-bind="ifnot:isKeyValid"><span data-bind="text:$root.translations.statusInvalid">&nbsp;</span></span>
+        </span>
+        <p><span data-bind="text:message">&nbsp;</span></p>
+    </div>
+</div>
+@section Scripts {
+<script type="text/javascript">
+    require(['requireConfig'], function () {
+        require(['/js/viewScripts/authentication/invitePlayers.js', 'knockout'], function (viewModel, ko) {
+            @{
+                var json = JsonConvert.SerializeObject(
+                    Model,
+                    Formatting.None,
+                    new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+            }
+            ko.applyBindings(viewModel({
+                json: @Html.Raw(json)
+        }));
+        })
+    });
+</script>
+}

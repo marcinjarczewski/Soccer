@@ -1,6 +1,7 @@
-﻿define(['jquery', 'knockout', 'moment', 'knockoutValidation', 'bootbox', 'toastr'], function ($, ko, moment, koValidation, bootbox, toastr) {
+﻿define(['jquery', 'knockout', 'moment', 'knockoutValidation', 'toastr'], function ($, ko, moment, koValidation, toastr) {
     var Helpers = function () {
     };
+
     Helpers.prototype.date = function viewDate(date, format) {
         if (format === null
             || format === undefined) {
@@ -55,74 +56,5 @@
         }
     };
 
-    Helpers.prototype.messageBox = function validOpts(title, message, alwaysVisible) {
-        if (alwaysVisible) {
-            return bootbox.dialog({
-                closeButton: false,
-                title: title,
-                message: message,
-                buttons: {
-                }
-            });
-        }
-        if (message) {
-            return bootbox.alert({
-                title: title,
-                message: message,
-            });
-        }
-
-        return bootbox.alert({
-            message: title,
-        });
-    };
-
-    Helpers.prototype.getLayout = function (goBack) {
-        var ajaxLogout = function () {
-            return $.ajax({
-                url: "/" + 'login/logout',
-                type: "Post",
-                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-                //data: options,
-                success: function (data) {
-                    StorageHelper.eraseCookie("token");
-                    $(location).attr('href', '/logowanie');
-                },
-                error: function (data) {
-                    helpers.log(ko.toJSON(data.responseJSON.message), 'error');
-                    StorageHelper.eraseCookie("token");
-                    location.reload();
-                },
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Authorization", StorageHelper.readCookie("token"));
-                }
-            });
-        }
-        return {
-            goBack: goBack,
-            spinner: ko.observable(false),
-            showGoBack: ko.observable(false),
-            login: ko.observable(StorageHelper.readLocalStorage("login")),
-            logout: function () { ajaxLogout(); }
-        };
-    };
-
-    Helpers.prototype.confirm = function validOpts(message, callback) {
-        bootbox.confirm({
-            message: message,
-            size: "small",
-            buttons: {
-                confirm: {
-                    label: 'Tak',
-                    className: 'btn-info'
-                },
-                cancel: {
-                    label: 'Nie',
-                    className: 'btn-default'
-                }
-            },
-            callback: callback
-        });
-    };
     return new Helpers();
 });

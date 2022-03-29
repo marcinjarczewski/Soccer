@@ -9,7 +9,7 @@ define(['jquery', 'storageHelper', 'messageQueue', 'amplify', 'baseRepository'],
                 storageHelper.writeLocalStorage("login", userName);
                 storageHelper.createCookie("token", result.token_type + " " + result.access_token, 15);
                 messageQueue.addMessage("Login successful", "success");
-                $(location).attr('href', '/login/test');
+                $(location).attr('href', '/');
             }
             return amplify.request({
                 resourceId: "login",

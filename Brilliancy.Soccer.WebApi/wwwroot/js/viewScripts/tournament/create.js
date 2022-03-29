@@ -57,7 +57,7 @@ define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 
                         }
                         else {
                             messageQueue.addMessage(translations.tournamentCreate.created, 'success');
-                            $(location).attr('href', '/login/test');
+                            $(location).attr('href', '/tournament/edit/' + result.data);
                         }
                         return true;
                     };
