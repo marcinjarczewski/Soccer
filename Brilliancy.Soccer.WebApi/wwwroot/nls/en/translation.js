@@ -1,16 +1,9 @@
 define({
-    validation: {
-        fieldEmpty: "Field can't be empty",
-        email: "Incorrect email address",
-        checkbox: "Checkbox must be checked",
-        equalPasswords: "Passwords must be equals"
-    },
-    layout: {
-        login: "Login",
-        logout: "Logout",
-        home: "Home",
-        terms: "Terms",
-        policy: "Privacy policy"
+    authenticationLostPassword: {
+        lostPasswordTitle: "Change password",
+        password: "Password",
+        repeatPassword: "RepeatPassword",
+        confirm: "Confirm"
     },
     cookies: {
         line1: "This website uses cookies. Read",
@@ -18,13 +11,58 @@ define({
         line3: " for more information. By using this website, you consent to the use of this technology",
         line4: "Accept",
     },
-    pikaday: {
-        previousMonth: 'Previous Month',
-        nextMonth: 'Next Month',
-        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        hour: 'Time:'
+    days: {
+        monday: "monday",
+        tuesday: "tuesday",
+        wednesday: "wednesday",
+        thursday: "thursday",
+        friday: "friday",
+        saturday: "saturday",
+        sunday: "sunday"
+    },
+    inviteAdmin: {
+        title: "An invitation as an administrator",
+        statusValid: "You have become the tournament administrator",
+        statusInvalid: "A problem occured"
+    },
+    invitePlayer: {
+        title: "An invitation as a player",
+        statusValid: "You have become the tournament participant",
+        statusInvalid: "A problem occured"
+    },
+    layout: {
+        login: "Login",
+        logout: "Logout",
+        home: "Home",
+        terms: "Terms",
+        policy: "Privacy policy",
+        tournaments: "Tournaments",
+        newTournament: "New tournament"
+    },
+    loginIndex: {
+        login: "Login",
+        loginButton: "login",
+        register: "register",
+        loginDescription: "Login in to access turnaments",
+        registerDescription: "Complete the form to open an account.",
+        lostPassword: "Lost password?",
+        password: "Password",
+        userName: "Login",
+        confirmPassword: "Confirm password",
+        email: "Email",
+        firstName: "First name",
+        acceptRules: "Accept",
+        rules: "rules",
+        registerButton: "register",
+        fieldRequired: "field required",
+        registerCompleted: "Registration complete",
+        registerCompletedDescription: "Thank you for registration! You can now login.",
+    },
+    loginLostPassword: {
+        lostPasswordTitle: "Lost password",
+        lostPassword: "Enter the email address for which the account has been created",
+        sendEmail: "Send",
+        goBack: "Cancel"
     },
     matchEdit: {
         title: "Match edit",
@@ -66,11 +104,25 @@ define({
         ownGoal: "Own goal",
         noAssist: "No assist"
     },
-    authenticationLostPassword: {
-        lostPasswordTitle: "Change password",
-        password: "Password",
-        repeatPassword: "RepeatPassword",
-        confirm: "Confirm"
+    pikaday: {
+        previousMonth: 'Previous Month',
+        nextMonth: 'Next Month',
+        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        hour: 'Time:'
+    },
+    pageTerms: {
+        title: "Terms",
+        termsDescription: "By using the portal, you agree to the following rules:",
+        terms1: "I will not complain that something is not working.",
+        terms2: "During the match, I will not be doing head tackles",
+        terms3: "Perform 2 forward rolls after each missed penalty."
+    },
+    pagePolicy: {
+        title: "Privace policy",
+        policyDescription1: "Everybody loves cookies.",
+        policyDescription2: "Your personal data will be sold on black market.",
     },
     tournamentDetails: {
         title: "Tournament details",
@@ -101,7 +153,10 @@ define({
         tournamentAddress: "The venue of the tournament",
         tournamentCreate: "Create",
         tournamentLogo: "Tournament logo",
-        dropzone: "Drop a file here to upload it"
+        dropzone: "Drop a file here to upload it",
+        defaultHour: "Default match start hour",
+        defaultDay: "Default match day",
+        choose: "Choose..."
     },
     tournamentEdit: {
         info: "Information",
@@ -125,7 +180,7 @@ define({
         saveChanges: "Save changes",
         newMatch: "New match",
         matches: "Matches",
-        matchesList:"Match list",
+        matchesList: "Match list",
         home: "Home",
         away: "Away",
         createMatch: "Create a match",
@@ -135,53 +190,16 @@ define({
         inviteAsAdmin: "invite as admin",
         email: "email",
         admins: "administrators",
-        add: "add"
+        add: "add",
+        defaultHour: "Default match start hour",
+        defaultDay: "Default match day",
+        choose: "Choose..."
     },
-    loginIndex: {
-        login: "Login",
-        loginButton: "login",
-        register: "register",
-        loginDescription: "Login in to access turnaments",
-        registerDescription: "Complete the form to open an account.",
-        lostPassword: "Lost password?",
-        password: "Password",
-        userName: "Login",
-        confirmPassword: "Confirm password",
-        email:"Email",
-        firstName: "First name",
-        acceptRules: "Accept",
-        rules: "rules",
-        registerButton: "register",
-        fieldRequired: "field required",
-        registerCompleted: "Registration complete",
-        registerCompletedDescription: "Thank you for registration! You can now login.",
-    },
-    loginLostPassword: {
-        lostPasswordTitle: "Lost password",
-        lostPassword: "Enter the email address for which the account has been created",
-        sendEmail: "Send",
-        goBack: "Cancel"
-    },
-    pageTerms: {
-        title: "Terms",
-        termsDescription: "By using the portal, you agree to the following rules:",
-        terms1: "I will not complain that something is not working.",
-        terms2: "During the match, I will not be doing head tackles",
-        terms3: "Perform 2 forward rolls after each missed penalty."
-    },
-    pagePolicy: {
-        title: "Privace policy",
-        policyDescription1: "Everybody loves cookies.",
-        policyDescription2: "Your personal data will be sold on black market.",
-    },
-    inviteAdmin: {
-        title: "An invitation as an administrator",
-        statusValid: "You have become the tournament administrator",
-        statusInvalid: "A problem occured"
-    },
-    invitePlayer: {
-        title: "An invitation as a player",
-        statusValid: "You have become the tournament participant",
-        statusInvalid: "A problem occured"
+    validation: {
+        fieldEmpty: "Field can't be empty",
+        email: "Incorrect email address",
+        checkbox: "Checkbox must be checked",
+        equalPasswords: "Passwords must be equals",
+        hour: "The hour must be in a format HH:MM"
     }
 });

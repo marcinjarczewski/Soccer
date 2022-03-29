@@ -171,6 +171,37 @@
         message: translations.validation.checkbox
     };
 
+    ko.validation.rules['hour'] = {
+        validator: function (val) {
+            if (!val) {
+                return true;
+            }
+            if (val.length != 5) {
+                return false;
+            }
+            if (val[2] != ':') {
+                return false;
+            }
+            if (isNaN(val.substring(0, 2))) {
+                return false;
+            }
+            if (isNaN(val.substring(2, 2))) {
+                return false;
+            }
+            let hour = parseInt(val.substring(0, 2));
+            if (hour < 0 || hour > 23) {
+                return false;
+            }
+            let minutes = parseInt(val.substring(3, 5));
+            if (minutes < 0 || minutes > 59) {
+                return false;
+            }
+            debugger;
+            return true;
+        },
+        message: translations.validation.hour
+    };
+
     ko.validation.rules['equalPasswords'] = {
         validator: function (val, params) {
             return val === params;
