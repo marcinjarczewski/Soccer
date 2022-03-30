@@ -1,10 +1,11 @@
-define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', "/js/plugins/i18n.js!/nls/translation.js"],
-    function (ko, mappings, messageQueue, globalModel, translations) {
+define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'helpers', 'globalModel', "/js/plugins/i18n.js!/nls/translation.js"],
+    function (ko, mappings, messageQueue, helpers, globalModel, translations) {
         var ViewModel = function (options) {
             var vm = {
                 globalModel: globalModel(),
                 isBusy: ko.observable(false),
-                isTournamentAdmin: options.isTournamentAdmin
+                isTournamentAdmin: options.isTournamentAdmin,
+                helpers: helpers
             };
             vm.showModal = ko.observable(false);    
             vm.translations = translations.tournamentDetails;

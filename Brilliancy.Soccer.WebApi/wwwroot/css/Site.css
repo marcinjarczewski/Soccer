@@ -51,7 +51,6 @@
     padding-right: 0px;
 }
 
-
 .no-margin{
     margin-left:0px;
     margin-right:0px;
@@ -75,6 +74,31 @@
 .validationElement > input {
     border-color: #b10000;
 }
+
+.home-center {
+    height: calc(100vh - 56px);
+    padding: 10px;
+    margin: 0px auto;
+    max-width: 670px;
+}
+
+.home-body {
+    background-color: rgba(255,255,255,0.7);
+    max-width: 100%;
+    width: 670px;
+    text-align: center;
+}
+
+.home-header1 {
+    font-family: 'BubbleBobble';
+    font-size: 33px;
+    color: green;
+}
+
+.home-header2 {
+    font-family: 'BubbleBobble';
+}
+
 
 #cookies-id {
     bottom: 0;

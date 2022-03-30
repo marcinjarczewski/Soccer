@@ -277,6 +277,15 @@ namespace Brilliancy.Soccer.WebApi.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Graj w nogę ze znajomymi.
+        /// </summary>
+        public static string PageController_HomeTitle {
+            get {
+                return ResourceManager.GetString("PageController_HomeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zaproszenie.
         /// </summary>
         public static string PageController_InviteTitle {

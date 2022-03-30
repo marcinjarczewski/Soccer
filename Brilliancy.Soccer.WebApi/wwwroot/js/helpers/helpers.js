@@ -14,6 +14,19 @@
         return '';
     };
 
+    Helpers.prototype.cutText = function viewDate(text, limit) {
+        if (text.length <= limit)
+        {
+            return text;
+        }
+        if (limit < 9) {
+            return text;
+        }
+        var cut = limit / 3 - 1;
+        var res = text.substring(0, cut) + "..." + text.substring(text.length - cut * 2, text.length);
+        return res;
+    };
+
 
     Helpers.prototype.showError = function validOpts(data) {
         if (!data) {

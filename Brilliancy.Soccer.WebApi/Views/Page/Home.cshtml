@@ -1,0 +1,37 @@
+﻿@using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
+@using Brilliancy.Soccer.WebApi.Translations
+@{
+    ViewData["Title"] = WebApiTranslations.PageController_HomeTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="background-image-parent">
+    <img class="background-image" src="~/images/home.jpg" />
+</div>
+<div class="home-center d-flex align-items-stretch">
+    <div class="card home-body align-self-center">
+        <div class="p-2">
+            <h1 class="home-header1"><span data-bind="text:$root.translations.header1">&nbsp;</span></h1>
+            <h3 class="home-header2"><span data-bind="text:$root.translations.header2">&nbsp;</span></h3>
+            <a data-bind="css:{'hidden': isLoggedIn}" href="/login" class="btn hidden btn-round-success"><i class="fa-solid fa-user"></i> <span data-bind="text:$root.translations.login"></span></a>
+            <a data-bind="css:{'hidden': !isLoggedIn}" href="/tournaments" class="btn hidden btn-round-success"><i class="fa-solid fa-trophy"></i> <span data-bind="text:$root.translations.tournaments"></span></a>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        require(['requireConfig'], function () {
+            require(['/js/viewScripts/page/home.js', 'knockout'], function (viewModel, ko) {
+                @{
+                    var isLoggedIn = JsonConvert.SerializeObject(
+                        User?.Identity?.IsAuthenticated ?? false,
+                        Formatting.None,
+                        new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+                }
+                ko.applyBindings(viewModel({
+                    isLoggedIn: @Html.Raw(isLoggedIn)
+            }));
+                            });
+                        });
+    </script>
+}

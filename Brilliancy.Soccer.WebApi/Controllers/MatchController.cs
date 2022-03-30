@@ -3,6 +3,7 @@ using Brilliancy.Soccer.Common.Contracts.Modules;
 using Brilliancy.Soccer.Common.Dtos.Match;
 using Brilliancy.Soccer.Common.Dtos.Player;
 using Brilliancy.Soccer.Common.Exceptions;
+using Brilliancy.Soccer.WebApi.Helpers;
 using Brilliancy.Soccer.WebApi.Models.Match.Read;
 using Brilliancy.Soccer.WebApi.Models.Match.Write;
 using Brilliancy.Soccer.WebApi.Models.Shared;
@@ -72,7 +73,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         {
             var match = _matchModule.GetMatch(id, this._CurrentUserInfo.Id);
             var model = _mapper.Map<MatchDetailsModel>(match);
-            return View(model);
+            return AuthorizedResultHelper.AuthorizedResult(View(model), _CurrentUserInfo.TournamentAdmins.Contains(match.TournamentId));
         }
 
 

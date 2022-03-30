@@ -18,16 +18,24 @@
                     <div class="form-group">
                         <label><span data-bind="text:$root.translations.nameOrAddress">&nbsp;</span></label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control"  data-bind="value: filter().term" aria-describedby="button-addon2">
+                            <input type="text" class="form-control" data-bind="value: filter().term" aria-describedby="button-addon2">
                             <button data-bind="click: filterChanged.bind(filter.$parent)" class="btn btn-outline-secondary" type="button" id="button-addon2">
-                                <i class="fa-solid fa-magnifying-glass"></i> <span data-bind="text:$root.translations.search">&nbsp;</span></button>
+                                <i class="fa-solid fa-magnifying-glass"></i> <span data-bind="text:$root.translations.search">&nbsp;</span>
+                            </button>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div data-bind="if:entries().length == 0">
+                <div class="form-group">
+                    <div class="alert alert-info" role="alert">
+                        <span data-bind="text:$root.translations.noTournaments"></span>
                     </div>
                 </div>
             </div>
             <div data-bind="foreach:entries">
                 <div class="col-lg-12 row no-margin shadow" style="margin-bottom:20px;">
-                    <div class="col">
+                    <div class="col-lg">
                         <div>
                             <a class="section-title-h a-tournament-name" data-bind="attr:{href:'/tournament/details/'+id}"><h1 data-bind="text:name"></h1></a>
                             <dl class="dl-horizontal">
@@ -42,9 +50,13 @@
                                     <span data-bind="text:$root.translations.previousMatch">&nbsp;</span>
                                 </dt>
                                 <dd data-bind="with:lastMatch">
-                                    <a data-bind="attr:{href:'/match/details/'+id}">
-                                        <span disabled data-bind=" date: date" type="text"></span>
-                                        <span data-bind="text:homeTeamName"></span> <span data-bind="text:homeGoals"></span>:<span data-bind="text:awayGoals"></span> <span data-bind="text:awayTeamName"></span>
+                                    <a class="match-quick-show badge bg-success" data-bind="attr:{href:'/match/details/'+id}">
+                                        <span data-bind=" date: date" type="text"></span><br />
+                                        <span data-bind="text:$root.helpers.cutText(homeTeamName,18)"></span> <span class="score-font" data-bind="if:stateId == 2 || stateId == 3"><span data-bind="text:homeGoals"></span>:<span data-bind="text:awayGoals"></span></span>
+                                        <span data-bind="if:stateId != 2 && stateId != 3">
+                                            -
+                                        </span>
+                                        <span data-bind="text:$root.helpers.cutText(awayTeamName,18)"></span>
                                     </a>
                                 </dd>
                             </dl>
@@ -53,15 +65,19 @@
                                     <span data-bind="text:$root.translations.nextMatch">&nbsp;</span>
                                 </dt>
                                 <dd data-bind="with:nextMatch">
-                                    <a data-bind="attr:{href:'/match/details/'+id}">
-                                        <span disabled data-bind=" date: date" type="text"></span>
-                                        <span data-bind="text:homeTeamName"></span> - <span data-bind="text:awayTeamName"></span>
+                                    <a class="match-quick-show  badge bg-warning" data-bind="attr:{href:'/match/details/'+id}">
+                                        <span data-bind=" date: date" type="text"></span><br />
+                                        <span data-bind="text:$root.helpers.cutText(homeTeamName,18)"></span> <span class="score-font" data-bind="if:stateId == 2 || stateId == 3"><span data-bind="text:homeGoals"></span>:<span data-bind="text:awayGoals"></span></span>
+                                        <span data-bind="if:stateId != 2 && stateId != 3">
+                                            -
+                                        </span>
+                                        <span data-bind="text:$root.helpers.cutText(awayTeamName,18)"></span>
                                     </a>
                                 </dd>
                             </dl>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="d-lg-block col-lg d-none">
                         <a data-bind="attr:{href:'/tournament/details/'+id}">
                             <img data-bind="attr: { src: logoUrl }" style="max-height:400px;max-width:100%;" alt="">
                         </a>

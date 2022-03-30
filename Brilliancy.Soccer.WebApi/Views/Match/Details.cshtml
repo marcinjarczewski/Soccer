@@ -11,7 +11,7 @@
     <div data-bind="with:model">
         <div class="overlay" style="display: none;"></div>
         <div data-bind="ifnot: $root.showModal" id="tournament-create" class="row top-distance">
-            <div data-bind="if:stateId() == 5">
+            <div data-bind="if:stateId() == 5 || stateId() == 1">
                 <div class="col-lg-12 row box">
                     <div class="text-center">
                         <input class="match-time" disabled data-bind=" pikaday: date, format: 'DD.MM.YYYY HH:mm', showTime: true" />
@@ -175,6 +175,16 @@
                     </div>
                 </div>
             </div>
+            <div class="text-center">
+                <span data-bind="if:$root.isTournamentAdmin">
+                    <a data-bind="attr:{href:'/match/edit/'+id()}" class="btn btn-round-primary">
+                        <span data-bind="text:$root.translations.manage">&nbsp;</span> <i class="fa-solid fa-screwdriver-wrench"></i>
+                    </a>
+                    <a data-bind="attr:{href:'/match/liveedit/'+id()}" class="btn btn-round-primary">
+                        <span data-bind="text:$root.translations.liveEdit">&nbsp;</span> <i class="fa-solid fa-screwdriver-wrench"></i>
+                    </a>
+                </span>
+            </div>
         </div>
     </div>
 </div>
@@ -183,15 +193,21 @@
     <script type="text/javascript">
         require(['requireConfig'], function () {
             require(['/js/viewScripts/match/details.js', 'knockout'], function (viewModel, ko) {
-                @{var json = JsonConvert.SerializeObject(
-                    Model,
-                    Formatting.None,
-                    new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+                @{
+                    var json = JsonConvert.SerializeObject(
+                        Model,
+                        Formatting.None,
+                        new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+                    var isTournamentAdmin = JsonConvert.SerializeObject(
+                        ViewData["IsTournamentAdmin"],
+                        Formatting.None,
+                        new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
                 }
                 ko.applyBindings(viewModel({
-                json: @Html.Raw(json)
+                    json: @Html.Raw(json),
+                    isTournamentAdmin: @Html.Raw(isTournamentAdmin)
             }));
-            });
-        });
+                    });
+                });
     </script>
 }

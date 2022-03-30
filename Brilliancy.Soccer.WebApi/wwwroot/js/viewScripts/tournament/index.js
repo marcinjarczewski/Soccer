@@ -3,7 +3,8 @@ define(['knockoutWithAddons', 'knockoutMapping', 'messageQueue', 'globalModel', 
         var ViewModel = function (options) {
             var vm = {
                 globalModel: globalModel(),
-                translations: translations.tournamentIndex
+                translations: translations.tournamentIndex,
+                helpers: helpers
             };
             var pagedViewModel = function (options) {
                 var self = this;

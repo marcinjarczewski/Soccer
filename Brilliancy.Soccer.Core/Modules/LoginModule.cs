@@ -43,7 +43,7 @@ namespace Brilliancy.Soccer.Core.Modules
 
             var result = _mapper.Map<UserDto>(user);
             result.TournamentAdmins = user.TournamentAdmins.Select(t => t.Id).ToList();
-            result.TournamentAdmins.Union(user.OwnedTournaments.Select(o => o.Id));
+            result.TournamentAdmins.AddRange(user.OwnedTournaments.Select(o => o.Id));
             return result;
         }
 
