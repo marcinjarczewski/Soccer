@@ -150,7 +150,9 @@ namespace Brilliancy.Soccer.Core.Modules
                 .ThenInclude(t => t.HomeTeam)
                 .Include(t => t.Matches)
                 .ThenInclude(t => t.AwayTeam)
-                .AsQueryable();
+                .Where(t => t.IsActive);
+
+            tournaments = tournaments.Where(t => t.Admins.Any(a => a.Id == userId) || t.OwnerId == userId || t.Players.Any(p => p.UserId == userId));
             if (!string.IsNullOrEmpty(term))
             {
                 var lowerTerm = term.ToLower();
