@@ -1,6 +1,5 @@
-define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'globalModel', 'helpers',
-     'matchRepository', "/js/plugins/i18n.js!/nls/translation.js"],
-    function (ko, mappings, moment, messageQueue, globalModel, helpers, matchRepository, translations) {
+define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'globalModel', "/js/plugins/i18n.js!/nls/translation.js"],
+    function (ko, mappings, moment, messageQueue, globalModel, translations) {
         let ViewModel = function (options) {
             let mapping = {
                 homeTeamName: {

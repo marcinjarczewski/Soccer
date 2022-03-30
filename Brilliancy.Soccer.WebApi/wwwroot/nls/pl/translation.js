@@ -109,6 +109,8 @@ define({
     pageHome: {
         header1: "Witaj na portalu ludzi kopiących się po kostkach",
         header2: "Zapraszamy do wspólnej kopaniny!",
+        tournaments: "Turnieje",
+        login: "Logowanie"
     },
     pageTerms: {
         title: "Regulamin",
@@ -167,6 +169,7 @@ define({
         tournamentLogo: "Logo turnieju",
         dropzone: "Upuść tu plik, aby go przesłać.",
         title: "Edycja turnieju",
+        playersSaved: "Zawodnicy zostali zaktualizowani",
         name: "Nazwa turnieju",
         address: "Miejsce rozgrywania turnieju",
         userAdded: "Użytkownik przypisany",
@@ -199,7 +202,8 @@ define({
         nextMatch: "Następny mecz",
         previousMatch: "Poprzedni mecz",
         previousPage: "Poprzednia strona",
-        nextPage: "Następna strona"
+        nextPage: "Następna strona",
+        noTournaments:"Nie ma turniejów, w których bierzesz udział."
     },
     validation: {
         fieldEmpty: "Pole nie może być puste",

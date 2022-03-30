@@ -11,10 +11,10 @@
 <div class="home-center d-flex align-items-stretch">
     <div class="card home-body align-self-center">
         <div class="p-2">
-            <h1 class="home-header1"><span data-bind="text:$root.translations.header1"></span></h1>
-            <h3 class="home-header2"><span data-bind="text:$root.translations.header2"></span></h3>
-            <a data-bind="css:{'hidden': isLoggedIn}" href="/login" class="btn hidden btn-round-success"><i class="fa-solid fa-user"></i> Logowanie</a>
-            <a data-bind="css:{'hidden': !isLoggedIn}" href="/tournaments" class="btn hidden btn-round-success"><i class="fa-solid fa-user"></i> Turnieje</a>
+            <h1 class="home-header1"><span data-bind="text:$root.translations.header1">&nbsp;</span></h1>
+            <h3 class="home-header2"><span data-bind="text:$root.translations.header2">&nbsp;</span></h3>
+            <a data-bind="css:{'hidden': isLoggedIn}" href="/login" class="btn hidden btn-round-success"><i class="fa-solid fa-user"></i> <span data-bind="text:$root.translations.login"></span></a>
+            <a data-bind="css:{'hidden': !isLoggedIn}" href="/tournaments" class="btn hidden btn-round-success"><i class="fa-solid fa-trophy"></i> <span data-bind="text:$root.translations.tournaments"></span></a>
         </div>
     </div>
 </div>

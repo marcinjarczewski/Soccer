@@ -25,7 +25,7 @@
         <div class="overlay" style="display: none;"></div>
         <div id="tournament-details" class="row">
             <div class="col-lg-12 row no-margin">
-                <div class="col">
+                <div class="col-md">
                     <div>
                         <h1 data-bind="text:name"></h1>
                         <dl class="dl-horizontal">
@@ -42,11 +42,11 @@
                             <dd data-bind="with:lastMatch">
                                 <a class="match-quick-show badge bg-success" data-bind="attr:{href:'/match/details/'+id()}">
                                     <span data-bind=" date: date" type="text"></span><br />
-                                    <span data-bind="text:homeTeamName"></span> <span class="score-font" data-bind="if:stateId() == 2 || stateId() == 3"><span data-bind="text:homeGoals"></span>:<span data-bind="text:awayGoals"></span></span>
+                                    <span data-bind="text:$root.helpers.cutText(homeTeamName(),18)"></span> <span class="score-font" data-bind="if:stateId() == 2 || stateId() == 3"><span data-bind="text:homeGoals"></span>:<span data-bind="text:awayGoals"></span></span>
                                     <span data-bind="if:stateId() != 2 && stateId() != 3">
                                         -
                                     </span>
-                                    <span data-bind="text:awayTeamName"></span>
+                                    <span data-bind="text:$root.helpers.cutText(awayTeamName,18)"></span>
                                 </a>
                             </dd>
                         </dl>
@@ -57,17 +57,17 @@
                             <dd data-bind="with:nextMatch">
                                 <a class="match-quick-show  badge bg-warning" data-bind="attr:{href:'/match/details/'+id()}">
                                     <span data-bind=" date: date" type="text"></span><br />
-                                    <span data-bind="text:homeTeamName"></span> <span class="score-font" data-bind="if:stateId() == 2 || stateId() == 3"><span data-bind="text:homeGoals"></span>:<span data-bind="text:awayGoals"></span></span>
+                                    <span data-bind="text:$root.helpers.cutText(homeTeamName(),18)"></span> <span class="score-font" data-bind="if:stateId() == 2 || stateId() == 3"><span data-bind="text:homeGoals"></span>:<span data-bind="text:awayGoals"></span></span>
                                     <span data-bind="if:stateId() != 2 && stateId() != 3">
                                         -
                                     </span>
-                                    <span data-bind="text:awayTeamName"></span>
+                                    <span data-bind="text:$root.helpers.cutText(awayTeamName(),18)"></span>
                                 </a>
                             </dd>
                         </dl>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-md">
                     <img data-bind="attr: { src: logoUrl }" style="max-height:400px;max-width:100%;" alt="">
                 </div>
             </div>

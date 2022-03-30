@@ -27,11 +27,11 @@
                         </p>
                     </div>
                     <div data-bind="validationElement: userName" class="form-group">
-                        <input data-bind="value: userName, disable: $root.globalModel.isBusy(), attr:{placeholder:$root.translations.userName}"
+                        <input autocomplete="on" data-bind="value: userName, disable: $root.globalModel.isBusy(), attr:{placeholder:$root.translations.userName}"
                                id="username-email" type="text" class="form-control white" tabindex="1" />
                     </div>
                     <div data-bind="validationElement: password" class="form-group">
-                        <input data-bind="value: password, disable: $root.globalModel.isBusy(), attr:{placeholder:$root.translations.password}" type="password" id="password" class="form-control white" tabindex="2" />
+                        <input autocomplete="on" data-bind="value: password, disable: $root.globalModel.isBusy(), attr:{placeholder:$root.translations.password}" type="password" id="password" class="form-control white" tabindex="2" />
                         <div style="margin-top:5px">
                             <a href="/login/lostPassword"><span data-bind="text:$root.translations.lostPassword"></span></a>
                         </div>
@@ -58,10 +58,10 @@
                                     <input data-bind="value: email, attr:{placeholder:$root.translations.email + '*'}" type="email" id="register-email" class="form-control white">
                                 </div>
                                 <div data-bind="validationElement: password" class="form-group">
-                                    <input data-bind="value: password, attr:{placeholder:$root.translations.password + '*'}" type="password" id="register-password" class="form-control white">
+                                    <input autocomplete="off" data-bind="value: password, attr:{placeholder:$root.translations.password + '*'}" type="password" id="register-password" class="form-control white">
                                 </div>
                                 <div data-bind="validationElement: confirmPassword" class="form-group">
-                                    <input data-bind="value: confirmPassword, attr:{placeholder:$root.translations.confirmPassword + '*'}" type="password" id="register-confirmPassword" class="form-control white">
+                                    <input autocomplete="off" data-bind="value: confirmPassword, attr:{placeholder:$root.translations.confirmPassword + '*'}" type="password" id="register-confirmPassword" class="form-control white">
                                 </div>
                                 <div data-bind="validationElement: firstName" class="form-group">
                                     <input data-bind="value: firstName, attr:{placeholder:$root.translations.firstName + '*'}" type="text" placeholder="Imię*" id="register-firstname" class="form-control white">

@@ -117,6 +117,8 @@ define({
     pageHome: {
         header1: "Welcome to the portal of people kicking their ankles",
         header2: "Take your place!",
+        tournaments: "Tournaments",
+        login: "Login"
     },
     pageTerms: {
         title: "Terms",
@@ -150,7 +152,8 @@ define({
         nextMatch: "Next match",
         previousMatch: "Previous match",
         previousPage: "Previous page",
-        nextPage: "Next page"
+        nextPage: "Next page",
+        noTournaments: "There are no tournaments you are participating in."
     },
     tournamentCreate: {
         created: "The tournament has been created.",
@@ -172,6 +175,7 @@ define({
         userManagement: "Players management",
         adminsManagement: "Manage tournament administrators",
         playerInvite: "Invite a player",
+        playersSaved: "The players have been edited",
         edited: "Changes have been saved.",
         tournamentLogo: "Tournament logo",
         dropzone: "Drop a file here to upload it",

@@ -79,7 +79,7 @@ footer a:hover {
 .match-quick-show {
     margin-top: 4px;
     margin-bottom: 7px;
-    font-size: 25px;
+    font-size: 20px;
     color: white;
     transition: 1s;
     text-decoration:none;
@@ -345,11 +345,24 @@ footer a:hover {
     --bs-body-bg: #fff;
 }
 
+@media (min-width: 2000px) {
+    .background-image {
+       width:100%;
+    }
+}
+
+
 @media (max-width: 900px) {
     .background-image {
          max-width: none;
         margin-left: -800px;
         bottom: -20%;
         position: absolute;
+    }
+}
+
+@media (max-width: 500px){
+    .match-quick-show {
+        font-size: 15px;
     }
 }
