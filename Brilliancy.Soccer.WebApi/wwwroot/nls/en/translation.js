@@ -71,6 +71,8 @@ define({
         matchDate: "Match date",
         matchState: "Match state",
         matchLive: "The match is now live",
+        manage: "Edit",
+        liveEdit: "Edit 'live'",
         availablePlayers: "Available players",
         noPlayers: "No players",
         addHome: "add to home team",

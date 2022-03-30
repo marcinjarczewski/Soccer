@@ -42,9 +42,13 @@
                                     <span data-bind="text:$root.translations.previousMatch">&nbsp;</span>
                                 </dt>
                                 <dd data-bind="with:lastMatch">
-                                    <a data-bind="attr:{href:'/match/details/'+id}">
-                                        <span disabled data-bind=" date: date" type="text"></span>
-                                        <span data-bind="text:homeTeamName"></span> <span data-bind="text:homeGoals"></span>:<span data-bind="text:awayGoals"></span> <span data-bind="text:awayTeamName"></span>
+                                    <a class="match-quick-show badge bg-success" data-bind="attr:{href:'/match/details/'+id}">
+                                        <span data-bind=" date: date" type="text"></span><br />
+                                        <span data-bind="text:homeTeamName"></span> <span class="score-font" data-bind="if:stateId == 2 || stateId == 3"><span data-bind="text:homeGoals"></span>:<span data-bind="text:awayGoals"></span></span>
+                                        <span data-bind="if:stateId != 2 && stateId != 3">
+                                            -
+                                        </span>
+                                        <span data-bind="text:awayTeamName"></span>
                                     </a>
                                 </dd>
                             </dl>
@@ -52,12 +56,16 @@
                                 <dt>
                                     <span data-bind="text:$root.translations.nextMatch">&nbsp;</span>
                                 </dt>
-                                <dd data-bind="with:nextMatch">
-                                    <a data-bind="attr:{href:'/match/details/'+id}">
-                                        <span disabled data-bind=" date: date" type="text"></span>
-                                        <span data-bind="text:homeTeamName"></span> - <span data-bind="text:awayTeamName"></span>
-                                    </a>
-                                </dd>
+                            <dd data-bind="with:nextMatch">
+                                <a class="match-quick-show  badge bg-warning" data-bind="attr:{href:'/match/details/'+id}">
+                                    <span data-bind=" date: date" type="text"></span><br />
+                                    <span data-bind="text:homeTeamName"></span> <span class="score-font" data-bind="if:stateId == 2 || stateId == 3"><span data-bind="text:homeGoals"></span>:<span data-bind="text:awayGoals"></span></span>
+                                    <span data-bind="if:stateId != 2 && stateId != 3">
+                                        -
+                                    </span>
+                                    <span data-bind="text:awayTeamName"></span>
+                                </a>
+                            </dd>
                             </dl>
                         </div>
                     </div>

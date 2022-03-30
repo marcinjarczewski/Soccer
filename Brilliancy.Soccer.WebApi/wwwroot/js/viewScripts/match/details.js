@@ -22,6 +22,7 @@ define(['knockoutWithAddons', 'knockoutMapping', 'moment', 'messageQueue', 'glob
             let vm = {
                 globalModel: globalModel(),
                 isBusy: ko.observable(false),
+                isTournamentAdmin: options.isTournamentAdmin
             };
             vm.translations = translations.matchEdit;
             vm.model = ko.validatedObservable(mappings.fromJS(options.json, mapping));

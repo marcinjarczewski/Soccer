@@ -9,6 +9,8 @@ namespace Brilliancy.Soccer.Common.Dtos.Match
     {
         public int Id { get; set; }
 
+        public int TournamentId { get; set; }
+
         public string HomeTeamName { get; set; }
 
         public string AwayTeamName { get; set; }

@@ -71,6 +71,8 @@ define({
         matchDate: "Data meczu",
         matchState: "Status meczu",
         matchLive: "Mecz został rozpoczęty",
+        manage: "Edytuj",
+        liveEdit: "Edycja 'na żywo'",
         availablePlayers: "Dostępni zawodnicy",
         noPlayers: "brak zawodników",
         addHome: "dodaj do gospodarzy",
