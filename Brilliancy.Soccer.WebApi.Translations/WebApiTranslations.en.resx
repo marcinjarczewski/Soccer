@@ -189,6 +189,9 @@
   <data name="MatchController_EditTitle" xml:space="preserve">
     <value>Match edit</value>
   </data>
+  <data name="PageController_HomeTitle" xml:space="preserve">
+    <value>Play football with your friends</value>
+  </data>
   <data name="PageController_InviteTitle" xml:space="preserve">
     <value>Invitation</value>
   </data>

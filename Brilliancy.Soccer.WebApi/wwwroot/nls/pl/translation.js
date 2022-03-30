@@ -106,6 +106,10 @@ define({
         ownGoal: "Samobój",
         noAssist: "Brak asysty"
     },
+    pageHome: {
+        header1: "Witaj na portalu ludzi kopiących się po kostkach",
+        header2: "Zapraszamy do wspólnej kopaniny!",
+    },
     pageTerms: {
         title: "Regulamin",
         termsDescription: "Korzystając z portalu zgadzasz się na poniższe zasady:",

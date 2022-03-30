@@ -114,6 +114,10 @@ define({
         weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         hour: 'Time:'
     },
+    pageHome: {
+        header1: "Welcome to the portal of people kicking their ankles",
+        header2: "Take your place!",
+    },
     pageTerms: {
         title: "Terms",
         termsDescription: "By using the portal, you agree to the following rules:",
