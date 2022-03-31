@@ -3,6 +3,7 @@ using Brilliancy.Soccer.Common.Contracts.Modules;
 using Brilliancy.Soccer.Common.Dtos.Match;
 using Brilliancy.Soccer.Common.Dtos.Player;
 using Brilliancy.Soccer.Common.Exceptions;
+using Brilliancy.Soccer.Core.Services.MatchObserver;
 using Brilliancy.Soccer.WebApi.Helpers;
 using Brilliancy.Soccer.WebApi.Models.Match.Read;
 using Brilliancy.Soccer.WebApi.Models.Match.Write;
@@ -12,6 +13,7 @@ using Brilliancy.Soccer.WebApi.Translations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 namespace Brilliancy.Soccer.WebApi.Controllers
@@ -33,7 +35,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         [Route("Add")]
         public ActionResult Add(NewMatchWriteModel model)
         {
-            if(model == null)
+            if (model == null)
             {
                 throw new InvalidDataException(WebApiTranslations.TournamentController_InvalidTournamentData);
             }
@@ -78,16 +80,27 @@ namespace Brilliancy.Soccer.WebApi.Controllers
 
 
         [Authorize]
-        [HttpGet("LiveEditModel/{id}")]
-        public ActionResult LiveEditModel(int id)
+        [HttpPost("LiveEditModel")]
+        public ActionResult LiveEditModel(MatchLiveModel model)
         {
-            var match = _matchModule.GetMatch(id, this._CurrentUserInfo.Id);
-            var model = _mapper.Map<MatchDetailsModel>(match);
-            model.EmptyGoal = new GoalReadModel();
+            if (model == null)
+            {
+                return new JsonResult(new BaseResultReadModel
+                {
+                    IsSuccess = false
+                });
+            }
+            var subscriber = new MatchSubscriber(model.Id, _CurrentUserInfo.Id, model.LastUpdate, _matchModule);
+            var data = subscriber.WaitForResult(20);
+
             return new JsonResult(new BaseResultWithDataReadModel
             {
                 IsSuccess = true,
-                Data = model
+                Data = new 
+                {
+                    shouldUpdate = data.Item1,
+                    model = data.Item2 == null ? null : _mapper.Map<MatchDetailsModel>(data.Item2)
+                }
             });
         }
 
@@ -124,6 +137,8 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         {
             var dto = _mapper.Map<MatchOngoingEditDto>(model);
             _matchModule.AddGoal(dto, this._CurrentUserInfo.Id);
+            var publisher = MatchPublisher.GetInstance();
+            publisher.NotifySubscribers(model.Id);
             return new JsonResult(new BaseResultWithDataReadModel
             {
                 IsSuccess = true,
@@ -138,6 +153,8 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         {
             var dto = _mapper.Map<MatchOngoingEditDto>(model);
             _matchModule.RemoveGoal(dto, this._CurrentUserInfo.Id);
+            var publisher = MatchPublisher.GetInstance();
+            publisher.NotifySubscribers(model.Id);
             return new JsonResult(new BaseResultWithDataReadModel
             {
                 IsSuccess = true,
@@ -177,6 +194,8 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         public ActionResult ChangeToFinished(MatchChangeStateWriteModel model)
         {
             _matchModule.ChangeMatchStateToFinished(model?.Id ?? 0, this._CurrentUserInfo.Id);
+            var publisher = MatchPublisher.GetInstance();
+            publisher.NotifySubscribers(model.Id);
             return new JsonResult(new BaseResultWithDataReadModel
             {
                 IsSuccess = true,
@@ -206,6 +225,8 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         {
             var dto = _mapper.Map<MatchPendingEditDto>(model);
             _matchModule.EditGoals(dto, this._CurrentUserInfo.Id);
+            var publisher = MatchPublisher.GetInstance();
+            publisher.NotifySubscribers(model.Id);
             return new JsonResult(new BaseResultWithDataReadModel
             {
                 IsSuccess = true,

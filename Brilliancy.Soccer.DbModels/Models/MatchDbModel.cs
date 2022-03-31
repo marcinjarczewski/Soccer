@@ -41,5 +41,7 @@ namespace Brilliancy.Soccer.DbModels
         public TournamentDbModel Tournament { get; set; }
 
         public int TournamentId { get; set; }
+
+        public DateTime LastUpdateDate { get; set; }
     }
 }
