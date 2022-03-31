@@ -2,6 +2,7 @@
 using Brilliancy.Soccer.Common.Contracts.Modules;
 using Brilliancy.Soccer.Common.Dtos.Match;
 using Brilliancy.Soccer.Common.Dtos.Player;
+using Brilliancy.Soccer.Common.Enums;
 using Brilliancy.Soccer.Common.Exceptions;
 using Brilliancy.Soccer.Core.Services.MatchObserver;
 using Brilliancy.Soccer.WebApi.Helpers;
@@ -13,6 +14,7 @@ using Brilliancy.Soccer.WebApi.Translations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 
@@ -23,10 +25,13 @@ namespace Brilliancy.Soccer.WebApi.Controllers
     {
         private readonly ITournamentModule _tournamentModule;
         private readonly IMatchModule _matchModule;
-        public MatchController(IMapper mapper, ILoginModule loginModule, ITournamentModule tournamentModule, IMatchModule matchModule, IHttpContextAccessor httpContextAccessor)
+        private readonly ILogger<MatchController> _logger;
+        public MatchController(IMapper mapper, ILoginModule loginModule, ITournamentModule tournamentModule,
+            ILogger<MatchController> logger, IMatchModule matchModule, IHttpContextAccessor httpContextAccessor)
             : base(mapper, loginModule, httpContextAccessor)
         {
             _matchModule = matchModule;
+            _logger = logger;
             _tournamentModule = tournamentModule;
         }
 
@@ -90,8 +95,8 @@ namespace Brilliancy.Soccer.WebApi.Controllers
                     IsSuccess = false
                 });
             }
-            var subscriber = new MatchSubscriber(model.Id, _CurrentUserInfo.Id, model.LastUpdate, _matchModule);
-            var data = subscriber.WaitForResult(20);
+            var subscriber = new MatchSubscriber(model.Id, _CurrentUserInfo.Id, model.LastUpdate, _matchModule, _logger);
+            var data = subscriber.WaitForResult(DefaultValuesDictionary.LiveMatchFreezeTime);
 
             return new JsonResult(new BaseResultWithDataReadModel
             {
@@ -137,7 +142,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         {
             var dto = _mapper.Map<MatchOngoingEditDto>(model);
             _matchModule.AddGoal(dto, this._CurrentUserInfo.Id);
-            var publisher = MatchPublisher.GetInstance();
+            var publisher = MatchPublisher.GetInstance(_logger);
             publisher.NotifySubscribers(model.Id);
             return new JsonResult(new BaseResultWithDataReadModel
             {
@@ -153,7 +158,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         {
             var dto = _mapper.Map<MatchOngoingEditDto>(model);
             _matchModule.RemoveGoal(dto, this._CurrentUserInfo.Id);
-            var publisher = MatchPublisher.GetInstance();
+            var publisher = MatchPublisher.GetInstance(_logger);
             publisher.NotifySubscribers(model.Id);
             return new JsonResult(new BaseResultWithDataReadModel
             {
@@ -194,7 +199,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         public ActionResult ChangeToFinished(MatchChangeStateWriteModel model)
         {
             _matchModule.ChangeMatchStateToFinished(model?.Id ?? 0, this._CurrentUserInfo.Id);
-            var publisher = MatchPublisher.GetInstance();
+            var publisher = MatchPublisher.GetInstance(_logger);
             publisher.NotifySubscribers(model.Id);
             return new JsonResult(new BaseResultWithDataReadModel
             {
@@ -225,7 +230,7 @@ namespace Brilliancy.Soccer.WebApi.Controllers
         {
             var dto = _mapper.Map<MatchPendingEditDto>(model);
             _matchModule.EditGoals(dto, this._CurrentUserInfo.Id);
-            var publisher = MatchPublisher.GetInstance();
+            var publisher = MatchPublisher.GetInstance(_logger);
             publisher.NotifySubscribers(model.Id);
             return new JsonResult(new BaseResultWithDataReadModel
             {
