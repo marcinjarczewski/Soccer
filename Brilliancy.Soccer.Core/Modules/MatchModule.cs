@@ -12,6 +12,7 @@ using Brilliancy.Soccer.Core.Translations;
 using Brilliancy.Soccer.DbAccess;
 using Brilliancy.Soccer.DbModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using PagedList;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,12 @@ namespace Brilliancy.Soccer.Core.Modules
     public class MatchModule : BaseModule, IMatchModule
     {
         private SoccerDbContext _dbContext { get; }
-        public MatchModule(IMapper mapper, SoccerDbContext context) : base(mapper)
+
+        private ILogger<MatchModule> _logger { get; }
+        public MatchModule(IMapper mapper, ILogger<MatchModule> logger, SoccerDbContext context) : base(mapper)
         {
             _dbContext = context;
+            _logger = logger;
         }
 
         public DateTime LastMatchUpdate(int id)
@@ -380,6 +384,7 @@ namespace Brilliancy.Soccer.Core.Modules
 
             this._dbContext.Matches.Update(match);
             this._dbContext.SaveChanges();
+            _logger.LogInformation($"Match {match.Id} int tournament {match.TournamentId} edited by {userId}");
         }
 
         public void DeleteMatchFromTournament(int matchId, int userId)
@@ -394,6 +399,7 @@ namespace Brilliancy.Soccer.Core.Modules
             match.IsActive = false;
             match.LastUpdateDate = DateTime.Now;
             this._dbContext.SaveChanges();
+            _logger.LogInformation($"Match {match.Id} int tournament {match.TournamentId} deleted by {userId}");
         }
 
         public void AddGoal(MatchOngoingEditDto dto, int userId)
@@ -447,6 +453,7 @@ namespace Brilliancy.Soccer.Core.Modules
             match.LastUpdateDate = DateTime.Now;
             this._dbContext.Matches.Update(match);
             this._dbContext.SaveChanges();
+            _logger.LogInformation($"Goal in match {match.Id} added by {userId}");
         }
 
         public void RemoveGoal(MatchOngoingEditDto dto, int userId)
@@ -481,6 +488,7 @@ namespace Brilliancy.Soccer.Core.Modules
             match.LastUpdateDate = DateTime.Now;
             this._dbContext.Matches.Update(match);
             this._dbContext.SaveChanges();
+            _logger.LogInformation($"Goal in match {match.Id} removed by {userId}");
         }
     }
 }

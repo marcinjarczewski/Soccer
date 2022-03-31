@@ -1,6 +1,7 @@
 ﻿using Brilliancy.Soccer.Common.Contracts.Modules;
 using Brilliancy.Soccer.Common.Contracts.Services.MatchObserver;
 using Brilliancy.Soccer.Common.Dtos.Match;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 
@@ -16,14 +17,17 @@ namespace Brilliancy.Soccer.Core.Services.MatchObserver
 
         private IMatchModule _matchModule { get; }
 
+        private ILogger _logger { get; }
+
         private bool _shouldBeUpdated;
 
-        public MatchSubscriber(int matchId, int userId, DateTime matchUpdateDate, IMatchModule matchModule)
+        public MatchSubscriber(int matchId, int userId, DateTime matchUpdateDate, IMatchModule matchModule, ILogger logger)
         {
             _matchId = matchId;
             _userId = userId;
             _matchUpdateDate = matchUpdateDate;
             _matchModule = matchModule;
+            _logger = logger;
         }
 
         private AutoResetEvent _waitHandle = new AutoResetEvent(false);
@@ -39,7 +43,7 @@ namespace Brilliancy.Soccer.Core.Services.MatchObserver
 
         public Tuple<bool, MatchEditDto> WaitForResult(int sleepTimeInSeconds)
         {            
-            var publisher = MatchPublisher.GetInstance();
+            var publisher = MatchPublisher.GetInstance(_logger);
             publisher.Subscribe(this);
             _waitHandle.WaitOne(sleepTimeInSeconds * 1000);
             publisher.Unsubscribe(this);

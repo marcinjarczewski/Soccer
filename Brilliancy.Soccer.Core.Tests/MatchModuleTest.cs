@@ -8,6 +8,9 @@ using Brilliancy.Soccer.Core.Modules;
 using Brilliancy.Soccer.Core.Translations;
 using Brilliancy.Soccer.DbAccess;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Moq;
+using NLog;
 using NUnit.Framework;
 using System;
 using System.IO;
@@ -251,7 +254,8 @@ namespace Brilliancy.Soccer.Core.Tests
                 cfg.AddProfile<AutomapperCoreProfile>();
             }).CreateMapper();
 
-            _matchModule = new MatchModule(_mapper, _soccerDbContext);
+            var logger = Mock.Of<ILogger<MatchModule>>();
+            _matchModule = new MatchModule(_mapper, logger, _soccerDbContext);
         }
 
         [Test]
