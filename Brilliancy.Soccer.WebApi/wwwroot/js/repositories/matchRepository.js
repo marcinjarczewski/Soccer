@@ -71,9 +71,25 @@ define(['jquery', 'storageHelper', 'messageQueue', 'amplify', 'baseRepository'],
                 success: callback,
             });
         },
+        updateLiveMatch: function (data, callback) {
+            return amplify.request({
+                resourceId: "updateLiveMatch",
+                data: data,
+                success: callback,
+            });
+        },
         init: function () {
             amplify.request.define("addMatch", "ajax", {
                 url: apiUrl + "add",
+                dataType: "json",
+                type: "POST",
+                decoder: "globalDecoder",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", storageHelper.readCookie("token"));
+                }
+            });
+            amplify.request.define("updateLiveMatch", "ajax", {
+                url: apiUrl + "liveeditmodel",
                 dataType: "json",
                 type: "POST",
                 decoder: "globalDecoder",

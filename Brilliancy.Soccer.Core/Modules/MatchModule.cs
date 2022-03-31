@@ -27,7 +27,38 @@ namespace Brilliancy.Soccer.Core.Modules
             _dbContext = context;
         }
 
-        public MatchEditDto GetMatch(int id, int userId)
+        public DateTime LastMatchUpdate(int id)
+        {
+            var match = _dbContext.Matches.FirstOrDefault(t => t.Id == id);
+            return match?.LastUpdateDate ?? DateTime.Now;
+        }
+
+        public bool CanUserGetMatch(int id, int userId)
+        {
+            try
+            {
+                var dbModel = _dbContext.Matches
+                 .Include(t => t.Tournament.Players)
+                 .Include(t => t.Tournament.Admins).FirstOrDefault(t => t.Id == id);
+                ValidateMatchAccess(dbModel, userId);
+                return true;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+                //return false;
+            }
+        }
+
+        private void ValidateMatchAccess(MatchDbModel dbModel, int userId)
+        {
+            if (dbModel.Tournament.OwnerId != userId && !dbModel.Tournament.Players.Any(p => p.UserId == userId) && !dbModel.Tournament.Admins.Any(p => p.Id == userId))
+            {
+                throw new UserDataException(CoreTranslations.Tournament_NoMatch);
+            }
+        }
+
+        public MatchEditDto GetMatch(int id, int userId, bool withReload = false)
         {
             var match = _dbContext.Matches
              .Include(t => t.HomeTeam.Players)
@@ -37,8 +68,12 @@ namespace Brilliancy.Soccer.Core.Modules
              .Include(t => t.State)
              .Include(t => t.Tournament.Players)
              .Include(t => t.Tournament.Admins).FirstOrDefault(t => t.Id == id);
+            if(withReload)
+            {
+                _dbContext.Entry(match).Reload();
+            }
             var result = _mapper.Map<MatchEditDto>(match);
-            if(match == null)
+            if (match == null)
             {
                 throw new InvalidDataException(CoreTranslations.Tournament_NoMatch);
             }
@@ -94,6 +129,7 @@ namespace Brilliancy.Soccer.Core.Modules
                 TournamentId = dto.TournamentId
             };
             match.Date = NextMatchHelper.GetMatchDate(DateTime.Now, tournament.DefaultDayOfTheWeek, tournament.DefaultHour);
+            match.LastUpdateDate = DateTime.Now;
             match.IsActive = true;
             match.State = state;
             tournament.Matches.Add(match);
@@ -118,6 +154,7 @@ namespace Brilliancy.Soccer.Core.Modules
                 throw new UserDataException(CoreTranslations.Match_IncorrectState);
             }
             match.StateId = (int)MatchStateEnum.Pending;
+            match.LastUpdateDate = DateTime.Now;
             this._dbContext.Matches.Update(match);
             this._dbContext.SaveChanges();
         }
@@ -139,6 +176,7 @@ namespace Brilliancy.Soccer.Core.Modules
             }
             match.StateId = (int)MatchStateEnum.Finished;
             match.EndDate = DateTime.Now;
+            match.LastUpdateDate = DateTime.Now;
             this._dbContext.Matches.Update(match);
             this._dbContext.SaveChanges();
         }
@@ -160,6 +198,7 @@ namespace Brilliancy.Soccer.Core.Modules
             }
             match.StateId = (int)MatchStateEnum.Ongoing;
             match.StartDate = DateTime.Now;
+            match.LastUpdateDate = DateTime.Now;
             this._dbContext.Matches.Update(match);
             this._dbContext.SaveChanges();
         }
@@ -192,6 +231,7 @@ namespace Brilliancy.Soccer.Core.Modules
             }
             CheckPrivilages(match.Tournament, userId);
             match.StateId = (int)MatchStateEnum.Canceled;
+            match.LastUpdateDate = DateTime.Now;
             this._dbContext.Matches.Update(match);
             this._dbContext.SaveChanges();
         }
@@ -217,6 +257,7 @@ namespace Brilliancy.Soccer.Core.Modules
             match.HomeTeam.Name = dto.HomeTeamName;
             match.AwayTeam.Name = dto.AwayTeamName;
             match.Date = dto.Date;
+            match.LastUpdateDate = DateTime.Now;
 
             var homePlayersDto = dto.HomePlayers ?? new List<PlayerDto>();
             var homePlayersId = homePlayersDto.Where(g => g.Id.HasValue).Select(g => g.Id).ToList();
@@ -284,6 +325,7 @@ namespace Brilliancy.Soccer.Core.Modules
             match.Date = dto.Date;
             match.HomeGoals = dto.HomeGoals;
             match.AwayGoals = dto.AwayGoals;
+            match.LastUpdateDate = DateTime.Now;
 
             var goalIdList = dto.Goals.Where(g => g.Id.HasValue).Select(g => g.Id).ToList();
             //remove goals
@@ -350,6 +392,7 @@ namespace Brilliancy.Soccer.Core.Modules
 
             CheckPrivilages(match.Tournament, userId);
             match.IsActive = false;
+            match.LastUpdateDate = DateTime.Now;
             this._dbContext.SaveChanges();
         }
 
@@ -401,6 +444,7 @@ namespace Brilliancy.Soccer.Core.Modules
             }
             match.HomeGoals = match.Goals.Count(m => m.IsActive && ((m.IsHomeTeam && !m.IsOwnGoal) || (!m.IsHomeTeam && m.IsOwnGoal)));
             match.AwayGoals = match.Goals.Count(m => m.IsActive && ((m.IsHomeTeam && m.IsOwnGoal) || (!m.IsHomeTeam && !m.IsOwnGoal)));
+            match.LastUpdateDate = DateTime.Now;
             this._dbContext.Matches.Update(match);
             this._dbContext.SaveChanges();
         }
@@ -431,8 +475,10 @@ namespace Brilliancy.Soccer.Core.Modules
             {
                 throw new UserDataException(CoreTranslations.Tournament_NoGoals);
             }
-
             match.Goals.Remove(goal);
+            match.HomeGoals = match.Goals.Count(m => m.IsActive && ((m.IsHomeTeam && !m.IsOwnGoal) || (!m.IsHomeTeam && m.IsOwnGoal)));
+            match.AwayGoals = match.Goals.Count(m => m.IsActive && ((m.IsHomeTeam && m.IsOwnGoal) || (!m.IsHomeTeam && !m.IsOwnGoal)));
+            match.LastUpdateDate = DateTime.Now;
             this._dbContext.Matches.Update(match);
             this._dbContext.SaveChanges();
         }
